@@ -1,0 +1,15 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "ichthyology:item/goldfish_orange_bucket"
+	},
+	"overrides": [
+		{ "predicate": { "ichthyology:color": 0 }, "model": "ichthyology:item/goldfish_wild_bucket" },
+		{ "predicate": { "ichthyology:color": 1 }, "model": "ichthyology:item/goldfish_bucket" },
+		{ "predicate": { "ichthyology:color": 2 }, "model": "ichthyology:item/goldfish_comet_bucket" },
+		{ "predicate": { "ichthyology:color": 3 }, "model": "ichthyology:item/goldfish_pearlscale_bucket" },
+		{ "predicate": { "ichthyology:color": 4 }, "model": "ichthyology:item/goldfish_ranchu_bucket" },
+		{ "predicate": { "ichthyology:color": 5 }, "model": "ichthyology:item/goldfish_redcap_bucket" },
+		{ "predicate": { "ichthyology:color": 6 }, "model": "ichthyology:item/goldfish_telescope_bucket" }
+	]
+}
