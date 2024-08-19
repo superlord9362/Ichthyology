@@ -3,12 +3,12 @@ package fuffles.ichthyology;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mojang.logging.LogUtils;
 import fuffles.ichthyology.common.entity.*;
-import fuffles.ichthyology.init.IBiomeModifiers;
-import fuffles.ichthyology.init.IEntities;
-import fuffles.ichthyology.init.IItems;
-import fuffles.ichthyology.init.IPotions;
-import fuffles.ichthyology.init.ITabs;
+import fuffles.ichthyology.common.entity.perch.Perch;
+import fuffles.ichthyology.common.item.FishTyped;
+import fuffles.ichthyology.init.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -18,65 +18,71 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegisterEvent;
+import org.slf4j.Logger;
 
-@Mod(Ichthyology.MOD_ID)
+@Mod(Ichthyology.ID)
 public class Ichthyology {
 
-	public static final String MOD_ID = "ichthyology";
+	public static final String ID = "ichthyology";
+	public static final Logger LOG = LogUtils.getLogger();
     public static final List<Runnable> CALLBACKS = new ArrayList<>();
-    
+
+	public static ResourceLocation id(String path)
+	{
+		return new ResourceLocation(ID, path);
+	}
+
 	public Ichthyology() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::registerEntityAttributes);
         bus.addListener(this::registerClient);
-        
-		IEntities.REGISTER.register(bus);
-		IItems.SPAWN_EGGS.register(bus);
-		IItems.REGISTER.register(bus);
-		ITabs.REGISTER.register(bus);
-		IPotions.POTIONS.register(bus);
-		IBiomeModifiers.BIOME_MODIFIER_SERIALIZERS.register(bus);
+
+		//ModItems.SPAWN_EGG_REGISTRY.register(bus);
+		//ModItems.ITEM_REGISTRY.register(bus);
+		ModCreativeTabs.REGISTER.register(bus);
+		ModPotions.POTIONS.register(bus);
+		ModBiomeModifiers.REGISTRY.register(bus);
+		bus.addListener((RegisterEvent event) -> RegistryRelay.registerAll(event));
 	}
 	
 	@SuppressWarnings("deprecation")
 	private void commonSetup(FMLCommonSetupEvent event) {
-		SpawnPlacements.register(IEntities.BLIND_CAVE_TETRA.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlindCaveTetra::checkBlindCaveTetraSpawnRules);
-		SpawnPlacements.register(IEntities.GOLDFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.TILAPIA.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.PRINCESS_CICHLID.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.SAULOSI_CICHLID.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.KASANGA_CICHLID.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.CARP.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.PIRANHA.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.PERCH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.DISCUS.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.ANGELFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.NEON_TETRA.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-		SpawnPlacements.register(IEntities.PLECO.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.BLIND_CAVE_TETRA, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BlindCaveTetra::checkBlindCaveTetraSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.GOLDFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.TILAPIA, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.AFRICAN_CICHLID, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.CARP, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.PIRANHA, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.PERCH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.DISCUS, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.ANGELFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.NEON_TETRA, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.PLECO, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 
-		IPotions.brewingRecipes();
+		ModPotions.brewingRecipes();
+		ModEntityDataSerializers.register();
 	}
 	
 	private void registerEntityAttributes(EntityAttributeCreationEvent event) {
-		event.put(IEntities.BLIND_CAVE_TETRA.get(), BlindCaveTetra.createAttributes().build());
-		event.put(IEntities.GOLDFISH.get(), Goldfish.createAttributes().build());
-		event.put(IEntities.TILAPIA.get(), Tilapia.createAttributes().build());
-		event.put(IEntities.PRINCESS_CICHLID.get(), PrincessCichlid.createAttributes().build());
-		event.put(IEntities.SAULOSI_CICHLID.get(), SaulosiCichlid.createAttributes().build());
-		event.put(IEntities.KASANGA_CICHLID.get(), KasangaCichlid.createAttributes().build());
-		event.put(IEntities.CARP.get(), Carp.createAttributes().build());
-		event.put(IEntities.PIRANHA.get(), Piranha.createAttributes().build());
-		event.put(IEntities.PERCH.get(), Perch.createAttributes().build());
-		event.put(IEntities.DISCUS.get(), Discus.createAttributes().build());
-		event.put(IEntities.ANGELFISH.get(), Angelfish.createAttributes().build());
-		event.put(IEntities.NEON_TETRA.get(), NeonTetra.createAttributes().build());
-		event.put(IEntities.PLECO.get(), NeonTetra.createAttributes().build());
+		event.put(ModEntityTypes.BLIND_CAVE_TETRA, BlindCaveTetra.createAttributes().build());
+		event.put(ModEntityTypes.GOLDFISH, Goldfish.createAttributes().build());
+		event.put(ModEntityTypes.TILAPIA, Tilapia.createAttributes().build());
+		event.put(ModEntityTypes.AFRICAN_CICHLID, AfricanCichlid.createAttributes().build());
+		event.put(ModEntityTypes.CARP, Carp.createAttributes().build());
+		event.put(ModEntityTypes.PIRANHA, Piranha.createAttributes().build());
+		event.put(ModEntityTypes.PERCH, Perch.createAttributes().build());
+		event.put(ModEntityTypes.DISCUS, Discus.createAttributes().build());
+		event.put(ModEntityTypes.ANGELFISH, Angelfish.createAttributes().build());
+		event.put(ModEntityTypes.NEON_TETRA, NeonTetra.createAttributes().build());
+		event.put(ModEntityTypes.PLECO, NeonTetra.createAttributes().build());
 	}
 	
 	private void registerClient(FMLClientSetupEvent event) {
         CALLBACKS.forEach(Runnable::run);
         CALLBACKS.clear();
-    }
+		FishTyped.bootstrap();
+	}
 }

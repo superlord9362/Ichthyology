@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "ichthyology:item/cichlid_saulosi_m_bucket"
+	}
+}

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TilapiaRenderer extends MobRenderer<Tilapia, EntityModel<Tilapia>> {
 
-	private static final ResourceLocation TILAPIA = new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/tilapia.png");
+	private static final ResourceLocation TILAPIA = new ResourceLocation(Ichthyology.ID, "textures/entity/tilapia.png");
 
 	public TilapiaRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager, new TilapiaModel(renderManager.bakeLayer(ClientEvents.TILAPIA)), 0.25F);

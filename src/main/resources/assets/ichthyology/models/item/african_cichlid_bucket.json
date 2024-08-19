@@ -1,0 +1,12 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ichthyology:item/cichlid_burundi_bucket"
+    },
+    "overrides": [
+        { "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/african_cichlid_bucket" },
+        { "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/african_cichlid_saulosi_female_bucket" },
+        { "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/african_cichlid_saulosi_male_bucket" },
+        { "predicate": { "ichthyology:fish_type": 3 }, "model": "ichthyology:item/african_cichlid_kasanga_bucket" }
+    ]
+}

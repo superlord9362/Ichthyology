@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class DiscusRenderer extends MobRenderer<Discus, EntityModel<Discus>> {
 
-	private static final ResourceLocation DISCUS = new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/discus.png");
+	private static final ResourceLocation DISCUS = new ResourceLocation(Ichthyology.ID, "textures/entity/discus.png");
 
 	public DiscusRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager, new DiscusModel(renderManager.bakeLayer(ClientEvents.DISCUS)), 0.25F);

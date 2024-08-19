@@ -1,0 +1,30 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+
+# Files from Forge MDK
+forge*changelog.txt
+src/main/java/fuffles/ichthyology/common/entity/ai/behavior/ReadableGoToWantedItem.java
+src/main/java/fuffles/ichthyology/common/entity/ai/ReadableFrogAi.java
+src/main/java/fuffles/ichthyology/common/entity/ai/ReadableAllayAi.java
+src/main/java/fuffles/ichthyology/common/entity/ai/ReadablePiglinAi.java
+src/main/java/fuffles/ichthyology/common/entity/ai/ReadableGoatAi.java

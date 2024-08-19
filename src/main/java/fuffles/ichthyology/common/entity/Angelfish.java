@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import com.mojang.datafixers.DataFixUtils;
 
-import fuffles.ichthyology.init.IItems;
+import fuffles.ichthyology.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -126,7 +126,7 @@ public class Angelfish extends AbstractIchthyologySchoolingFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(IItems.ANGELFISH_BUCKET.get());
+		return new ItemStack(ModItems.ANGELFISH_BUCKET);
 	}
 	
 	public class AngelfishHideInVegetationGoal extends MoveToBlockGoal {

@@ -15,8 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public abstract class AbstractIchthyologySchoolingFish extends AbstractIchthyologyFish {
-	private AbstractIchthyologySchoolingFish leader;
-	private int schoolSize = 1;
+	protected AbstractIchthyologySchoolingFish leader;
+	protected int schoolSize = 1;
 	
 	public AbstractIchthyologySchoolingFish(EntityType<? extends WaterAnimal> p_30341_, Level p_30342_) {
 		super(p_30341_, p_30342_);

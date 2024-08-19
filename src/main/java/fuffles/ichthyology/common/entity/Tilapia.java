@@ -1,6 +1,6 @@
 package fuffles.ichthyology.common.entity;
 
-import fuffles.ichthyology.init.IItems;
+import fuffles.ichthyology.init.ModItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -27,7 +27,7 @@ public class Tilapia extends AbstractIchthyologyFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(IItems.TILAPIA_BUCKET.get());
+		return new ItemStack(ModItems.TILAPIA_BUCKET);
 	}
 
 }

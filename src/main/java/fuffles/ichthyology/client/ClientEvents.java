@@ -3,7 +3,7 @@ package fuffles.ichthyology.client;
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.client.entity.model.*;
 import fuffles.ichthyology.client.entity.renderer.*;
-import fuffles.ichthyology.init.IEntities;
+import fuffles.ichthyology.init.ModEntityTypes;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -13,36 +13,34 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = Ichthyology.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = Ichthyology.ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
 	
-	public static ModelLayerLocation BLIND_CAVE_TETRA = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "blind_cave_tetra"), "blind_cave_tetra");
-	public static ModelLayerLocation GOLDFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "goldfish"), "goldfish");
-	public static ModelLayerLocation TILAPIA = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "tilapia"), "tilapia");
-	public static ModelLayerLocation AFRICAN_CICHLID = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "african_cichlid"), "african_cichlid");
-	public static ModelLayerLocation CARP = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "carp"), "carp");
-	public static ModelLayerLocation PIRANHA = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "piranha"), "piranha");
-	public static ModelLayerLocation PERCH = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "perch"), "perch");
-	public static ModelLayerLocation DISCUS = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "discus"), "discus");
-	public static ModelLayerLocation ANGELFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "angelfish"), "angelfish");
-	public static ModelLayerLocation NEON_TETRA = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "neon_tetra"), "neon_tetra");
-	public static ModelLayerLocation PLECO = new ModelLayerLocation(new ResourceLocation(Ichthyology.MOD_ID, "pleco"), "pleco");
+	public static final ModelLayerLocation BLIND_CAVE_TETRA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "blind_cave_tetra"), "blind_cave_tetra");
+	public static final ModelLayerLocation GOLDFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "goldfish"), "goldfish");
+	public static final ModelLayerLocation TILAPIA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "tilapia"), "tilapia");
+	public static final ModelLayerLocation AFRICAN_CICHLID = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "african_cichlid"), "african_cichlid");
+	public static final ModelLayerLocation CARP = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "carp"), "carp");
+	public static final ModelLayerLocation PIRANHA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "piranha"), "piranha");
+	public static final ModelLayerLocation PERCH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "perch"), "perch");
+	public static final ModelLayerLocation DISCUS = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "discus"), "discus");
+	public static final ModelLayerLocation ANGELFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "angelfish"), "angelfish");
+	public static final ModelLayerLocation NEON_TETRA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "neon_tetra"), "neon_tetra");
+	public static final ModelLayerLocation PLECO = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "pleco"), "pleco");
 	
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(IEntities.BLIND_CAVE_TETRA.get(), BlindCaveTetraRenderer::new);
-		event.registerEntityRenderer(IEntities.GOLDFISH.get(), GoldfishRenderer::new);
-		event.registerEntityRenderer(IEntities.TILAPIA.get(), TilapiaRenderer::new);
-		event.registerEntityRenderer(IEntities.PRINCESS_CICHLID.get(), PrincessCichlidRenderer::new);
-		event.registerEntityRenderer(IEntities.SAULOSI_CICHLID.get(), SaulosiCichlidRenderer::new);
-		event.registerEntityRenderer(IEntities.KASANGA_CICHLID.get(), KasangaCichlidRenderer::new);
-		event.registerEntityRenderer(IEntities.CARP.get(), CarpRenderer::new);
-		event.registerEntityRenderer(IEntities.PIRANHA.get(), PiranhaRenderer::new);
-		event.registerEntityRenderer(IEntities.PERCH.get(), PerchRenderer::new);
-		event.registerEntityRenderer(IEntities.DISCUS.get(), DiscusRenderer::new);
-		event.registerEntityRenderer(IEntities.ANGELFISH.get(), AngelfishRenderer::new);
-		event.registerEntityRenderer(IEntities.NEON_TETRA.get(), NeonTetraRenderer::new);
-		event.registerEntityRenderer(IEntities.PLECO.get(), PlecoRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.BLIND_CAVE_TETRA, BlindCaveTetraRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.GOLDFISH, GoldfishRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.TILAPIA, TilapiaRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.AFRICAN_CICHLID, AfricanCichlidRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.CARP, CarpRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.PIRANHA, PiranhaRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.PERCH, PerchRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.DISCUS, DiscusRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.ANGELFISH, AngelfishRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.NEON_TETRA, NeonTetraRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.PLECO, PlecoRenderer::new);
 	}
 	
 	@SubscribeEvent

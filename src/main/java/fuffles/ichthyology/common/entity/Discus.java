@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import com.mojang.datafixers.DataFixUtils;
 
-import fuffles.ichthyology.init.IItems;
+import fuffles.ichthyology.init.ModItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -92,7 +92,7 @@ public class Discus extends AbstractIchthyologySchoolingFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(IItems.DISCUS_BUCKET.get());
+		return new ItemStack(ModItems.DISCUS_BUCKET);
 	}
 
 }

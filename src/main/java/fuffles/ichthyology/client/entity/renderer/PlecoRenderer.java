@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class PlecoRenderer extends MobRenderer<Pleco, EntityModel<Pleco>> {
 
-	private static final ResourceLocation PLECO = new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/plecostomus.png");
+	private static final ResourceLocation PLECO = new ResourceLocation(Ichthyology.ID, "textures/entity/plecostomus.png");
 
 	public PlecoRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager, new PlecoModel(renderManager.bakeLayer(ClientEvents.PLECO)), 0.25F);

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class AngelfishRenderer extends MobRenderer<Angelfish, EntityModel<Angelfish>> {
 
-	private static final ResourceLocation ANGELFISH = new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/angelfish.png");
+	private static final ResourceLocation ANGELFISH = new ResourceLocation(Ichthyology.ID, "textures/entity/angelfish.png");
 
 	public AngelfishRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager, new AngelfishModel(renderManager.bakeLayer(ClientEvents.ANGELFISH)), 0.25F);

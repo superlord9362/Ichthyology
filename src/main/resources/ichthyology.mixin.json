@@ -1,0 +1,26 @@
+{
+    "required": true,
+    "package": "fuffles.ichthyology.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "minVersion": "0.8.5",
+    "refmap": "ichthyology.refmap.json",
+    "mixins": [
+        "common.entity.CodMixin",
+        "common.entity.PufferfishMixin",
+        "common.entity.SalmonMixin",
+        "common.entity.TropicalFishMixin",
+        "common.item.MobBucketItemMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "client": [
+        "client.model.CodModelMixin",
+        "client.model.PufferfishBigModelMixin",
+        "client.model.PufferfishMidModelMixin",
+        "client.model.PufferfishSmallModelMixin",
+        "client.model.SalmonModelMixin",
+        "client.model.TropicalFishModelAMixin",
+        "client.model.TropicalFishModelBMixin"
+    ]
+}

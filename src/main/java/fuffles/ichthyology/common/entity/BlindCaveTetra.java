@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.mojang.datafixers.DataFixUtils;
 
-import fuffles.ichthyology.init.IItems;
+import fuffles.ichthyology.init.ModItems;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -289,7 +289,7 @@ public class BlindCaveTetra extends AbstractIchthyologySchoolingFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(IItems.BLIND_CAVE_TETRA_BUCKET.get());
+		return new ItemStack(ModItems.BLIND_CAVE_TETRA_BUCKET);
 	}
 
 	@SuppressWarnings("deprecation")

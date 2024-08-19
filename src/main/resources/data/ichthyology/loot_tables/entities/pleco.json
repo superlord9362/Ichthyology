@@ -22,7 +22,7 @@
               "function": "minecraft:furnace_smelt"
             }
           ],
-          "name": "ichthyology:raw_pleco"
+          "name": "ichthyology:pleco"
         }
       ],
       "rolls": 1.0

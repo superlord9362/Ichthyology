@@ -4,7 +4,7 @@
   "cookingtime": 200,
   "experience": 0.35,
   "ingredient": {
-    "item": "ichthyology:raw_pleco"
+    "item": "ichthyology:pleco"
   },
   "result": "ichthyology:cooked_pleco"
 }

@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "ichthyology:item/cichlid_burundi_bucket"
-    }
-}

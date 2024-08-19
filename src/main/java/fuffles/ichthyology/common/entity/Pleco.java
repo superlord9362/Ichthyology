@@ -1,5 +1,6 @@
 package fuffles.ichthyology.common.entity;
 
+import fuffles.ichthyology.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -209,7 +210,7 @@ public class Pleco extends AbstractIchthyologyFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return null;
+		return ModItems.PLECO_BUCKET.getDefaultInstance();
 	}
 	
 	@SuppressWarnings("rawtypes")

@@ -4,7 +4,7 @@
   "cookingtime": 200,
   "experience": 0.35,
   "ingredient": {
-    "item": "ichthyology:raw_tilapia"
+    "item": "ichthyology:tilapia"
   },
   "result": "ichthyology:cooked_tilapia"
 }

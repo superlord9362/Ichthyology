@@ -1,0 +1,340 @@
+{
+	"entity.african_cichlid.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.african_cichlid.death"
+	},
+	"entity.african_cichlid.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.african_cichlid.flop"
+  	},
+  	"entity.african_cichlid.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.african_cichlid.hurt"
+  	},
+	"entity.tilapia.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.tilapia.death"
+	},
+	"entity.tilapia.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.tilapia.flop"
+  	},
+  	"entity.tilapia.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.tilapia.hurt"
+  	},
+	"entity.perch.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.perch.death"
+	},
+	"entity.perch.eat": {
+	    "sounds": [
+	      "random/eat1",
+	      "random/eat2",
+	      "random/eat3"
+	    ],
+    	"subtitle": "subtitles.entity.ichthyology.perch.eat"
+  	},
+	"entity.perch.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.perch.flop"
+  	},
+  	"entity.perch.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.perch.hurt"
+  	},
+	"entity.icefish.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.icefish.death"
+	},
+	"entity.icefish.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.icefish.flop"
+  	},
+  	"entity.icefish.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.icefish.hurt"
+  	},
+	"entity.blind_cave_tetra.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.blind_cave_tetra.death"
+	},
+	"entity.blind_cave_tetra.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.blind_cave_tetra.flop"
+  	},
+  	"entity.blind_cave_tetra.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.blind_cave_tetra.hurt"
+  	},
+	"entity.neon_tetra.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.neon_tetra.death"
+	},
+	"entity.neon_tetra.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.neon_tetra.flop"
+  	},
+  	"entity.neon_tetra.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.neon_tetra.hurt"
+  	},
+	"entity.goldfish.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.goldfish.death"
+	},
+	"entity.goldfish.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.goldfish.flop"
+  	},
+  	"entity.goldfish.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.goldfish.hurt"
+  	},
+	"entity.piranha.bite": {
+		"sounds": [
+      		{ "name": "mob/phantom/bite1", "pitch": 1.4 }
+    	],
+		"subtitle": "subtitles.entity.ichthyology.piranha.bite"
+	},
+	"entity.piranha.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+	    ],
+		"subtitle": "subtitles.entity.ichthyology.piranha.death"
+	},
+	"entity.piranha.flop": {
+    	"sounds": [
+      		{ "name": "entity/fish/flop1", "volume": 0.3 },
+      		{ "name": "entity/fish/flop2", "volume": 0.3 },
+      		{ "name": "entity/fish/flop3", "volume": 0.3 },
+      		{ "name": "entity/fish/flop4", "volume": 0.3 }
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.piranha.flop"
+  	},
+  	"entity.piranha.hurt": {
+    	"sounds": [
+      		"entity/fish/hurt1",
+      		"entity/fish/hurt2",
+      		"entity/fish/hurt3",
+      		"entity/fish/hurt4"
+    	],
+    	"subtitle": "subtitles.entity.ichthyology.piranha.hurt"
+  	},
+	"entity.angelfish.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.angelfish.death"
+	},
+	"entity.angelfish.flop": {
+		"sounds": [
+			{ "name": "entity/fish/flop1", "volume": 0.3 },
+			{ "name": "entity/fish/flop2", "volume": 0.3 },
+			{ "name": "entity/fish/flop3", "volume": 0.3 },
+			{ "name": "entity/fish/flop4", "volume": 0.3 }
+		],
+		"subtitle": "subtitles.entity.ichthyology.angelfish.flop"
+	},
+	"entity.angelfish.hurt": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.angelfish.hurt"
+	},
+	"entity.carp.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.carp.death"
+	},
+	"entity.carp.flop": {
+		"sounds": [
+			{ "name": "entity/fish/flop1", "volume": 0.3 },
+			{ "name": "entity/fish/flop2", "volume": 0.3 },
+			{ "name": "entity/fish/flop3", "volume": 0.3 },
+			{ "name": "entity/fish/flop4", "volume": 0.3 }
+		],
+		"subtitle": "subtitles.entity.ichthyology.carp.flop"
+	},
+	"entity.carp.hurt": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.carp.hurt"
+	},
+	"entity.discus.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.discus.death"
+	},
+	"entity.discus.flop": {
+		"sounds": [
+			{ "name": "entity/fish/flop1", "volume": 0.3 },
+			{ "name": "entity/fish/flop2", "volume": 0.3 },
+			{ "name": "entity/fish/flop3", "volume": 0.3 },
+			{ "name": "entity/fish/flop4", "volume": 0.3 }
+		],
+		"subtitle": "subtitles.entity.ichthyology.discus.flop"
+	},
+	"entity.discus.hurt": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.discus.hurt"
+	},
+	"entity.pleco.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.pleco.death"
+	},
+	"entity.pleco.flop": {
+		"sounds": [
+			{ "name": "entity/fish/flop1", "volume": 0.3 },
+			{ "name": "entity/fish/flop2", "volume": 0.3 },
+			{ "name": "entity/fish/flop3", "volume": 0.3 },
+			{ "name": "entity/fish/flop4", "volume": 0.3 }
+		],
+		"subtitle": "subtitles.entity.ichthyology.pleco.flop"
+	},
+	"entity.pleco.hurt": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.entity.ichthyology.pleco.hurt"
+	}
+}

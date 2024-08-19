@@ -4,20 +4,20 @@
 		"layer0": "ichthyology:item/carp_wild_bucket"
 	},
 	"overrides": [
-		{ "predicate": { "ichthyology:color": 0 }, "model": "ichthyology:item/carp_bucket" },
-		{ "predicate": { "ichthyology:color": 1 }, "model": "ichthyology:item/carp_asagi_bucket" },
-		{ "predicate": { "ichthyology:color": 2 }, "model": "ichthyology:item/carp_hi_utsuri_bucket" },
-		{ "predicate": { "ichthyology:color": 3 }, "model": "ichthyology:item/carp_karasugoi_bucket" },
-		{ "predicate": { "ichthyology:color": 4 }, "model": "ichthyology:item/carp_ki_utsuri_bucket" },
-		{ "predicate": { "ichthyology:color": 5 }, "model": "ichthyology:item/carp_kohaku_bucket" },
-		{ "predicate": { "ichthyology:color": 6 }, "model": "ichthyology:item/carp_kujaku_bucket" },
-		{ "predicate": { "ichthyology:color": 7 }, "model": "ichthyology:item/carp_oranji_ogon_bucket" },
-		{ "predicate": { "ichthyology:color": 8 }, "model": "ichthyology:item/carp_platinum_ogon_bucket" },
-		{ "predicate": { "ichthyology:color": 9 }, "model": "ichthyology:item/carp_sanke_bucket" },
-		{ "predicate": { "ichthyology:color": 10 }, "model": "ichthyology:item/carp_shiro_utsuri_bucket" },
-		{ "predicate": { "ichthyology:color": 11 }, "model": "ichthyology:item/carp_tancho_bucket" },
-		{ "predicate": { "ichthyology:color": 12 }, "model": "ichthyology:item/carp_yamabuki_ogon_bucket" },
-		{ "predicate": { "ichthyology:color": 13 }, "model": "ichthyology:item/carp_dragon_bucket" },
-		{ "predicate": { "ichthyology:color": 14 }, "model": "ichthyology:item/carp_ender_dragon_bucket" }
+		{ "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/carp_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/carp_asagi_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/carp_hi_utsuri_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 3 }, "model": "ichthyology:item/carp_karasugoi_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 4 }, "model": "ichthyology:item/carp_ki_utsuri_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 5 }, "model": "ichthyology:item/carp_kohaku_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 6 }, "model": "ichthyology:item/carp_kujaku_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 7 }, "model": "ichthyology:item/carp_oranji_ogon_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 8 }, "model": "ichthyology:item/carp_platinum_ogon_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 9 }, "model": "ichthyology:item/carp_sanke_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 10 }, "model": "ichthyology:item/carp_shiro_utsuri_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 11 }, "model": "ichthyology:item/carp_tancho_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 12 }, "model": "ichthyology:item/carp_yamabuki_ogon_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 13 }, "model": "ichthyology:item/carp_dragon_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 14 }, "model": "ichthyology:item/carp_ender_dragon_bucket" }
 	]
 }

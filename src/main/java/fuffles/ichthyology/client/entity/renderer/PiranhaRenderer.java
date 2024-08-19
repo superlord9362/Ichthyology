@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class PiranhaRenderer extends MobRenderer<Piranha, EntityModel<Piranha>> {
 
-	private static final ResourceLocation PIRANHA = new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/piranha.png");
+	private static final ResourceLocation PIRANHA = new ResourceLocation(Ichthyology.ID, "textures/entity/piranha.png");
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PiranhaRenderer(EntityRendererProvider.Context renderManager) {

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BlindCaveTetraRenderer extends MobRenderer<BlindCaveTetra, EntityModel<BlindCaveTetra>> {
 
-	private static final ResourceLocation BLIND_CAVE_TETRA = new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/blind_cave_tetra.png");
+	private static final ResourceLocation BLIND_CAVE_TETRA = new ResourceLocation(Ichthyology.ID, "textures/entity/blind_cave_tetra.png");
 
 	public BlindCaveTetraRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager, new BlindCaveTetraModel(renderManager.bakeLayer(ClientEvents.BLIND_CAVE_TETRA)), 0.25F);

@@ -1,0 +1,13 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "minecraft:item/axolotl_bucket"
+    },
+    "overrides": [
+        { "predicate": { "ichthyology:fish_type": 0 }, "model": "minecraft:item/axolotl_bucket" },
+        { "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/axolotl_wild_bucket" },
+        { "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/axolotl_gold_bucket" },
+        { "predicate": { "ichthyology:fish_type": 3 }, "model": "ichthyology:item/axolotl_cyan_bucket" },
+        { "predicate": { "ichthyology:fish_type": 4 }, "model": "ichthyology:item/axolotl_blue_bucket" }
+    ]
+}

@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class NeonTetraShineLayer extends EyesLayer<NeonTetra, EntityModel<NeonTetra>> {
-   private static final RenderType NEON_TETRA_SHINE = RenderType.eyes(new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/neon_tetra/neon_tetra_layer.png"));
+   private static final RenderType NEON_TETRA_SHINE = RenderType.eyes(new ResourceLocation(Ichthyology.ID, "textures/entity/neon_tetra/neon_tetra_layer.png"));
 	private final RenderLayerParent<NeonTetra, EntityModel<NeonTetra>> tetraRenderer;
 
    public NeonTetraShineLayer(RenderLayerParent<NeonTetra, EntityModel<NeonTetra>> p_117507_) {

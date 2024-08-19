@@ -1,0 +1,12 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "ichthyology:item/cichlid_burundi"
+    },
+    "overrides": [
+        { "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/african_cichlid" },
+        { "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/african_cichlid_saulosi_female" },
+        { "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/african_cichlid_saulosi_male" },
+        { "predicate": { "ichthyology:fish_type": 3 }, "model": "ichthyology:item/african_cichlid_kasanga" }
+    ]
+}

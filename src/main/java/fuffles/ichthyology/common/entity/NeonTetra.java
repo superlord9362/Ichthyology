@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.base.Predicate;
 import com.mojang.datafixers.DataFixUtils;
 
-import fuffles.ichthyology.init.IItems;
+import fuffles.ichthyology.init.ModItems;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -107,7 +107,7 @@ public class NeonTetra extends AbstractIchthyologySchoolingFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(IItems.NEON_TETRA_BUCKET.get());
+		return new ItemStack(ModItems.NEON_TETRA_BUCKET);
 	}
 	
 	class BoidGoal extends Goal {

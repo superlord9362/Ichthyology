@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 import com.mojang.datafixers.DataFixUtils;
 
-import fuffles.ichthyology.init.IItems;
+import fuffles.ichthyology.init.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -149,7 +149,7 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return new ItemStack(IItems.PRINCESS_CICHLID_BUCKET.get());
+		return new ItemStack(ModItems.PIRANHA_BUCKET);
 	}
 
 	public void aiStep() {

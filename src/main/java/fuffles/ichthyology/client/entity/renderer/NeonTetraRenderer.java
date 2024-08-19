@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class NeonTetraRenderer extends MobRenderer<NeonTetra, EntityModel<NeonTetra>> {
 
-	private static final ResourceLocation NEON_TETRA = new ResourceLocation(Ichthyology.MOD_ID, "textures/entity/neon_tetra/neon_tetra.png");
+	private static final ResourceLocation NEON_TETRA = new ResourceLocation(Ichthyology.ID, "textures/entity/neon_tetra/neon_tetra.png");
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public NeonTetraRenderer(EntityRendererProvider.Context renderManager) {
