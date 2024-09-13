@@ -3,10 +3,7 @@ package fuffles.ichthyology.common.entity;
 import javax.annotation.Nullable;
 
 import fuffles.ichthyology.Ichthyology;
-import fuffles.ichthyology.init.ModBiomeModifiers;
-import fuffles.ichthyology.init.ModEntityDataSerializers;
-import fuffles.ichthyology.init.ModItems;
-import fuffles.ichthyology.init.ModSoundEvents;
+import fuffles.ichthyology.init.*;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -173,7 +170,7 @@ public class Carp extends AbstractModFish {
 			Carp.Variant[] picker = Carp.Variant.NON_SPECIAL;
 			if (reason == MobSpawnType.NATURAL)
 			{
-				if (level.getBiome(this.blockPosition()).is(ModBiomeModifiers.Tags.SPAWNS_JAPANESE_VARIANTS))
+				if (level.getBiome(this.blockPosition()).is(ModBiomes.Tags.SPAWNS_JAPANESE_VARIANTS))
 					picker = Carp.Variant.JAPANESE;
 				else
 					picker = Carp.Variant.GLOBAL;

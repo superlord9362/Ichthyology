@@ -76,6 +76,16 @@ public class TransferTagValueFunction extends LootItemConditionalFunction
         return ModLootItemFunctions.TRANSFER_TAG_VALUE;
     }
 
+    public static LootItemConditionalFunction.Builder<?> transferred(String[] path)
+    {
+        return transferred(path, path);
+    }
+
+    public static LootItemConditionalFunction.Builder<?> transferred(String[] source, String[] destination)
+    {
+        return simpleBuilder(lootItemConditions -> new TransferTagValueFunction(source, destination, lootItemConditions));
+    }
+
     public static class Serializer extends LootItemConditionalFunction.Serializer<TransferTagValueFunction>
     {
         @Override

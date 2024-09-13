@@ -164,6 +164,11 @@ public class ModItems
 	{
 		public static final TagKey<Item> CARP_FOOD = tag("carp_food");
 		public static final TagKey<Item> PERCH_EDIBLES = tag("perch_edibles");
+		public static final TagKey<Item> TUBE_CORAL_FRONDS = tag("tube_coral_fronds");
+		public static final TagKey<Item> BRAIN_CORAL_FRONDS = tag("brain_coral_fronds");
+		public static final TagKey<Item> BUBBLE_CORAL_FRONDS = tag("bubble_coral_fronds");
+		public static final TagKey<Item> FIRE_CORAL_FRONDS = tag("fire_coral_fronds");
+		public static final TagKey<Item> HORN_CORAL_FRONDS = tag("horn_coral_fronds");
 
 		private static TagKey<Item> tag(String path)
 		{

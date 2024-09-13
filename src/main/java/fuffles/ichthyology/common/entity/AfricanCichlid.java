@@ -36,8 +36,8 @@ import java.util.function.IntFunction;
 public class AfricanCichlid extends AbstractAdvancedSchoolingFish
 {
     private static final EntityDataAccessor<AfricanCichlid.Variant> VARIANT_ID = SynchedEntityData.defineId(AfricanCichlid.class, ModEntityDataSerializers.AFRICAN_CICHLID_VARIANT);
-    private static final String TAG_VARIANT = "Variant";
-    private static final String TAG_FEMALE = "IsFemale";
+    public static final String TAG_VARIANT = "Variant";
+    public static final String TAG_FEMALE = "IsFemale";
 
     protected int femaleFollowers = 0;
 

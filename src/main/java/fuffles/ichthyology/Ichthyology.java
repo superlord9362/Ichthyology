@@ -1,17 +1,25 @@
 package fuffles.ichthyology;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.mojang.logging.LogUtils;
 import fuffles.ichthyology.common.entity.*;
 import fuffles.ichthyology.common.entity.perch.Perch;
 import fuffles.ichthyology.common.item.FishTyped;
+import fuffles.ichthyology.data.*;
 import fuffles.ichthyology.init.*;
+import net.minecraft.SharedConstants;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -46,6 +54,8 @@ public class Ichthyology {
 		ModPotions.POTIONS.register(bus);
 		ModBiomeModifiers.REGISTRY.register(bus);
 		bus.addListener((RegisterEvent event) -> RegistryRelay.registerAll(event));
+
+		bus.addListener(this::onGatherData);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -64,6 +74,19 @@ public class Ichthyology {
 
 		ModPotions.brewingRecipes();
 		ModEntityDataSerializers.register();
+	}
+
+	private void onGatherData(GatherDataEvent event)
+	{
+		PackOutput out = event.getGenerator().getPackOutput();
+		event.getGenerator().addProvider(event.includeServer(), new LootTableProvider(out, Collections.emptySet(), List.of(
+				new LootTableProvider.SubProviderEntry(ModEntityLootProvider::new, LootContextParamSets.ENTITY)
+		)));
+		event.getGenerator().addProvider(event.includeServer(), new ModRecipeProvider(out));
+		ModBlockTagsProvider blockTagsAccess = new ModBlockTagsProvider(out, event.getLookupProvider(), event.getExistingFileHelper());
+		event.getGenerator().addProvider(event.includeServer(), blockTagsAccess);
+		event.getGenerator().addProvider(event.includeServer(), new ModItemTagsProvider(out, event.getLookupProvider(), blockTagsAccess.contentsGetter(), event.getExistingFileHelper()));
+		event.getGenerator().addProvider(event.includeServer(), new ModBiomeTagsProvider(out, event.getLookupProvider(), event.getExistingFileHelper()));
 	}
 	
 	private void registerEntityAttributes(EntityAttributeCreationEvent event) {

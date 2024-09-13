@@ -17,14 +17,4 @@ public class ModBiomeModifiers
 	public static final DeferredRegister<Codec<? extends BiomeModifier>> REGISTRY = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Ichthyology.ID);
 	
 	public static final RegistryObject<Codec<IchthyologyBiomeModifier>> MAIN = REGISTRY.register("ichthyology_biome_modifier", () -> Codec.unit(IchthyologyBiomeModifier.INSTANCE));
-
-	public static class Tags
-	{
-		public static final TagKey<Biome> SPAWNS_JAPANESE_VARIANTS = tag("spawns_japanese_variants");
-
-		private static TagKey<Biome> tag(String path)
-		{
-			return TagKey.create(Registries.BIOME, Ichthyology.id(path));
-		}
-	}
 }
