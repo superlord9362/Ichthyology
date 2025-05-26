@@ -14,7 +14,6 @@ public class NeonTetraRenderer extends MobRenderer<NeonTetra, EntityModel<NeonTe
 
 	private static final ResourceLocation NEON_TETRA = new ResourceLocation(Ichthyology.ID, "textures/entity/neon_tetra/neon_tetra.png");
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public NeonTetraRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager, new NeonTetraModel(renderManager.bakeLayer(ClientEvents.NEON_TETRA)), 0.25F);
 		this.addLayer(new NeonTetraShineLayer(this));

@@ -7,7 +7,6 @@ import fuffles.ichthyology.common.entity.ai.sensing.PerchSpecificSensor;
 import fuffles.ichthyology.init.RegistryRelay;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraftforge.registries.RegistryObject;
 
 public class ModSensorTypes
 {

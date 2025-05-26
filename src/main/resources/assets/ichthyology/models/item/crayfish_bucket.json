@@ -1,0 +1,11 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ichthyology:item/crayfish_swamp_bucket"
+    },
+    "overrides": [
+        { "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/crayfish_bucket" },
+        { "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/crayfish_royal_bucket" },
+        { "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/crayfish_cave_bucket" }
+    ]
+}

@@ -8,6 +8,12 @@
           "type": "minecraft:item",
           "functions": [
             {
+              "function": "ichthyology:transfer_tag_value",
+              "source": [
+                "Variant"
+              ]
+            },
+            {
               "conditions": [
                 {
                   "condition": "minecraft:entity_properties",

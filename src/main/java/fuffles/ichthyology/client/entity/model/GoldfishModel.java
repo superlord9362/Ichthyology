@@ -1,11 +1,7 @@
 package fuffles.ichthyology.client.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import fuffles.ichthyology.client.entity.renderer.GoldfishRenderer;
 import fuffles.ichthyology.common.entity.Goldfish;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;

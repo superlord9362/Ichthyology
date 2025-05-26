@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ichthyology:gar_baby"
+    }
+  ],
+  "result": {
+    "item": "ichthyology:gar"
+  }
+}

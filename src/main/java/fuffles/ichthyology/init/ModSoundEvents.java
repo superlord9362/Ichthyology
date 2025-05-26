@@ -4,8 +4,6 @@ import fuffles.ichthyology.Ichthyology;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModSoundEvents
 {
@@ -67,4 +65,12 @@ public class ModSoundEvents
     public static final SoundEvent PLECO_DEATH = registerVariable("entity.pleco.death");
     public static final SoundEvent PLECO_FLOP = registerVariable("entity.pleco.flop");
     public static final SoundEvent PLECO_HURT = registerVariable("entity.pleco.hurt");
+
+    public static final SoundEvent ARCHERFISH_DEATH = registerVariable("entity.archerfish.death");
+    public static final SoundEvent ARCHERFISH_FLOP = registerVariable("entity.archerfish.flop");
+    public static final SoundEvent ARCHERFISH_HURT = registerVariable("entity.archerfish.hurt");
+    
+
+    public static final SoundEvent MUDSKIPPER_DEATH = registerVariable("entity.mudskipper.death");
+    public static final SoundEvent MUDSKIPPER_HURT = registerVariable("entity.mudskipper.hurt");
 }

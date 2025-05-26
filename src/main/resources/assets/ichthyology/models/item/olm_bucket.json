@@ -1,0 +1,10 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ichthyology:item/olm_bucket"
+    },
+    "overrides": [
+        { "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/olm_bucket" },
+        { "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/olm_black_bucket" }
+    ]
+}

@@ -45,18 +45,37 @@ public class IchthyologyBiomeModifier implements BiomeModifier {
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.ANGELFISH, 10, 2, 4));
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.NEON_TETRA, 14, 6, 12));
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.PLECO, 6, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.PEACOCK_BASS, 7, 1, 2));
 				}
 				if (biome.is(Biomes.RIVER)) {
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.PERCH, 8, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.CRAYFISH, 10, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.CATFISH, 7, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.STURGEON, 10, 1, 2));
 				}
 				if (biome.is(Biomes.FROZEN_RIVER)) {
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.PERCH, 8, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.STURGEON, 10, 1, 2));
 				}
 				if (biome.is(Biomes.SWAMP)) {
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.PERCH, 3, 1, 2));
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.PLECO, 6, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.CRAYFISH, 7, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.GAR, 8, 1, 2));
+				}
+				if (biome.is(Biomes.MANGROVE_SWAMP)) {
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.ARCHERFISH, 7, 1, 3));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.MUDSKIPPER, 10, 1, 3));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.FIDDLER_CRAB, 8, 2, 4));
+				}
+				if (biome.is(Biomes.DRIPSTONE_CAVES)) {
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.OLM, 5, 1, 2));
+				}
+				if (biome.is(Biomes.DEEP_COLD_OCEAN)) {
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.STURGEON, 3, 1, 2));
 				}
 				builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.BLIND_CAVE_TETRA, 10, 3, 6));
+				builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.CRAYFISH, 5, 1, 2));
 			}
 		}
 	}

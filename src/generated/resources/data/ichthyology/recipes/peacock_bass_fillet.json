@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ichthyology:peacock_bass_baby"
+    }
+  ],
+  "result": {
+    "item": "ichthyology:peacock_bass_fillet"
+  }
+}

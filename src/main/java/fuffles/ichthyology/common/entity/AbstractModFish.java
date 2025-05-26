@@ -1,12 +1,9 @@
 package fuffles.ichthyology.common.entity;
 
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public abstract class AbstractModFish extends AbstractFish

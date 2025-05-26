@@ -1,6 +1,8 @@
 {
   "values": [
     "minecraft:egg",
-    "minecraft:frogspawn"
+    "minecraft:frogspawn",
+    "ichthyology:catfish_roe",
+    "ichthyology:peacock_bass_roe"
   ]
 }

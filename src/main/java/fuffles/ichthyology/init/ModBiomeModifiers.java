@@ -4,9 +4,6 @@ import com.mojang.serialization.Codec;
 
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.common.world.IchthyologyBiomeModifier;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

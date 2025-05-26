@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:bread"
+      },
+      {
+        "item": "ichthyology:sturgeon_roe"
+      },
+      {
+        "item": "ichthyology:sturgeon_roe"
+      },
+      {
+        "item": "ichthyology:sturgeon_roe"
+      }
+    ]
+  ],
+  "result": {
+    "item": "ichthyology:caviar"
+  }
+}

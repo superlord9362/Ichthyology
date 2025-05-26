@@ -90,7 +90,7 @@ public class Carp extends AbstractModFish {
 
 		if (!this.getVariant().isSpecial() && special.isPresent())
 		{
-			if (!this.level().isClientSide)
+			if (!this.level().isClientSide())
 				this.setVariant(special.get());
 
 			if (!player.getAbilities().instabuild)
@@ -101,7 +101,7 @@ public class Carp extends AbstractModFish {
 					player.addItem(stack.getCraftingRemainingItem());
 				}
 			}
-			return InteractionResult.sidedSuccess(this.level().isClientSide);
+			return InteractionResult.sidedSuccess(this.level().isClientSide());
 		}
 		else if (stack.is(ModItems.Tags.CARP_FOOD))
 		{
@@ -117,7 +117,7 @@ public class Carp extends AbstractModFish {
 					player.addItem(stack.getCraftingRemainingItem());
 				}
 			}
-			return InteractionResult.sidedSuccess(this.level().isClientSide);
+			return InteractionResult.sidedSuccess(this.level().isClientSide());
 		}
 		else
 		{
@@ -160,7 +160,6 @@ public class Carp extends AbstractModFish {
 	@SuppressWarnings("deprecation")
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag)
 	{
-		Ichthyology.LOG.info("finalizing carp spawn");
 		if (reason == MobSpawnType.BUCKET)
 		{
 			return spawnData;
@@ -176,7 +175,6 @@ public class Carp extends AbstractModFish {
 					picker = Carp.Variant.GLOBAL;
 			}
 			this.setVariant(Util.getRandom(picker, level.getRandom()));
-			Ichthyology.LOG.info("getVariant => " + this.getVariant().getName());
 			return super.finalizeSpawn(level, difficulty, reason, spawnData, tag);
 		}
 	}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sturgeon_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ichthyology:sturgeon_roe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "ichthyology:caviar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_sturgeon_roe",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "ichthyology:caviar"
+    ]
+  },
+  "sends_telemetry_event": false
+}

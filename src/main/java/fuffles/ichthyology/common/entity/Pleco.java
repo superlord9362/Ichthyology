@@ -76,7 +76,7 @@ public class Pleco extends AbstractIchthyologyFish {
 		return this.entityData.get(ATTACHED_FACE);
 	}
 	
-	@SuppressWarnings({ "unused", "resource" })
+	@SuppressWarnings({ "unused", "resource", "deprecation" })
 	public void tick() {
 		super.tick();
 		if (attachChangeProgress > 0F) {

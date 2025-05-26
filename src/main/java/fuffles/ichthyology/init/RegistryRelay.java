@@ -1,5 +1,8 @@
 package fuffles.ichthyology.init;
 
+import java.util.List;
+import java.util.function.Function;
+
 import fuffles.ichthyology.init.brain.ModActivities;
 import fuffles.ichthyology.init.brain.ModMemoryModuleTypes;
 import fuffles.ichthyology.init.brain.ModSensorTypes;
@@ -9,10 +12,6 @@ import it.unimi.dsi.fastutil.objects.ObjectList;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.RegisterEvent;
-
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class RegistryRelay<T>
 {

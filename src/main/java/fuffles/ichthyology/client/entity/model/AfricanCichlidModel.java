@@ -1,9 +1,5 @@
 package fuffles.ichthyology.client.entity.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -28,7 +24,6 @@ public class AfricanCichlidModel<T extends Entity> extends RootedModel<T> {
 		this.tailFin = this.body.getChild("tail_fin");
 	}
 
-	@SuppressWarnings("unused")
 	public static LayerDefinition createBodyLayer()
 	{
 		MeshDefinition mesh = new MeshDefinition();
@@ -46,6 +41,7 @@ public class AfricanCichlidModel<T extends Entity> extends RootedModel<T> {
 	}
 
 
+	@SuppressWarnings("unused")
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float f = 1F;

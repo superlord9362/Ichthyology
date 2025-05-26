@@ -3,7 +3,9 @@ package fuffles.ichthyology.init;
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.common.entity.AfricanCichlid;
 import fuffles.ichthyology.common.entity.Carp;
+import fuffles.ichthyology.common.entity.Crayfish;
 import fuffles.ichthyology.common.entity.Goldfish;
+import fuffles.ichthyology.common.entity.perch.Perch;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -45,6 +47,23 @@ public class ModCreativeTabs {
 						output.accept(item.getDefaultInstance());
 						for (Goldfish.Variant variant : Goldfish.Variant.VALUES)
 						{
+							ItemStack stack = item.getDefaultInstance();
+							variant.writeVariant(stack.getOrCreateTag());
+							output.accept(stack);
+						}
+					}
+					else if (item == ModItems.CRAYFISH || item == ModItems.CRAYFISH_BUCKET) {
+						if (item == ModItems.CRAYFISH_BUCKET) output.accept(item.getDefaultInstance());
+						for (Crayfish.Variant variant : Crayfish.Variant.VALUES)
+						{
+							ItemStack stack = item.getDefaultInstance();
+							variant.writeVariant(stack.getOrCreateTag());
+							output.accept(stack);
+						}
+					}
+					else if (item == ModItems.PERCH || item == ModItems.PERCH_BUCKET) {
+						if (item == ModItems.PERCH_BUCKET) output.accept(item.getDefaultInstance());
+						for (Perch.Variant variant : Perch.Variant.VALUES) {
 							ItemStack stack = item.getDefaultInstance();
 							variant.writeVariant(stack.getOrCreateTag());
 							output.accept(stack);

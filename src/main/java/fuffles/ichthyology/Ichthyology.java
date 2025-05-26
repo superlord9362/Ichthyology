@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+
 import com.mojang.logging.LogUtils;
+
 import fuffles.ichthyology.common.entity.*;
 import fuffles.ichthyology.common.entity.perch.Perch;
 import fuffles.ichthyology.common.item.FishTyped;
 import fuffles.ichthyology.data.*;
 import fuffles.ichthyology.init.*;
-import net.minecraft.SharedConstants;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -27,7 +29,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegisterEvent;
-import org.slf4j.Logger;
 
 @Mod(Ichthyology.ID)
 public class Ichthyology {
@@ -71,7 +72,19 @@ public class Ichthyology {
 		SpawnPlacements.register(ModEntityTypes.ANGELFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 		SpawnPlacements.register(ModEntityTypes.NEON_TETRA, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 		SpawnPlacements.register(ModEntityTypes.PLECO, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-
+		SpawnPlacements.register(ModEntityTypes.ARCHERFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.MUDSKIPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mudskipper::checkMudskipperSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.CRAYFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crayfish::checkCrayfishSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.CATFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Catfish::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.CATFISH_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.PEACOCK_BASS, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PeacockBass::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.PEACOCK_BASS_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.GAR, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gar::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.GAR_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.FIDDLER_CRAB, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.STURGEON, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sturgeon::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.STURGEON_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.OLM, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Olm::checkOlmSpawnRules);
 		ModPotions.brewingRecipes();
 		ModEntityDataSerializers.register();
 	}
@@ -100,7 +113,20 @@ public class Ichthyology {
 		event.put(ModEntityTypes.DISCUS, Discus.createAttributes().build());
 		event.put(ModEntityTypes.ANGELFISH, Angelfish.createAttributes().build());
 		event.put(ModEntityTypes.NEON_TETRA, NeonTetra.createAttributes().build());
-		event.put(ModEntityTypes.PLECO, NeonTetra.createAttributes().build());
+		event.put(ModEntityTypes.PLECO, Pleco.createAttributes().build());
+		event.put(ModEntityTypes.ARCHERFISH, Archerfish.createAttributes().build());
+		event.put(ModEntityTypes.MUDSKIPPER, Mudskipper.createAttributes().build());
+		event.put(ModEntityTypes.CRAYFISH, Crayfish.createAttributes().build());
+		event.put(ModEntityTypes.CATFISH, Catfish.createAttributes().build());
+		event.put(ModEntityTypes.CATFISH_BABY, CatfishBaby.createAttributes().build());
+		event.put(ModEntityTypes.PEACOCK_BASS, PeacockBass.createAttributes().build());
+		event.put(ModEntityTypes.PEACOCK_BASS_BABY, PeacockBassBaby.createAttributes().build());
+		event.put(ModEntityTypes.GAR, Gar.createAttributes().build());
+		event.put(ModEntityTypes.GAR_BABY, GarBaby.createAttributes().build());
+		event.put(ModEntityTypes.FIDDLER_CRAB, FiddlerCrab.createAttributes().build());
+		event.put(ModEntityTypes.STURGEON, Sturgeon.createAttributes().build());
+		event.put(ModEntityTypes.STURGEON_BABY, SturgeonBaby.createAttributes().build());
+		event.put(ModEntityTypes.OLM, Olm.createAttributes().build());
 	}
 	
 	private void registerClient(FMLClientSetupEvent event) {

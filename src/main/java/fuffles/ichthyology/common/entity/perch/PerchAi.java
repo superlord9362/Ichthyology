@@ -130,7 +130,8 @@ public class PerchAi
         );
     }
 
-    private static boolean canTakeBiteAndIsWithinReach(Perch perch)
+    @SuppressWarnings("unused")
+	private static boolean canTakeBiteAndIsWithinReach(Perch perch)
     {
         Optional<BlockPos> egg = perch.getBrain().getMemory(ModMemoryModuleTypes.NEAREST_AMPHIBIOUS_EGG);
         return egg.isPresent() && perch.position().distanceToSqr(egg.get().getX(), egg.get().getY(), egg.get().getZ()) < 1F && canTakeBite(perch);
@@ -152,7 +153,8 @@ public class PerchAi
         );
     }
 
-    private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Perch perch)
+    @SuppressWarnings("unused")
+	private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Perch perch)
     {
         Brain<Perch> brain = perch.getBrain();
         if (!hasNoFood(perch))
@@ -200,7 +202,8 @@ public class PerchAi
         return Optional.empty();
     }
 
-    private static void initFightingActivity(Brain<Perch> brain)
+    @SuppressWarnings("unused")
+	private static void initFightingActivity(Brain<Perch> brain)
     {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 2, ImmutableList.of(
                 MeleeAttack.create(20)

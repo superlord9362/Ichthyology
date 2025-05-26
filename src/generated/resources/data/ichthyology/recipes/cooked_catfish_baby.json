@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "ichthyology:catfish_baby"
+  },
+  "result": "ichthyology:cooked_catfish_baby"
+}

@@ -5,7 +5,6 @@ import fuffles.ichthyology.init.RegistryRelay;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.schedule.Activity;
-import net.minecraftforge.registries.RegistryObject;
 
 public class ModActivities
 {

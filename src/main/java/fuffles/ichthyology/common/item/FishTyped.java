@@ -1,9 +1,18 @@
 package fuffles.ichthyology.common.item;
 
+import java.util.List;
+import java.util.function.ToIntFunction;
+
+import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.NotNull;
+
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.common.entity.AfricanCichlid;
 import fuffles.ichthyology.common.entity.Carp;
+import fuffles.ichthyology.common.entity.Crayfish;
 import fuffles.ichthyology.common.entity.Goldfish;
+import fuffles.ichthyology.common.entity.perch.Perch;
 import fuffles.ichthyology.init.ModEntityTypes;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -19,11 +28,6 @@ import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.function.ToIntFunction;
 
 public interface FishTyped
 {
@@ -68,6 +72,8 @@ public interface FishTyped
         addMobDescriptor(ModEntityTypes.AFRICAN_CICHLID, AfricanCichlid::createTagToFishType, AfricanCichlid::createBucketDescriptor);
         addMobDescriptor(ModEntityTypes.CARP, Carp::createTagToFishType, Carp::createBucketDescriptor);
         addMobDescriptor(ModEntityTypes.GOLDFISH, Goldfish::createTagToFishType, Goldfish::createBucketDescriptor);
+        addMobDescriptor(ModEntityTypes.CRAYFISH, Crayfish::createTagToFishType, Crayfish::createBucketDescriptor);
+        addMobDescriptor(ModEntityTypes.PERCH, Perch::createTagToFishType, Perch::createBucketDescriptor);
 
     }
 

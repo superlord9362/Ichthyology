@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "ichthyology:small_raw_fish"
+    }
+  ],
+  "result": {
+    "item": "ichthyology:ground_fish_meat"
+  }
+}

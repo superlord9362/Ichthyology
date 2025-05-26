@@ -148,7 +148,7 @@ public class Angelfish extends AbstractIchthyologySchoolingFish {
 
 		protected boolean isValidTarget(LevelReader p_28680_, BlockPos p_28681_) {
 			BlockState blockstate = p_28680_.getBlockState(p_28681_);
-			return (blockstate.is(Blocks.TALL_GRASS) || blockstate.is(Blocks.SEAGRASS) || blockstate.is(Blocks.KELP) || blockstate.is(Blocks.KELP_PLANT));
+			return (blockstate.is(Blocks.SEAGRASS) || blockstate.is(Blocks.TALL_SEAGRASS)  || blockstate.is(Blocks.KELP) || blockstate.is(Blocks.KELP_PLANT));
 		}
 
 		public void tick() {

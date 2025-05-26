@@ -1,14 +1,22 @@
 package fuffles.ichthyology.common.entity;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.IntFunction;
+
 import javax.annotation.Nullable;
 
+import org.jetbrains.annotations.NotNull;
+
 import fuffles.ichthyology.Ichthyology;
-import fuffles.ichthyology.init.*;
+import fuffles.ichthyology.init.ModBiomes;
+import fuffles.ichthyology.init.ModEntityDataSerializers;
+import fuffles.ichthyology.init.ModItems;
+import fuffles.ichthyology.init.ModSoundEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -26,14 +34,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.IntFunction;
 
 public class Goldfish extends AbstractModFish {
 	private static final EntityDataAccessor<Goldfish.Variant> VARIANT_ID = SynchedEntityData.defineId(Goldfish.class, ModEntityDataSerializers.GOLDFISH_VARIANT);

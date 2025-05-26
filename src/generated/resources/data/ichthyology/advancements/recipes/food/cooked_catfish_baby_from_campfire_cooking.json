@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_catfish_baby": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ichthyology:catfish_baby"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "ichthyology:cooked_catfish_baby_from_campfire_cooking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_catfish_baby",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "ichthyology:cooked_catfish_baby_from_campfire_cooking"
+    ]
+  },
+  "sends_telemetry_event": false
+}

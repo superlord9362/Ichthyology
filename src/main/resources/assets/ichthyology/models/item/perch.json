@@ -2,5 +2,9 @@
     "parent": "item/generated",
     "textures": {
         "layer0": "ichthyology:item/perch"
-    }
+    },
+    "overrides": [
+        { "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/perch" },
+        { "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/perch_yellow" }
+    ]
 }

@@ -28,7 +28,8 @@ public abstract class TropicalFishModelAMixin<T extends Entity> extends Colorabl
         return this.ichthyology$body.getChild(name);
     }
 
-    @Inject(method = "createBodyLayer(Lnet/minecraft/client/model/geom/builders/CubeDeformation;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;", at = @At("HEAD"), cancellable = true)
+    @SuppressWarnings("unused")
+	@Inject(method = "createBodyLayer(Lnet/minecraft/client/model/geom/builders/CubeDeformation;)Lnet/minecraft/client/model/geom/builders/LayerDefinition;", at = @At("HEAD"), cancellable = true)
     private static void createBodyLayer(CubeDeformation deformation, CallbackInfoReturnable<LayerDefinition> cbr)
     {
         MeshDefinition meshdefinition = new MeshDefinition();

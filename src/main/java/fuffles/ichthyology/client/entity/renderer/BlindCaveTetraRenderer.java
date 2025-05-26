@@ -21,5 +21,4 @@ public class BlindCaveTetraRenderer extends MobRenderer<BlindCaveTetra, EntityMo
 		return BLIND_CAVE_TETRA;
 	}
 
-
 }

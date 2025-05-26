@@ -6,7 +6,6 @@ import fuffles.ichthyology.init.RegistryRelay;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Optional;
 

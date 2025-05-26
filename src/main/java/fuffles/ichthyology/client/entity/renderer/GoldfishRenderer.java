@@ -1,12 +1,10 @@
 package fuffles.ichthyology.client.entity.renderer;
 
-import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.client.ClientEvents;
 import fuffles.ichthyology.client.entity.model.GoldfishModel;
 import fuffles.ichthyology.common.entity.Goldfish;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GoldfishRenderer extends AbstractFishRenderer<Goldfish, EntityModel<Goldfish>> {

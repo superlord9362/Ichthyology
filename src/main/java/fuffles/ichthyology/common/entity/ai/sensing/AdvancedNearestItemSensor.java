@@ -1,17 +1,17 @@
 package fuffles.ichthyology.common.entity.ai.sensing;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+
 import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.item.ItemEntity;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 //-F: Shallow copy of NearestItemSensor, but we pass the item entity rather than the item for wantsToPickUp
 public class AdvancedNearestItemSensor extends Sensor<Mob>

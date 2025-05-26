@@ -32,7 +32,8 @@ public abstract class PufferfishSmallModelMixin<T extends Entity> extends Hierar
         return this.ichthyology$body.getChild(name);
     }
 
-    @Inject(method = "createBodyLayer()Lnet/minecraft/client/model/geom/builders/LayerDefinition;", at = @At("HEAD"), cancellable = true)
+    @SuppressWarnings("unused")
+	@Inject(method = "createBodyLayer()Lnet/minecraft/client/model/geom/builders/LayerDefinition;", at = @At("HEAD"), cancellable = true)
     private static void createBodyLayer(CallbackInfoReturnable<LayerDefinition> cbr)
     {
         MeshDefinition meshdefinition = new MeshDefinition();

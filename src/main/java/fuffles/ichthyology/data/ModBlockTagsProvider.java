@@ -1,21 +1,17 @@
 package fuffles.ichthyology.data;
 
-import fuffles.ichthyology.Ichthyology;
-import fuffles.ichthyology.init.ModBlocks;
-import fuffles.ichthyology.init.ModItems;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import java.util.concurrent.CompletableFuture;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.CompletableFuture;
+import fuffles.ichthyology.Ichthyology;
+import fuffles.ichthyology.init.ModBlocks;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class ModBlockTagsProvider extends BlockTagsProvider
 {
@@ -27,6 +23,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider
     @Override
     protected void addTags(@NotNull HolderLookup.Provider provider)
     {
-        this.tag(ModBlocks.Tags.AMPHIBIOUS_EGGS).add(Blocks.FROGSPAWN);
+        this.tag(ModBlocks.Tags.AMPHIBIOUS_EGGS).add(Blocks.FROGSPAWN).add(ModBlocks.CATFISH_ROE).add(ModBlocks.PEACOCK_BASS_ROE).add(ModBlocks.GAR_ROE);
     }
 }

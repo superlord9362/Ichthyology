@@ -13,49 +13,64 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
+@SuppressWarnings("unused")
 public class PerchModel<T extends Perch> extends RootedModel<T> implements IHoldItemModel<T>
 {
-	private final ModelPart body;
-	private final ModelPart rightFin;
-	private final ModelPart leftFin;
-	private final ModelPart tail;
-	private final ModelPart tailFin;
+	private final ModelPart Body;
+	private final ModelPart Tail;
+	private final ModelPart Tail_f;
+	private final ModelPart mouth;
+	private final ModelPart Dorsal_f;
+	private final ModelPart Anal_f;
+	private final ModelPart Pelvic_f;
+	private final ModelPart Pectoral_f_r;
+	private final ModelPart Pectoral_f_l;
 
-	public PerchModel(ModelPart root)
-	{
+	public PerchModel(ModelPart root) {
 		super(root);
-		this.body = root.getChild("body");
-		this.rightFin = this.body.getChild("right_fin");
-		this.leftFin = this.body.getChild("left_fin");
-		this.tail = this.body.getChild("tail");
-		this.tailFin = this.tail.getChild("tail_fin");
+		this.Body = root.getChild("Body");
+		this.Tail = this.Body.getChild("Tail");
+		this.Tail_f = this.Tail.getChild("Tail_f");
+		this.mouth = this.Body.getChild("mouth");
+		this.Dorsal_f = this.Body.getChild("Dorsal_f");
+		this.Anal_f = this.Body.getChild("Anal_f");
+		this.Pelvic_f = this.Body.getChild("Pelvic_f");
+		this.Pectoral_f_r = this.Body.getChild("Pectoral_f_r");
+		this.Pectoral_f_l = this.Body.getChild("Pectoral_f_l");
 	}
 
-	public static LayerDefinition createBodyLayer()
-	{
-		MeshDefinition mesh = new MeshDefinition();
-		PartDefinition root = mesh.getRoot();
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create()
-				.texOffs(0, 4).addBox(-1.0F, -4.0F, -6.0F, 2.0F, 3.0F, 1.0F, CubeDeformation.NONE)
-				.texOffs(0, 0).addBox(-1.0F, -4.0F, -5.0F, 2.0F, 4.0F, 8.0F, CubeDeformation.NONE), PartPose.offset(0.0F, 24.0F, 0.0F));
-		body.addOrReplaceChild("upper_fin", CubeListBuilder.create().texOffs(0, 7).addBox(0.0F, -6.0F, -2.0F, 0.0F, 2.0F, 5.0F, CubeDeformation.NONE), PartPose.ZERO);
-		body.addOrReplaceChild("right_fin", CubeListBuilder.create().texOffs(0, -2).addBox(0.0F, -1.0F, 0.0F, 0.0F, 2.0F, 2.0F, CubeDeformation.NONE), PartPose.offset(-1.0F, -2.0F, -2.0F));//, 0.0F, -0.7854F, 0.0F));
-		body.addOrReplaceChild("left_fin", CubeListBuilder.create().texOffs(0, -2).addBox(0.0F, -1.0F, 0.0F, 0.0F, 2.0F, 2.0F, CubeDeformation.NONE), PartPose.offset(1.0F, -2.0F, -2.0F));//, 0.0F, 0.7854F, 0.0F));
-		body.addOrReplaceChild("lower_fins", CubeListBuilder.create().texOffs(6, 12).addBox(-1.0F, 2.5F, -5.0F, 2.0F, 2.0F, 2.0F, CubeDeformation.NONE), PartPose.offset(0.0F, -2.5F, 3.0F));
-		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(20, 4).addBox(-0.5F, -1.499F, -1.0F, 1.0F, 3.0F, 4.0F, CubeDeformation.NONE), PartPose.offset(0.0F, -2.5F, 3.0F));
-		tail.addOrReplaceChild("upper_tail_fin", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, -2.5F, 1.0F, 0.0F, 1.0F, 2.0F, CubeDeformation.NONE), PartPose.ZERO);
-		tail.addOrReplaceChild("lower_tail_fin", CubeListBuilder.create().texOffs(4, -2).addBox(0.0F, 1.5F, -1.0F, 0.0F, 2.0F, 2.0F, CubeDeformation.NONE), PartPose.ZERO);
-		tail.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(20, -4).addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 4.0F, CubeDeformation.NONE), PartPose.offset(0.0F, 0.0F, 3.0F));
+		PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -1.0F, -2.0F, 2.0F, 4.0F, 7.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 21.0F, -3.75F));
 
-		return LayerDefinition.create(mesh, 32, 16);
+		PartDefinition Tail = Body.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(11, 0).addBox(-0.5F, 0.0F, -1.0F, 1.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
+		.texOffs(26, -2).addBox(0.0F, -1.0F, 1.0F, 0.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 5.0F));
+
+		PartDefinition Tail_f = Tail.addOrReplaceChild("Tail_f", CubeListBuilder.create().texOffs(17, -4).addBox(0.0F, 0.0F, 0.0F, 0.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 3.0F));
+
+		PartDefinition mouth = Body.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(0, 11).addBox(-1.0F, 0.0F, -2.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -2.0F));
+
+		PartDefinition Dorsal_f = Body.addOrReplaceChild("Dorsal_f", CubeListBuilder.create().texOffs(22, -1).addBox(0.0F, -2.0F, 0.0F, 0.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 0.0F));
+
+		PartDefinition Anal_f = Body.addOrReplaceChild("Anal_f", CubeListBuilder.create().texOffs(0, -2).addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 4.0F));
+
+		PartDefinition Pelvic_f = Body.addOrReplaceChild("Pelvic_f", CubeListBuilder.create().texOffs(9, 12).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 3.0F, 0.0F));
+
+		PartDefinition Pectoral_f_r = Body.addOrReplaceChild("Pectoral_f_r", CubeListBuilder.create().texOffs(0, 4).addBox(-2.0F, 0.0F, 0.0F, 2.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 1.0F, 0.0F, 0.0F, 0.7854F, 0.0F));
+
+		PartDefinition Pectoral_f_l = Body.addOrReplaceChild("Pectoral_f_l", CubeListBuilder.create().texOffs(0, 3).addBox(0.0F, 0.0F, 0.0F, 2.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, 1.0F, 0.0F, 0.0F, -0.7854F, 0.0F));
+
+		return LayerDefinition.create(meshdefinition, 32, 16);
 	}
+
 
 	@Override
 	public void translateHeldItem(PoseStack poseStack, T entity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch)
 	{
 		//-F: translate to body
-		poseStack.translate(this.body.x / 16F, this.body.y / 16F, this.body.z / 16F);
+		poseStack.translate(this.Body.x / 16F, this.Body.y / 16F, this.Body.z / 16F);
 		poseStack.mulPose(Axis.XP.rotationDegrees(headPitch));
 		poseStack.mulPose(Axis.YP.rotationDegrees(netHeadYaw));
 		//-F: apply custom offset
@@ -70,11 +85,11 @@ public class PerchModel<T extends Perch> extends RootedModel<T> implements IHold
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
-		this.body.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.body.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-		this.tail.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks) * 0.5F;
-		this.tailFin.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.rightFin.yRot = -Mth.HALF_PI / 2F; // Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
-		this.leftFin.yRot = Mth.HALF_PI / 2F; // -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
+		this.Body.xRot = headPitch * Mth.DEG_TO_RAD;
+		this.Body.yRot = netHeadYaw * Mth.DEG_TO_RAD;
+		this.Tail.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks) * 0.5F;
+		this.Tail_f.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks);
+		this.Pectoral_f_r.yRot = -Mth.HALF_PI / 2F; // Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
+		this.Pectoral_f_l.yRot = Mth.HALF_PI / 2F; // -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
 	}
 }
