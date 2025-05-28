@@ -46,6 +46,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -253,6 +254,14 @@ public class Perch extends AbstractModFish implements AdvancedNearestItemSensor.
 	@SuppressWarnings("deprecation")
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag)
 	{
+		if (reason == MobSpawnType.BUCKET) return spawnData;
+		else {
+			if (reason == MobSpawnType.SPAWN_EGG) setVariant(Perch.Variant.byId(level.getRandom().nextInt(Perch.Variant.VALUES.length))); 
+			else {
+				if (level.getBiome(this.blockPosition()).is(Biomes.RIVER)) this.setVariant(Variant.COMMON);
+				else this.setVariant(Variant.YELLOW);
+			}
+		}
 		PerchAi.initMemories(this, level.getRandom());
 		return super.finalizeSpawn(level, difficulty, reason, spawnData, tag);
 	}

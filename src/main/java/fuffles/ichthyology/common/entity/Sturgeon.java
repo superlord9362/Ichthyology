@@ -218,8 +218,8 @@ public class Sturgeon extends Animal {
 				CriteriaTriggers.BRED_ANIMALS.trigger(serverPlayer, this.animal, this.partner, (AgeableMob)null);
 			}
 			this.sturgeon.setHasEggs(true);
-			this.animal.setAbsorptionAmount(6000);
-			this.partner.setAbsorptionAmount(6000);
+			this.animal.setAge(6000);
+			this.partner.setAge(6000);
 			this.animal.resetLove();
 			this.partner.resetLove();
 			RandomSource randomSource = this.animal.getRandom();
@@ -279,7 +279,7 @@ public class Sturgeon extends Animal {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static boolean checkSurfaceWaterAnimalSpawnRules(EntityType<? extends Animal> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+	public static boolean checkSurfaceWaterAnimalSpawnRules(EntityType<? extends Sturgeon> pWaterAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
 		int i = pLevel.getSeaLevel();
 		int j = i - 13;
 		return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER);
@@ -322,19 +322,19 @@ public class Sturgeon extends Animal {
 	protected SoundEvent getFlopSound() {
 		return ModSoundEvents.ARCHERFISH_FLOP;
 	}
-	
+
 	static class DiggingGoal extends Goal {
 		private static ResourceLocation DIGGING_LOOT;
-	
+
 		private final Sturgeon sturgeon;
 		private int diggingTimer;
 		private int digTimer2;
-		
+
 		public DiggingGoal(Sturgeon entity) {
 			this.sturgeon = entity;
 			setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));
 		}
-		
+
 		@Override
 		public boolean canUse() {
 			if (digTimer2 > 0) {
@@ -353,7 +353,7 @@ public class Sturgeon extends Animal {
 				}
 			}
 		}
-		
+
 		@Override
 		public void start() {
 			diggingTimer = 40;
@@ -397,7 +397,7 @@ public class Sturgeon extends Animal {
 			}
 		}
 
-		
+
 	}
 
 }

@@ -5,6 +5,7 @@ import fuffles.ichthyology.common.entity.AfricanCichlid;
 import fuffles.ichthyology.common.entity.Carp;
 import fuffles.ichthyology.common.entity.Crayfish;
 import fuffles.ichthyology.common.entity.Goldfish;
+import fuffles.ichthyology.common.entity.Olm;
 import fuffles.ichthyology.common.entity.perch.Perch;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -64,6 +65,16 @@ public class ModCreativeTabs {
 					else if (item == ModItems.PERCH || item == ModItems.PERCH_BUCKET) {
 						if (item == ModItems.PERCH_BUCKET) output.accept(item.getDefaultInstance());
 						for (Perch.Variant variant : Perch.Variant.VALUES) {
+							ItemStack stack = item.getDefaultInstance();
+							variant.writeVariant(stack.getOrCreateTag());
+							output.accept(stack);
+						}
+					}
+					else if (item == ModItems.OLM_BUCKET)
+					{
+						output.accept(item.getDefaultInstance());
+						for (Olm.Variant variant : Olm.Variant.VALUES)
+						{
 							ItemStack stack = item.getDefaultInstance();
 							variant.writeVariant(stack.getOrCreateTag());
 							output.accept(stack);

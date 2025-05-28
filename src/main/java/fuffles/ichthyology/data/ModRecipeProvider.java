@@ -51,8 +51,8 @@ public class ModRecipeProvider extends RecipeProvider
         shapelessTag(writer, ModItems.Tags.LARGE_RAW_FISH, ModItems.GROUND_FISH, 3, RecipeCategory.FOOD);
         shapelessItem(writer, ModItems.PEACOCK_BASS_BABY, ModItems.PEACOCK_BASS_FILET, 1, RecipeCategory.FOOD);
         shapelessItem(writer, ModItems.GAR_BABY, ModItems.GAR, 1, RecipeCategory.FOOD);
-        shapelessItems(writer, ModItems.CAVIAR, 1, RecipeCategory.FOOD, ModItems.STURGEON_ROE, Items.BREAD, ModItems.STURGEON_ROE, ModItems.STURGEON_ROE, ModItems.STURGEON_ROE);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.OLMLETTE).requires(Tags.Items.MUSHROOMS).requires(Tags.Items.MUSHROOMS).requires(ModItems.OLM_EGGS).unlockedBy("has_olmlette", has(ModItems.OLMLETTE)).unlockedBy("has_olmspawn", has(ModItems.OLM_EGGS)).unlockedBy("has_brown_mushroom", has(Blocks.BROWN_MUSHROOM)).unlockedBy("has_red_mushroom", has(Blocks.RED_MUSHROOM)).save(writer, Ichthyology.id(getItemName(ModItems.OLMLETTE)));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.CAVIAR).requires(ModItems.STURGEON_ROE).requires(ModItems.STURGEON_ROE).requires(Items.BREAD).unlockedBy("has_caviar", has(ModItems.CAVIAR)).unlockedBy("has_sturgeon_roe", has(ModItems.STURGEON_ROE)).unlockedBy("has_bread", has(Items.BREAD)).save(writer, Ichthyology.id(getItemName(ModItems.CAVIAR)));
     }
 
     private static void mono2x2(Consumer<FinishedRecipe> writer, TagKey<Item> tag, Item result, RecipeCategory category)
@@ -75,11 +75,6 @@ public class ModRecipeProvider extends RecipeProvider
     private static void shapelessItem(Consumer<FinishedRecipe> writer, Item item, Item result, int count, RecipeCategory category) {
         Ingredient ingredient = Ingredient.of(item);
     	ShapelessRecipeBuilder.shapeless(category, result, count).requires(ingredient).unlockedBy(getHasName(item), has(item)).save(writer, Ichthyology.id(getItemName(result)));
-    }
-    
-    private static void shapelessItems(Consumer<FinishedRecipe> writer, Item result, int count, RecipeCategory category, Item unlockItem, Item... items) {
-    	Ingredient ingredient = Ingredient.of(items);
-    	ShapelessRecipeBuilder.shapeless(category, result, count).requires(ingredient).unlockedBy(getHasName(unlockItem), has(unlockItem)).save(writer, Ichthyology.id(getItemName(result)));
     }
     
     @SuppressWarnings("deprecation")

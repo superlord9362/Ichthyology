@@ -12,6 +12,7 @@ import fuffles.ichthyology.common.entity.AfricanCichlid;
 import fuffles.ichthyology.common.entity.Carp;
 import fuffles.ichthyology.common.entity.Crayfish;
 import fuffles.ichthyology.common.entity.Goldfish;
+import fuffles.ichthyology.common.entity.Olm;
 import fuffles.ichthyology.common.entity.perch.Perch;
 import fuffles.ichthyology.init.ModEntityTypes;
 import it.unimi.dsi.fastutil.Pair;
@@ -74,6 +75,7 @@ public interface FishTyped
         addMobDescriptor(ModEntityTypes.GOLDFISH, Goldfish::createTagToFishType, Goldfish::createBucketDescriptor);
         addMobDescriptor(ModEntityTypes.CRAYFISH, Crayfish::createTagToFishType, Crayfish::createBucketDescriptor);
         addMobDescriptor(ModEntityTypes.PERCH, Perch::createTagToFishType, Perch::createBucketDescriptor);
+        addMobDescriptor(ModEntityTypes.OLM, Olm::createTagToFishType, Olm::createBucketDescriptor);
 
     }
 

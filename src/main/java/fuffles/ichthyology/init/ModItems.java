@@ -161,17 +161,17 @@ public class ModItems
 	public static final Item COOKED_GAR = ITEM_REGISTRY.register("cooked_gar", new Item(new Item.Properties().food(cookedLargeFish().build())));
 	public static final Item STURGEON_BABY = ITEM_REGISTRY.register("sturgeon_baby", new Item(new Item.Properties().food(rawSmallFish().build())));
 	@SuppressWarnings("deprecation")
-	public static final Item GROUND_FISH = ITEM_REGISTRY.register("ground_fish_meat", new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(1).saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.HUNGER), 1).effect(new MobEffectInstance(MobEffects.CONFUSION), 1).build())));
+	public static final Item GROUND_FISH = ITEM_REGISTRY.register("ground_fish_meat", new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(1).saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.HUNGER, 200), 1).effect(new MobEffectInstance(MobEffects.CONFUSION), 1).build())));
 
 	public static final Item SHINY_SCALE = ITEM_REGISTRY.register("shiny_scale", new Item(new Item.Properties()));
 
 	public static final BlockItem CATFISH_ROE = registerRoe("catfish", ModBlocks.CATFISH_ROE);
 	public static final BlockItem PEACOCK_BASS_ROE = registerRoe("peacock_bass", ModBlocks.PEACOCK_BASS_ROE);
 	@SuppressWarnings("deprecation")
-	public static final BlockItem GAR_ROE = ITEM_REGISTRY.register("gar_roe", new BlockItem(ModBlocks.GAR_ROE, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.5F).effect(new MobEffectInstance(MobEffects.POISON), 1).build())));
+	public static final BlockItem GAR_ROE = ITEM_REGISTRY.register("gar_roe", new BlockItem(ModBlocks.GAR_ROE, new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.5F).effect(new MobEffectInstance(MobEffects.POISON, 200), 1).build())));
 	public static final BlockItem STURGEON_ROE = registerRoe("sturgeon", ModBlocks.STURGEON_ROE);
 	@SuppressWarnings("deprecation")
-	public static final Item CAVIAR = ITEM_REGISTRY.register("caviar", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(0.6F).effect(new MobEffectInstance(MobEffects.REGENERATION), 1).build())));
+	public static final Item CAVIAR = ITEM_REGISTRY.register("caviar", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(0.6F).effect(new MobEffectInstance(MobEffects.REGENERATION, 200), 1).build())));
 	public static final BlockItem OLM_EGGS = ITEM_REGISTRY.register("olm_eggs", new BlockItem(ModBlocks.OLM_EGGS, new Item.Properties()));
 	public static final Item OLMLETTE = ITEM_REGISTRY.register("olmlette", new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.6F).build())));
 	public static final CrabItem FIDDLER_CRAB = ITEM_REGISTRY.register("fiddler_crab", new CrabItem(new Item.Properties().stacksTo(1)));

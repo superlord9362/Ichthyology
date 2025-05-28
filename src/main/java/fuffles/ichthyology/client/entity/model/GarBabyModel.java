@@ -59,15 +59,16 @@ public class GarBabyModel extends EntityModel<GarBaby> {
 
 	@Override
 	public void setupAnim(GarBaby entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 1F;
+		float f = 0F;
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body_1.zRot = f;
 		this.Body_1.xRot = headPitch * Mth.DEG_TO_RAD;
 		this.Body_1.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
-		this.Body_2.yRot = f * 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tail.yRot = f * 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tail_f.yRot = f * 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.Body_2.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
+		this.Tail.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
+		this.Tail_f.yRot = 0.15F * Mth.sin(0.2F * ageInTicks);
 	}
 
 	@Override

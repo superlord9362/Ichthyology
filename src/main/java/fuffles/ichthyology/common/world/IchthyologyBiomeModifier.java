@@ -72,7 +72,7 @@ public class IchthyologyBiomeModifier implements BiomeModifier {
 					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.OLM, 5, 1, 2));
 				}
 				if (biome.is(Biomes.DEEP_COLD_OCEAN)) {
-					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.STURGEON, 3, 1, 2));
+					builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.STURGEON, 100, 1, 2));
 				}
 				builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.BLIND_CAVE_TETRA, 10, 3, 6));
 				builder.getMobSpawnSettings().addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(ModEntityTypes.CRAYFISH, 5, 1, 2));

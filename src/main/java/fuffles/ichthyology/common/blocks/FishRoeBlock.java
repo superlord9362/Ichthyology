@@ -54,12 +54,12 @@ public class FishRoeBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	protected boolean mayPlaceOn(BlockState p_154539_, BlockGetter p_154540_, BlockPos p_154541_) {
-		return p_154539_.isFaceSturdy(p_154540_, p_154541_, Direction.UP) && p_154539_.getBlock() != this && !p_154539_.is(Blocks.MAGMA_BLOCK);
+		return p_154539_.isFaceSturdy(p_154540_, p_154541_, Direction.UP) && p_154539_.getBlock() != this && p_154540_.getBlockState(p_154541_.above()).getBlock() == Blocks.WATER && !p_154539_.is(Blocks.MAGMA_BLOCK);
 	}
 
 	public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
 		BlockPos blockpos = pPos.below();
-		return this.mayPlaceOn(pLevel.getBlockState(blockpos), pLevel, blockpos);
+		return pLevel.getBlockState(blockpos).isFaceSturdy(pLevel, pPos, Direction.UP) && (pLevel.getBlockState(pPos).is(Blocks.WATER) || pLevel.getBlockState(pPos).is(this));
 	}
 
 	@Nullable

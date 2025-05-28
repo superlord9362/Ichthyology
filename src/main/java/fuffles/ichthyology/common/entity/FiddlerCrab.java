@@ -66,6 +66,10 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		switchNavigator(true);
 	}
 
+	public boolean canBreatheUnderwater() {
+		return true;
+	}
+
 	private void switchNavigator(boolean rightsideUp) {
 		if (rightsideUp) {
 			this.moveControl = new MoveControl(this);
@@ -109,7 +113,7 @@ public class FiddlerCrab extends Animal implements Bucketable {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D).add(Attributes.MOVEMENT_SPEED, 0.15D);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D).add(Attributes.MOVEMENT_SPEED, 0.2D);
 	}
 	
 	public void aiStep() {

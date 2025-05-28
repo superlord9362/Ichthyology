@@ -17,6 +17,7 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -26,6 +27,8 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -35,6 +38,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 
 public class CatfishBaby extends WaterAnimal implements Bucketable {
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CatfishBaby.class, EntityDataSerializers.BOOLEAN);
@@ -52,6 +56,10 @@ public class CatfishBaby extends WaterAnimal implements Bucketable {
 		return pStack.getItem() == ModItems.CRAYFISH;
 	}
 
+	protected PathNavigation createNavigation(Level p_28362_) {
+		return new WaterBoundPathNavigation(this, p_28362_);
+	}
+
 	protected void registerGoals() {
 		this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 10));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
@@ -61,15 +69,14 @@ public class CatfishBaby extends WaterAnimal implements Bucketable {
 	
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(FROM_BUCKET, false);
+		this.entityData.define(FROM_BUCKET, true);
 	}
 
 	public boolean fromBucket() {
-		return this.entityData.get(FROM_BUCKET);
+		return true;
 	}
 
 	public void setFromBucket(boolean pFromBucket) {
-		this.entityData.set(FROM_BUCKET, pFromBucket);
 	}
 
 	public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -80,6 +87,37 @@ public class CatfishBaby extends WaterAnimal implements Bucketable {
 		} else {
 			return Bucketable.bucketMobPickup(pPlayer, pHand, this).orElse(super.mobInteract(pPlayer, pHand));
 		}
+	}
+	
+	public void travel(Vec3 pTravelVector) {
+		if (this.isEffectiveAi() && this.isInWater()) {
+			this.moveRelative(this.getSpeed(), pTravelVector);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+			if (this.getTarget() == null) {
+				this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+			}
+		} else {
+			super.travel(pTravelVector);
+		}
+	}
+	
+	public void aiStep() {
+		if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+			this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double)0.4F, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+			this.setOnGround(false);
+			this.hasImpulse = true;
+			this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
+		}
+		if (!this.level().isClientSide()) {
+			this.setAge(this.age + 1);
+		}
+
+		super.aiStep();
+	}
+
+	protected SoundEvent getFlopSound() {
+		return SoundEvents.COD_FLOP;
 	}
 
 	public SoundEvent getPickupSound() {
@@ -113,13 +151,6 @@ public class CatfishBaby extends WaterAnimal implements Bucketable {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D);
-	}
-
-	public void aiStep() {
-		super.aiStep();
-		if (!this.level().isClientSide()) {
-			this.setAge(this.age + 1);
-		}
 	}
 
 	@SuppressWarnings("deprecation")

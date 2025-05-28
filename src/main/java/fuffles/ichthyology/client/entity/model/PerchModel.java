@@ -74,7 +74,7 @@ public class PerchModel<T extends Perch> extends RootedModel<T> implements IHold
 		poseStack.mulPose(Axis.XP.rotationDegrees(headPitch));
 		poseStack.mulPose(Axis.YP.rotationDegrees(netHeadYaw));
 		//-F: apply custom offset
-		poseStack.translate(0F, -1F / 16F, -0.425F);
+		poseStack.translate(0F, 2F / 16F, -0.425F);
 		poseStack.mulPose(Axis.YP.rotationDegrees(22.5F));
 		poseStack.mulPose(Axis.XP.rotationDegrees(90F));
 	}
@@ -89,7 +89,7 @@ public class PerchModel<T extends Perch> extends RootedModel<T> implements IHold
 		this.Body.yRot = netHeadYaw * Mth.DEG_TO_RAD;
 		this.Tail.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks) * 0.5F;
 		this.Tail_f.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.Pectoral_f_r.yRot = -Mth.HALF_PI / 2F; // Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
-		this.Pectoral_f_l.yRot = Mth.HALF_PI / 2F; // -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
+		this.Pectoral_f_r.yRot = Mth.HALF_PI / 2F; // Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
+		this.Pectoral_f_l.yRot = -Mth.HALF_PI / 2F; // -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
 	}
 }

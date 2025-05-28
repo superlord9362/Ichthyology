@@ -101,17 +101,18 @@ public class CatfishModel extends EntityModel<Catfish> {
 
 	@Override
 	public void setupAnim(Catfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 1F;
+		float f = 0F;
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Belly.zRot = f;
 		this.Belly.xRot = headPitch * Mth.DEG_TO_RAD;
 		this.Belly.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
 		this.Pectoral_f.yRot = -0.65F * Mth.sin(0.15F * ageInTicks) - 0.9346F;
 		this.Pectoral_f_1.yRot = 0.65F * Mth.sin(0.15F * ageInTicks) + 0.9346F;
-		this.Tail.yRot = f * 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tail2.yRot = f * 0.1F * Mth.sin(0.2F * ageInTicks);
-		this.Tail_tip.yRot = f * 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.Tail.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
+		this.Tail2.yRot = 0.1F * Mth.sin(0.2F * ageInTicks);
+		this.Tail_tip.yRot = 0.15F * Mth.sin(0.2F * ageInTicks);
 	}
 
 	@Override

@@ -155,7 +155,7 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 	public void aiStep() {
 		super.aiStep();
 		for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4, 4, 4))) {
-			if ((entity.getHealth() < (entity.getMaxHealth() / 2) || entity.hasEffect(MobEffects.WEAKNESS) || entity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) || entity instanceof Zombie) && entity != this) this.setTarget(entity);
+			if ((entity.getHealth() < (entity.getMaxHealth() / 2) || entity.hasEffect(MobEffects.WEAKNESS) || entity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) || entity instanceof Zombie || entity instanceof ZombieHorse) && !(entity instanceof Piranha)) this.setTarget(entity);
 			else if (this.getLastHurtByMob() != null) {
 				if (!this.getLastHurtByMob().isAlive()) this.setTarget(null);
 			}
@@ -194,8 +194,25 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 
 		public void tick() {
 			super.tick();
+		}
+
+	}
+
+	public class PiranhaMeleeAttackGoal extends MeleeAttackGoal {
+
+		public PiranhaMeleeAttackGoal(PathfinderMob p_25552_, double p_25553_, boolean p_25554_) {
+			super(p_25552_, p_25553_, p_25554_);
+		}
+
+		@Override
+		protected double getAttackReachSqr(LivingEntity p_25556_) {
+			return (double)(2.5);
+		}
+		
+		public void tick() {
+			super.tick();
 			if (Piranha.this.getTarget() != null) {
-				if (Piranha.this.getTarget() instanceof Zombie && Piranha.this.getTarget().getHealth() == 0 && Piranha.this.random.nextInt(20) == 0) {
+				if ((Piranha.this.getTarget() instanceof Zombie) && Piranha.this.getTarget().getHealth() == 0 && Piranha.this.random.nextInt(20) == 0) {
 					Skeleton skeleton = new Skeleton(EntityType.SKELETON, Piranha.this.level());
 					skeleton.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.AIR));
 					skeleton.setPos(Piranha.this.getTarget().blockPosition().getX(), Piranha.this.getTarget().blockPosition().getY(), Piranha.this.getTarget().blockPosition().getZ());
@@ -210,19 +227,6 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 					Piranha.this.setAngry(false);
 				}
 			}
-		}
-
-	}
-
-	public class PiranhaMeleeAttackGoal extends MeleeAttackGoal {
-
-		public PiranhaMeleeAttackGoal(PathfinderMob p_25552_, double p_25553_, boolean p_25554_) {
-			super(p_25552_, p_25553_, p_25554_);
-		}
-
-		@Override
-		protected double getAttackReachSqr(LivingEntity p_25556_) {
-			return (double)(2.5);
 		}
 
 	}

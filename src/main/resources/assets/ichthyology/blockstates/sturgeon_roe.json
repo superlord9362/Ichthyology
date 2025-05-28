@@ -1,5 +1,10 @@
 {
 	"variants": {
-		"": { "model": "ichthyology:block/sturgeon_roe" }
+		"": [
+			{ "model": "ichthyology:block/sturgeon_roe" },
+			{ "model": "ichthyology:block/sturgeon_roe", "y": 90 },
+			{ "model": "ichthyology:block/sturgeon_roe", "y": 180 },
+			{ "model": "ichthyology:block/sturgeon_roe", "y": 270 }
+		]
 	}
 }

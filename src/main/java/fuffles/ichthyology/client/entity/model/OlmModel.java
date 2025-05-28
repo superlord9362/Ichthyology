@@ -83,21 +83,51 @@ public class OlmModel extends EntityModel<Olm> {
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
+	private float lerpTo(float pStart, float pEnd) {
+		return this.lerpTo(0.05F, pStart, pEnd);
+	}
+
+	private float lerpTo(float pDelta, float pStart, float pEnd) {
+		return Mth.rotLerp(pDelta, pStart, pEnd);
+	}
+
+	private void lerpPart(ModelPart pPart, float pXDelta, float pYDelta, float pZDelta) {
+		pPart.setRotation(this.lerpTo(pPart.xRot, pXDelta), this.lerpTo(pPart.yRot, pYDelta), this.lerpTo(pPart.zRot, pZDelta));
+	}
+
 	@Override
 	public void setupAnim(Olm entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		float f = ageInTicks * 0.11F;
+		float f1 = Mth.cos(f);
+		float f2 = (f1 * f1 - 2.0F * f1) / 5.0F;
+		float f3 = 0.7F * f1;
 		this.Head.xRot = headPitch * ((float)Math.PI / 180F);
 		this.Head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.Leg_b_l.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.Leg_b_l.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.Leg_f_r.yRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.Leg_f_r.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.Leg_f_l.yRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.Leg_f_l.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.Leg_b_r.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.Leg_b_r.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.Body_2.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.Body_3.yRot = -Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.Tail.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+//		if (entity.isInWater()) {
+//			this.Leg_b_l.yRot = Mth.cos(limbSwing * 2.6662F) * 6.4F * limbSwingAmount ;
+//			this.Leg_b_l.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+//			this.Leg_f_r.yRot = Mth.cos(limbSwing * 2.6662F + (float)Math.PI) * 6.4F * limbSwingAmount;
+//			this.Leg_f_r.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+//			this.Leg_f_l.yRot = Mth.cos(limbSwing * 2.6662F + (float)Math.PI) * 6.4F * limbSwingAmount;
+//			this.Leg_f_l.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+//			this.Leg_b_r.yRot = Mth.cos(limbSwing * 2.6662F) * 6.4F * limbSwingAmount;
+//			this.Leg_b_r.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+//			this.Body_2.yRot = Mth.cos(limbSwing * 0.6662F) * 5.4F * limbSwingAmount;
+//			this.Body_3.yRot = -Mth.cos(limbSwing * 0.6662F) * 5.4F * limbSwingAmount;
+//			this.Tail.yRot = Mth.cos(limbSwing * 0.6662F) * 5.4F * limbSwingAmount;
+//		} else {
+			this.Leg_b_l.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount ;
+			this.Leg_b_l.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			this.Leg_f_r.yRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+			this.Leg_f_r.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+			this.Leg_f_l.yRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+			this.Leg_f_l.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+			this.Leg_b_r.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			this.Leg_b_r.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			this.Body_2.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			this.Body_3.yRot = -Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			this.Tail.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+//		}
 	}
 
 	@Override

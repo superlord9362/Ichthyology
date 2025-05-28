@@ -1,5 +1,10 @@
 {
 	"variants": {
-		"": { "model": "ichthyology:block/catfish_roe" }
+		"": [
+			{ "model": "ichthyology:block/catfish_roe" },
+			{ "model": "ichthyology:block/catfish_roe", "y": 90 },
+			{ "model": "ichthyology:block/catfish_roe", "y": 180 },
+			{ "model": "ichthyology:block/catfish_roe", "y": 270 }
+		]
 	}
 }

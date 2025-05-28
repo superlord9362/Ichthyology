@@ -1,11 +1,11 @@
-// 1.20.1	2025-04-28T03:37:57.1689674	Tags for minecraft:item mod id ichthyology
+// 1.20.1	2025-05-26T22:13:06.0955598	Tags for minecraft:item mod id ichthyology
 3e103fa4828ced0553fe9ddcd05a9ddb383116bc data/ichthyology/tags/items/brain_coral_fronds.json
 ae41cbf011adc81ac0c42bec15106911070df357 data/ichthyology/tags/items/bubble_coral_fronds.json
 24e5ffd2fc0274bf9903130f4c26b1de039f16b0 data/ichthyology/tags/items/carp_food.json
 59427a854a158bf7002376013b2a972ec347aa83 data/ichthyology/tags/items/fire_coral_fronds.json
 f4026f04a3d93cffdca0661e5551e53f5a7e7a32 data/ichthyology/tags/items/horn_coral_fronds.json
-c8278ff9cf219587930daec15be56c97ee881a58 data/ichthyology/tags/items/large_raw_fish.json
+bd82f807e2f1a117cb7a56717443113f8dbf8dda data/ichthyology/tags/items/large_raw_fish.json
 6e886b7f83d7f173b03d13ebd44bc81fb5a5c43d data/ichthyology/tags/items/medium_raw_fish.json
-0245c0cac2a94a592e4db2746663c219f0cbb89d data/ichthyology/tags/items/perch_edibles.json
-545804aeb916f754f7b97673a9d8fe215704a054 data/ichthyology/tags/items/small_raw_fish.json
+87c4f3885b1f93fb8f5e4e23d73cccdb6fee972f data/ichthyology/tags/items/perch_edibles.json
+524777961062d2b580fe75ec4e940adf90d7a5a8 data/ichthyology/tags/items/small_raw_fish.json
 e37b39a58e4cdc13c905f4e287e51621eae23f61 data/ichthyology/tags/items/tube_coral_fronds.json

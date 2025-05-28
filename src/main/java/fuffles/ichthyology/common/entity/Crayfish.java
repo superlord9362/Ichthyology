@@ -44,6 +44,8 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -304,6 +306,10 @@ public class Crayfish extends WaterAnimal implements Bucketable {
 		}
 	}
 
+	protected PathNavigation createNavigation(Level pLevel) {
+	      return new AmphibiousPathNavigation(this, pLevel);
+	}
+
 	class CrayfishPanicGoal extends PanicGoal {
 		public CrayfishPanicGoal() {
 			super(Crayfish.this, 2.0D);
@@ -390,6 +396,10 @@ public class Crayfish extends WaterAnimal implements Bucketable {
 				this.fish.setSpeed(0.0F);
 			}
 		}
+	}
+	
+	public boolean removeWhenFarAway(double p_27492_) {
+		return !this.fromBucket() && !this.hasCustomName();
 	}
 
 }

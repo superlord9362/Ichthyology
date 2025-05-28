@@ -99,16 +99,17 @@ public class GarModel extends EntityModel<Gar> {
 	public void setupAnim(Gar entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float partialTick = ageInTicks - entity.tickCount;
 		float attackProgress = entity.getMeleeProgress(partialTick);
-		float f = 1F;
+		float f = 0F;
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body_1.zRot = f;
 		this.Body_1.xRot = headPitch * Mth.DEG_TO_RAD;
 		this.Body_1.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks)) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Body2.yRot = f * 0.225F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Tail.yRot = f * 0.225F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Tail_tip.yRot = f * 0.1F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Tail_f.yRot = f * 0.15F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Body2.yRot = 0.225F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Tail.yRot = 0.225F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Tail_tip.yRot = 0.1F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Tail_f.yRot = 0.15F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
 		this.Jaw_bottom.xRot = attackProgress * (float)Math.toRadians(50);
 	}
 

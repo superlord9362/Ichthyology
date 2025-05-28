@@ -1,5 +1,10 @@
 {
 	"variants": {
-		"": { "model": "ichthyology:block/olm_eggs" }
+		"": [
+			{ "model": "ichthyology:block/olm_eggs" },
+			{ "model": "ichthyology:block/olm_eggs", "y": 90 },
+			{ "model": "ichthyology:block/olm_eggs", "y": 180 },
+			{ "model": "ichthyology:block/olm_eggs", "y": 270 }
+		]
 	}
 }

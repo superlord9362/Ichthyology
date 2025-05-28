@@ -1,36 +1,48 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_bread": {
+    "has_brown_mushroom": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:bread"
+              "minecraft:brown_mushroom"
             ]
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_caviar": {
+    "has_olmlette": {
       "conditions": {
         "items": [
           {
             "items": [
-              "ichthyology:caviar"
+              "ichthyology:olmlette"
             ]
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_sturgeon_roe": {
+    "has_olmspawn": {
       "conditions": {
         "items": [
           {
             "items": [
-              "ichthyology:sturgeon_roe"
+              "ichthyology:olm_eggs"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_red_mushroom": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:red_mushroom"
             ]
           }
         ]
@@ -39,22 +51,23 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "ichthyology:caviar"
+        "recipe": "ichthyology:olmlette"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_caviar",
-      "has_sturgeon_roe",
-      "has_bread",
+      "has_olmlette",
+      "has_olmspawn",
+      "has_brown_mushroom",
+      "has_red_mushroom",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "ichthyology:caviar"
+      "ichthyology:olmlette"
     ]
   },
   "sends_telemetry_event": false

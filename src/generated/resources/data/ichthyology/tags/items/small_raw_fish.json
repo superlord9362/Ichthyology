@@ -13,6 +13,8 @@
     "ichthyology:pleco",
     "ichthyology:archerfish",
     "ichthyology:mudskipper",
-    "ichthyology:catfish_baby"
+    "ichthyology:catfish_baby",
+    "ichthyology:gar_baby",
+    "ichthyology:sturgeon_baby"
   ]
 }

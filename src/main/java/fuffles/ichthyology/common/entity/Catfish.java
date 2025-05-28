@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -238,6 +239,21 @@ public class Catfish extends Animal {
 			super.travel(pTravelVector);
 		}
 	}
+	
+	public void aiStep() {
+		if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+			this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double)0.4F, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+			this.setOnGround(false);
+			this.hasImpulse = true;
+			this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
+		}
+
+		super.aiStep();
+	}
+
+	protected SoundEvent getFlopSound() {
+		return SoundEvents.COD_FLOP;
+	}
 
 	public class CatfishSuckUpEnemyGoal extends MeleeAttackGoal {
 
@@ -286,8 +302,8 @@ public class Catfish extends Animal {
 				CriteriaTriggers.BRED_ANIMALS.trigger(serverPlayer, this.animal, this.partner, (AgeableMob)null);
 			}
 			this.catfish.setHasEggs(true);
-			this.animal.setAbsorptionAmount(6000);
-			this.partner.setAbsorptionAmount(6000);
+			this.animal.setAge(6000);
+			this.partner.setAge(6000);
 			this.animal.resetLove();
 			this.partner.resetLove();
 			RandomSource randomSource = this.animal.getRandom();

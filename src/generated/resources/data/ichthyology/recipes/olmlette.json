@@ -3,16 +3,16 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "ichthyology:sturgeon_roe"
+      "tag": "forge:mushrooms"
     },
     {
-      "item": "ichthyology:sturgeon_roe"
+      "tag": "forge:mushrooms"
     },
     {
-      "item": "minecraft:bread"
+      "item": "ichthyology:olm_eggs"
     }
   ],
   "result": {
-    "item": "ichthyology:caviar"
+    "item": "ichthyology:olmlette"
   }
 }

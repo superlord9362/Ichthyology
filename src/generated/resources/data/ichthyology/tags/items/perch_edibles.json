@@ -3,6 +3,9 @@
     "minecraft:egg",
     "minecraft:frogspawn",
     "ichthyology:catfish_roe",
-    "ichthyology:peacock_bass_roe"
+    "ichthyology:peacock_bass_roe",
+    "ichthyology:olm_eggs",
+    "ichthyology:sturgeon_roe",
+    "ichthyology:gar_roe"
   ]
 }

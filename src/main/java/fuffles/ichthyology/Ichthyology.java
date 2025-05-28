@@ -82,7 +82,7 @@ public class Ichthyology {
 		SpawnPlacements.register(ModEntityTypes.GAR, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gar::checkSurfaceWaterAnimalSpawnRules);
 		SpawnPlacements.register(ModEntityTypes.GAR_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 		SpawnPlacements.register(ModEntityTypes.FIDDLER_CRAB, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-		SpawnPlacements.register(ModEntityTypes.STURGEON, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sturgeon::checkSurfaceWaterAnimalSpawnRules);
+		SpawnPlacements.register(ModEntityTypes.STURGEON, SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sturgeon::checkSurfaceWaterAnimalSpawnRules);
 		SpawnPlacements.register(ModEntityTypes.STURGEON_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
 		SpawnPlacements.register(ModEntityTypes.OLM, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Olm::checkOlmSpawnRules);
 		ModPotions.brewingRecipes();

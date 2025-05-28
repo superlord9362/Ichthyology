@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-20T21:29:49.5762726	Loot Tables
+// 1.20.1	2025-05-26T22:13:06.0986124	Loot Tables
 cfa7f4dd5e77a7dc241cf3f5e92a08c1d00f9d50 data/ichthyology/loot_tables/entities/african_cichlid.json
 428a33648cc10faafbfddfb4368b0f41571b70ac data/ichthyology/loot_tables/entities/angelfish.json
 4be158dcd3f3102e5816d0e84db33cc7d08aa253 data/ichthyology/loot_tables/entities/archerfish.json
@@ -14,6 +14,7 @@ b7177f9f54990f3ef8cd2e350b310607be7b11f9 data/ichthyology/loot_tables/entities/c
 f3f23e2e19088fe0e1d277600cdbb634ba292b85 data/ichthyology/loot_tables/entities/goldfish.json
 5f7f5906ed81c1fd4f6cd15e15a1a1abe80c7a0c data/ichthyology/loot_tables/entities/mudskipper.json
 c5f06cd0cd9408e7091ac69694ad868dfe3b9510 data/ichthyology/loot_tables/entities/neon_tetra.json
+fd13f616cc5a71398ea5c207f57638f81afedee9 data/ichthyology/loot_tables/entities/olm.json
 347f5a13757ef47617f269e11d28f2276fd58c8b data/ichthyology/loot_tables/entities/peacock_bass.json
 ad7d50242cd706266f71831b44d1012b0c0ae798 data/ichthyology/loot_tables/entities/peacock_bass_baby.json
 969ad52e0d6d77289356912105ccc186c75f9680 data/ichthyology/loot_tables/entities/perch.json

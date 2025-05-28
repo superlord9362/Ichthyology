@@ -54,6 +54,7 @@ public class CrabItem extends Item {
 			if (world.mayInteract(player, blockpos) && player.mayUseItemAt(blockpos, blockraytraceresult.getDirection(), itemstack)) {
 				FiddlerCrab fiddlerCrab = new FiddlerCrab(ModEntityTypes.FIDDLER_CRAB, world);
 				fiddlerCrab.setPos(raytraceresult.getLocation());
+				fiddlerCrab.setFromBucket(true);
 				if (itemstack.hasCustomHoverName()) fiddlerCrab.setCustomName(itemstack.getHoverName());
 				world.addFreshEntity(fiddlerCrab);
 				if (!player.getAbilities().instabuild) {

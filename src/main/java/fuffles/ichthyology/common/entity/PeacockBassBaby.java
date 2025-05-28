@@ -16,6 +16,7 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,12 +25,15 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 
 public class PeacockBassBaby extends WaterAnimal implements Bucketable {
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(PeacockBassBaby.class, EntityDataSerializers.BOOLEAN);
@@ -55,15 +59,14 @@ public class PeacockBassBaby extends WaterAnimal implements Bucketable {
 	
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(FROM_BUCKET, false);
+		this.entityData.define(FROM_BUCKET, true);
 	}
 
 	public boolean fromBucket() {
-		return this.entityData.get(FROM_BUCKET);
+		return true;
 	}
 
 	public void setFromBucket(boolean pFromBucket) {
-		this.entityData.set(FROM_BUCKET, pFromBucket);
 	}
 
 	public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -108,12 +111,39 @@ public class PeacockBassBaby extends WaterAnimal implements Bucketable {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D);
 	}
+	
+	public void travel(Vec3 p_28383_) {
+		if (this.isEffectiveAi() && this.isInWater()) {
+			this.moveRelative(this.getSpeed(), p_28383_);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+			if (this.getTarget() == null) {
+				this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
+			}
+		} else {
+			super.travel(p_28383_);
+		}
+	}
 
 	public void aiStep() {
 		super.aiStep();
 		if (!this.level().isClientSide()) {
 			this.setAge(this.age + 1);
 		}
+		if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+			this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double)0.4F, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+			this.setOnGround(false);
+			this.hasImpulse = true;
+			this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
+		}
+	}
+
+	protected SoundEvent getFlopSound() {
+		return SoundEvents.COD_FLOP;
+	}
+
+	protected PathNavigation createNavigation(Level p_28362_) {
+		return new WaterBoundPathNavigation(this, p_28362_);
 	}
 
 	@SuppressWarnings("deprecation")

@@ -43,7 +43,7 @@ public class SturgeonBabyModel extends EntityModel<SturgeonBaby> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -2.0F, -2.0F, 3.0F, 3.0F, 7.0F, new CubeDeformation(0.0001F))
+		PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -2.0F, -2.0F, 3.0F, 3.0F, 7.0F, new CubeDeformation(0.01F))
 		.texOffs(14, 0).addBox(-1.0F, -1.0F, -4.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
 		.texOffs(15, 4).addBox(-1.0F, 1.0F, -3.0F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 23.0F, -5.0F));
 
@@ -69,14 +69,15 @@ public class SturgeonBabyModel extends EntityModel<SturgeonBaby> {
 
 	@Override
 	public void setupAnim(SturgeonBaby entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 1F;
+		float f = 0F;
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body.zRot = f;
 		this.Body.xRot = headPitch * Mth.DEG_TO_RAD;
 		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
-		this.Tail2.yRot = f * 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tial_f.yRot = f * 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.Tail2.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
+		this.Tial_f.yRot = 0.15F * Mth.sin(0.2F * ageInTicks);
 	}
 
 	@Override

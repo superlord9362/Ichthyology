@@ -26,9 +26,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ByIdMap;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -43,18 +41,18 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
@@ -80,9 +78,15 @@ public class Olm extends Animal implements Bucketable {
 	public Olm(EntityType<? extends Animal> pEntityType, Level pLevel) {
 		super(pEntityType, pLevel);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0);
-		this.moveControl = new MoveHelperController(this);
-		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 		this.setMaxUpStep(1);
+	}
+
+	protected float getWaterSlowDown() {
+		return 1F;
+	}
+
+	public int getMaxAirSupply() {
+		return 6000;
 	}
 
 	protected void registerGoals() {
@@ -91,6 +95,7 @@ public class Olm extends Animal implements Bucketable {
 		this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
 		this.goalSelector.addGoal(0, new OlmBreedGoal(this, 1));
 		this.goalSelector.addGoal(1, new OlmLayEggsGoal(this, 1));
+		this.goalSelector.addGoal(1, new TryFindWaterGoal(this));
 	}
 
 	public static int createTagToFishType(CompoundTag tag) {
@@ -127,7 +132,7 @@ public class Olm extends Animal implements Bucketable {
 	}
 
 	public boolean isFood(ItemStack pStack) {
-		return pStack.getTag().contains("entity.ichthyology.crayfish.cave") && pStack.is(ModItems.CRAYFISH);
+		return pStack.is(ModItems.CRAYFISH) && pStack.getTag().get("Variant").getAsString() == "cave";
 	}
 
 	protected void defineSynchedData() {
@@ -260,7 +265,8 @@ public class Olm extends Animal implements Bucketable {
 	}
 
 	public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-		return Bucketable.bucketMobPickup(pPlayer, pHand, this).orElse(super.mobInteract(pPlayer, pHand));
+		if (pPlayer.getItemInHand(pHand).is(Items.WATER_BUCKET)) return Bucketable.bucketMobPickup(pPlayer, pHand, this).orElse(super.mobInteract(pPlayer, pHand));
+		else return super.mobInteract(pPlayer, pHand);
 	}
 
 	public void baseTick() {
@@ -301,19 +307,19 @@ public class Olm extends Animal implements Bucketable {
 	}
 
 	protected PathNavigation createNavigation(Level pLevel) {
-		return new WaterBoundPathNavigation(this, pLevel);
+		return new AmphibiousPathNavigation(this, pLevel);
 	}
 
 	public boolean requiresCustomPersistence() {
 		return super.requiresCustomPersistence();
 	}
 
-	public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
-		return !this.hasCustomName();
+	public boolean removeWhenFarAway(double p_27492_) {
+		return !this.fromBucket() && !this.hasCustomName();
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.FOLLOW_RANGE, 10).add(Attributes.ATTACK_DAMAGE, 3).add(Attributes.ARMOR, 2);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.2D);
 	}
 
 	@Override
@@ -343,8 +349,8 @@ public class Olm extends Animal implements Bucketable {
 				CriteriaTriggers.BRED_ANIMALS.trigger(serverPlayer, this.animal, this.partner, (AgeableMob)null);
 			}
 			this.olm.setHasEggs(true);
-			this.animal.setAbsorptionAmount(6000);
-			this.partner.setAbsorptionAmount(6000);
+			this.animal.setAge(6000);
+			this.partner.setAge(6000);
 			this.animal.resetLove();
 			this.partner.resetLove();
 			RandomSource randomSource = this.animal.getRandom();
@@ -405,39 +411,6 @@ public class Olm extends Animal implements Bucketable {
 	@SuppressWarnings("deprecation")
 	public static boolean checkOlmSpawnRules(EntityType<? extends LivingEntity> p_217018_, ServerLevelAccessor p_217019_, MobSpawnType p_217020_, BlockPos p_217021_, RandomSource p_217022_) {
 		return p_217021_.getY() <= p_217019_.getSeaLevel() - 33 && p_217019_.getRawBrightness(p_217021_, 0) == 0 && p_217019_.getBlockState(p_217021_).is(Blocks.WATER);
-	}
-
-	static class MoveHelperController extends MoveControl {
-		private final Olm fish;
-
-		MoveHelperController(Olm fish) {
-			super(fish);
-			this.fish = fish;
-		}
-
-		@SuppressWarnings("deprecation")
-		public void tick() {
-			if (this.fish.isEyeInFluid(FluidTags.WATER)) {
-				this.fish.setDeltaMovement(this.fish.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-			}
-
-			if (this.operation == MoveControl.Operation.MOVE_TO && !this.fish.getNavigation().isDone()) {
-				float f = (float)(this.speedModifier * this.fish.getAttributeValue(Attributes.MOVEMENT_SPEED));
-				this.fish.setSpeed(Mth.lerp(0.125F, this.fish.getSpeed(), f));
-				double d0 = this.wantedX - this.fish.getX();
-				double d2 = this.wantedZ - this.fish.getZ();
-				if (d0 != 0.0D || d2 != 0.0D) {
-					float f1 = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
-					this.fish.setYRot(this.rotlerp(this.fish.getYRot(), f1, 90.0F));
-					this.fish.yBodyRot = this.fish.getYRot();
-					if (this.fish.horizontalCollision && this.fish.level().getBlockState(this.fish.blockPosition().above()).getBlock() == Blocks.WATER) {
-						this.fish.setDeltaMovement(this.fish.getDeltaMovement().add(0.0D, 0.025D, 0.0D));
-					}
-				}
-			} else {
-				this.fish.setSpeed(0.0F);
-			}
-		}
 	}
 
 	protected SoundEvent getSwimSound() {
