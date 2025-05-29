@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:desert",
+  "spawners": {
+    "type": "ichthyology:african_cichlid",
+    "maxCount": 8,
+    "minCount": 4,
+    "weight": 8
+  }
+}

@@ -1,40 +1,32 @@
 package fuffles.ichthyology;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import fuffles.ichthyology.client.ClientEvents;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.loading.FMLLoader;
-import org.slf4j.Logger;
-
 import com.mojang.logging.LogUtils;
-
+import fuffles.ichthyology.client.IchthyologyClient;
 import fuffles.ichthyology.common.entity.*;
 import fuffles.ichthyology.common.entity.perch.Perch;
 import fuffles.ichthyology.common.item.FishTyped;
-import fuffles.ichthyology.data.*;
+import fuffles.ichthyology.data.IchthyologyData;
 import fuffles.ichthyology.init.*;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.RegisterEvent;
+import org.slf4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Mod(Ichthyology.ID)
 public class Ichthyology {
@@ -61,11 +53,13 @@ public class Ichthyology {
 
 		ModCreativeTabs.REGISTER.register(modBus);
 		ModPotions.POTIONS.register(modBus);
-		ModBiomeModifiers.REGISTRY.register(modBus);
 		modBus.addListener((RegisterEvent event) -> RegistryRelay.registerAll(event));
 
-		modBus.addListener(this::onGatherData);
+		modBus.addListener(IchthyologyData::onGatherData);
 		modBus.addListener(this::onSpawnPlacementRegister);
+
+		if (FMLLoader.getDist() == Dist.CLIENT)
+			Objects.requireNonNull(IchthyologyClient.getInstance()).registerEvents(modBus, forgeBus);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -100,19 +94,6 @@ public class Ichthyology {
 		event.register(ModEntityTypes.STURGEON, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sturgeon::checkSurfaceWaterAnimalSpawnRules, op);
 		event.register(ModEntityTypes.STURGEON_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, op);
 		event.register(ModEntityTypes.OLM, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Olm::checkOlmSpawnRules, op);
-	}
-
-	private void onGatherData(GatherDataEvent event)
-	{
-		PackOutput out = event.getGenerator().getPackOutput();
-		event.getGenerator().addProvider(event.includeServer(), new LootTableProvider(out, Collections.emptySet(), List.of(
-				new LootTableProvider.SubProviderEntry(ModEntityLootProvider::new, LootContextParamSets.ENTITY)
-		)));
-		event.getGenerator().addProvider(event.includeServer(), new ModRecipeProvider(out));
-		ModBlockTagsProvider blockTagsAccess = new ModBlockTagsProvider(out, event.getLookupProvider(), event.getExistingFileHelper());
-		event.getGenerator().addProvider(event.includeServer(), blockTagsAccess);
-		event.getGenerator().addProvider(event.includeServer(), new ModItemTagsProvider(out, event.getLookupProvider(), blockTagsAccess.contentsGetter(), event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeServer(), new ModBiomeTagsProvider(out, event.getLookupProvider(), event.getExistingFileHelper()));
 	}
 	
 	private void registerEntityAttributes(EntityAttributeCreationEvent event) {

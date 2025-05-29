@@ -1,0 +1,24 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:mangrove_swamp",
+  "spawners": [
+    {
+      "type": "ichthyology:archerfish",
+      "maxCount": 3,
+      "minCount": 1,
+      "weight": 7
+    },
+    {
+      "type": "ichthyology:mudskipper",
+      "maxCount": 3,
+      "minCount": 1,
+      "weight": 10
+    },
+    {
+      "type": "ichthyology:fiddler_crab",
+      "maxCount": 4,
+      "minCount": 2,
+      "weight": 8
+    }
+  ]
+}

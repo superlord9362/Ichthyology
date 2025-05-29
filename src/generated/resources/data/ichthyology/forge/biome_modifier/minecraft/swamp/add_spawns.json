@@ -1,0 +1,30 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:swamp",
+  "spawners": [
+    {
+      "type": "ichthyology:perch",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 3
+    },
+    {
+      "type": "ichthyology:pleco",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 6
+    },
+    {
+      "type": "ichthyology:crayfish",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 7
+    },
+    {
+      "type": "ichthyology:gar",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 8
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:river",
+  "spawners": [
+    {
+      "type": "ichthyology:perch",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 8
+    },
+    {
+      "type": "ichthyology:crayfish",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 10
+    },
+    {
+      "type": "ichthyology:catfish",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 7
+    },
+    {
+      "type": "ichthyology:sturgeon",
+      "maxCount": 2,
+      "minCount": 1,
+      "weight": 10
+    }
+  ]
+}

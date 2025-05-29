@@ -1,0 +1,18 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:cherry_grove",
+  "spawners": [
+    {
+      "type": "ichthyology:goldfish",
+      "maxCount": 5,
+      "minCount": 2,
+      "weight": 8
+    },
+    {
+      "type": "ichthyology:carp",
+      "maxCount": 5,
+      "minCount": 2,
+      "weight": 7
+    }
+  ]
+}
