@@ -27,6 +27,7 @@ import fuffles.ichthyology.common.entity.SturgeonBaby;
 import fuffles.ichthyology.common.entity.Tilapia;
 import fuffles.ichthyology.common.entity.perch.Perch;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -35,11 +36,11 @@ import net.minecraft.world.entity.MobCategory;
 public class ModEntityTypes
 {
 	@SuppressWarnings("deprecation")
-	public static final RegistryRelay<EntityType<?>> REGISTRY = new RegistryRelay<>(BuiltInRegistries.ENTITY_TYPE, Ichthyology::id);
+	public static final RegistryRelay<EntityType<?>> REGISTRY = new RegistryRelay<>(Registries.ENTITY_TYPE, Ichthyology::id);
 
 	private static <T extends Entity> EntityType<T> registerSimple(String id, EntityType.Builder<T> builder)
 	{
-		ResourceLocation resource = REGISTRY.createKey(id);
+		ResourceLocation resource = REGISTRY.createLocation(id);
 		return REGISTRY.register(resource, builder.build(resource.toString()));
 	}
 

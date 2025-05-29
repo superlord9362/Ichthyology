@@ -21,7 +21,7 @@ public class ModCreativeTabs {
 	public static final RegistryObject<CreativeModeTab> ITEM_GROUP = REGISTER.register("ichthyology_item_group", () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BLIND_CAVE_TETRA_BUCKET))
 			.title(Component.translatable("itemGroup.ichthyology_item_group"))
 			.displayItems((params, output) -> {
-				for (Item item : ModItems.ITEM_REGISTRY.getEntryValues()) {
+				for (Item item : ModItems.ITEM_REGISTRY.getEntries()) {
 					if (item == ModItems.AFRICAN_CICHLID || item == ModItems.AFRICAN_CICHLID_BUCKET)
 					{
 						if (item == ModItems.AFRICAN_CICHLID_BUCKET)
@@ -90,7 +90,7 @@ public class ModCreativeTabs {
 	public static final RegistryObject<CreativeModeTab> SPAWN_EGG_GROUP = REGISTER.register("ichthyology_spawn_item_group", () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BLIND_CAVE_TETRA_SPAWN_EGG))
 			.title(Component.translatable("itemGroup.ichthyology_spawn_item_group"))
 			.displayItems((pParameters, pOutput) -> {
-				for (var block : ModItems.SPAWN_EGG_REGISTRY.getEntryValues()) {
+				for (var block : ModItems.SPAWN_EGG_REGISTRY.getEntries()) {
 					pOutput.accept(block);
 				}
 			}).build());

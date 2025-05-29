@@ -2,17 +2,18 @@ package fuffles.ichthyology.init;
 
 import fuffles.ichthyology.Ichthyology;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 public class ModSoundEvents
 {
     @SuppressWarnings("deprecation")
-    public static final RegistryRelay<SoundEvent> REGISTRY = new RegistryRelay<>(BuiltInRegistries.SOUND_EVENT, Ichthyology::id);
+    public static final RegistryRelay<SoundEvent> REGISTRY = new RegistryRelay<>(Registries.SOUND_EVENT, Ichthyology::id);
 
     private static SoundEvent registerVariable(String id)
     {
-        ResourceLocation resource = REGISTRY.createKey(id);
+        ResourceLocation resource = REGISTRY.createLocation(id);
         return REGISTRY.register(resource, SoundEvent.createVariableRangeEvent(resource));
     }
 

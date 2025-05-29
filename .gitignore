@@ -28,3 +28,4 @@ src/main/java/fuffles/ichthyology/common/entity/ai/ReadableFrogAi.java
 src/main/java/fuffles/ichthyology/common/entity/ai/ReadableAllayAi.java
 src/main/java/fuffles/ichthyology/common/entity/ai/ReadablePiglinAi.java
 src/main/java/fuffles/ichthyology/common/entity/ai/ReadableGoatAi.java
+/.gradle

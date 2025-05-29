@@ -25,10 +25,8 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 
 public class ModItems
 {
-	@SuppressWarnings("deprecation")
-	public static final RegistryRelay<Item> SPAWN_EGG_REGISTRY = new RegistryRelay<>(BuiltInRegistries.ITEM, Ichthyology::id);
-	@SuppressWarnings("deprecation")
-	public static final RegistryRelay<Item> ITEM_REGISTRY = new RegistryRelay<>(BuiltInRegistries.ITEM, Ichthyology::id);
+	public static final RegistryRelay<Item> SPAWN_EGG_REGISTRY = new RegistryRelay<>(Registries.ITEM, Ichthyology::id);
+	public static final RegistryRelay<Item> ITEM_REGISTRY = new RegistryRelay<>(Registries.ITEM, Ichthyology::id);
 
 	private static final Supplier<Fluid> DEFAULT_FLUID = () -> Fluids.WATER;
 	private static final Supplier<SoundEvent> DEFAULT_SOUND = () -> SoundEvents.BUCKET_EMPTY_FISH;

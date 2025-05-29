@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 public class ModBlocks
 {
     @SuppressWarnings("deprecation")
-    public static final RegistryRelay<Block> REGISTRY = new RegistryRelay<>(BuiltInRegistries.BLOCK, Ichthyology::id);
+    public static final RegistryRelay<Block> REGISTRY = new RegistryRelay<>(Registries.BLOCK, Ichthyology::id);
 
     private static FishRoeBlock registerEggs(String id, EntityType<? extends Mob> toSpawn) {
     	return REGISTRY.register(id + "_roe", new FishRoeBlock(() -> toSpawn, Block.Properties.copy(Blocks.FROGSPAWN)));
