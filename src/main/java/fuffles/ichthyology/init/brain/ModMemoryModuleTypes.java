@@ -1,14 +1,14 @@
 package fuffles.ichthyology.init.brain;
 
+import java.util.Optional;
+
 import com.mojang.serialization.Codec;
+
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.init.RegistryRelay;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-
-import java.util.Optional;
 
 public class ModMemoryModuleTypes
 {

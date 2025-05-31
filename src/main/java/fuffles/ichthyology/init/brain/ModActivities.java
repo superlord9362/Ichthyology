@@ -2,7 +2,6 @@ package fuffles.ichthyology.init.brain;
 
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.init.RegistryRelay;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.schedule.Activity;

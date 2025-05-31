@@ -3,7 +3,6 @@ package fuffles.ichthyology.init;
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.common.blocks.CrabBurrowingBlock;
 import fuffles.ichthyology.common.blocks.FishRoeBlock;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public class ModBlocks
 {
-    @SuppressWarnings("deprecation")
     public static final RegistryRelay<Block> REGISTRY = new RegistryRelay<>(Registries.BLOCK, Ichthyology::id);
 
     private static FishRoeBlock registerEggs(String id, EntityType<? extends Mob> toSpawn) {
@@ -29,6 +27,7 @@ public class ModBlocks
     
     public static final Block MUD_WITH_CRAB = REGISTRY.register("mud_with_crab", new CrabBurrowingBlock(Blocks.MUD, BlockBehaviour.Properties.copy(Blocks.MUD).randomTicks()));
     public static final Block SAND_WITH_CRAB = REGISTRY.register("sand_with_crab", new CrabBurrowingBlock(Blocks.SAND, BlockBehaviour.Properties.copy(Blocks.SAND).randomTicks()));
+    public static final Block RED_SAND_WITH_CRAB = REGISTRY.register("red_sand_with_crab", new CrabBurrowingBlock(Blocks.RED_SAND, BlockBehaviour.Properties.copy(Blocks.RED_SAND).randomTicks()));
     
     public static final class Tags
     {

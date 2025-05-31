@@ -65,11 +65,15 @@ public class PeacockBass extends Animal {
 	public static final Predicate<LivingEntity> SMALL_ENTITY = (entity) -> {
 		return entity.getBbWidth() <= 0.25F && entity.getType() != ModEntityTypes.PEACOCK_BASS && entity.getType() != ModEntityTypes.PEACOCK_BASS_BABY;
 	};
+	
+	public static final Predicate<BlockState> ROE = (blockstate) -> {
+		return blockstate.is(ModBlocks.PEACOCK_BASS_ROE);
+	};
 
 	public PeacockBass(EntityType<? extends PeacockBass> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 	}
 
@@ -168,26 +172,10 @@ public class PeacockBass extends Animal {
 
 	public void aiStep() {
 		super.aiStep();
-		int i = 10;
-		int j = 4;
-		BlockPos blockpos = this.blockPosition();
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
-
-		for(int k = 4; k <= j; k = k > 0 ? -k : 1 - k) {
-			for(int l = 0; l < i; ++l) {
-				for(int i1 = 0; i1 <= l; i1 = i1 > 0 ? -i1 : 1 - i1) {
-					for(int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1) {
-						blockpos$mutableblockpos.setWithOffset(blockpos, i1, k - 1, j1);
-						if (this.isWithinRestriction(blockpos$mutableblockpos) && (level().getBlockState(blockpos$mutableblockpos).is(ModBlocks.PEACOCK_BASS_ROE))) {
-							if (!this.isBaby()) {
-								for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(5, 5, 5))) {
-									if (entity instanceof Player player) {
-										this.setTarget(player);
-									}
-								}
-							}
-						}
-					}
+		if (this.level().getBlockStates(getBoundingBox().inflate(6, 6, 6)).anyMatch(ROE)) {
+			for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(6, 6, 6))) {
+				if (entity instanceof Player player) {
+					this.setTarget(player);
 				}
 			}
 		}

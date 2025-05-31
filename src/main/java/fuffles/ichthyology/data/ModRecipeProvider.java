@@ -41,6 +41,7 @@ public class ModRecipeProvider extends RecipeProvider
         cookedFood(writer, ModItems.CATFISH_BABY, ModItems.COOKED_CATFISH_BABY);
         cookedFood(writer, ModItems.PEACOCK_BASS_FILET, ModItems.COOKED_PEACOCK_BASS_FILET);
         cookedFood(writer, ModItems.GAR, ModItems.COOKED_GAR);
+        cookedFood(writer, ModItems.GROUND_FISH, ModItems.FISH_STICKS);
         mono2x2(writer, ModItems.Tags.TUBE_CORAL_FRONDS, Items.TUBE_CORAL_BLOCK, RecipeCategory.BUILDING_BLOCKS);
         mono2x2(writer, ModItems.Tags.BRAIN_CORAL_FRONDS, Items.BRAIN_CORAL_BLOCK, RecipeCategory.BUILDING_BLOCKS);
         mono2x2(writer, ModItems.Tags.BUBBLE_CORAL_FRONDS, Items.BUBBLE_CORAL_BLOCK, RecipeCategory.BUILDING_BLOCKS);

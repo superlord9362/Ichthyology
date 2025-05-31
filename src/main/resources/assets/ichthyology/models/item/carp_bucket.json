@@ -1,10 +1,10 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "ichthyology:item/carp_wild_bucket"
+		"layer0": "ichthyology:item/carp_random"
 	},
 	"overrides": [
-		{ "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/carp_bucket" },
+		{ "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/carp_wild_bucket" },
 		{ "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/carp_asagi_bucket" },
 		{ "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/carp_hi_utsuri_bucket" },
 		{ "predicate": { "ichthyology:fish_type": 3 }, "model": "ichthyology:item/carp_karasugoi_bucket" },

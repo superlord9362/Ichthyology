@@ -155,12 +155,16 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 	public void aiStep() {
 		super.aiStep();
 		for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4, 4, 4))) {
-			if ((entity.getHealth() < (entity.getMaxHealth() / 2) || entity.hasEffect(MobEffects.WEAKNESS) || entity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) || entity instanceof Zombie || entity instanceof ZombieHorse) && !(entity instanceof Piranha)) this.setTarget(entity);
+			if ((entity.getHealth() < (entity.getMaxHealth() / 2) || entity.hasEffect(MobEffects.WEAKNESS) || entity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN) || entity instanceof Zombie || entity instanceof ZombieHorse) && !(entity instanceof Piranha) && entity.isInWater()) this.setTarget(entity);
 			else if (this.getLastHurtByMob() != null) {
 				if (!this.getLastHurtByMob().isAlive()) this.setTarget(null);
 			}
 		}
 		if (this.getTarget() != null) {
+			if (!this.getTarget().isInWater()) {
+				this.setAngry(false);
+				this.setTarget(null);
+			}
 			if (this.getTarget().isAlive()) {
 				this.setAngry(true);	
 			} else this.setTarget(null);
@@ -175,7 +179,7 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 
 			this.ticksSinceEaten = 0;
 		} else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
-			this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+			if (this.tickCount % 100 == 0) this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
 			this.level().broadcastEntityEvent(this, (byte)45);
 		}
 	}
@@ -206,19 +210,19 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 
 		@Override
 		protected double getAttackReachSqr(LivingEntity p_25556_) {
-			return (double)(2.5);
+			return (double)(2.5) + Piranha.this.getBbWidth();
 		}
 		
 		public void tick() {
 			super.tick();
 			if (Piranha.this.getTarget() != null) {
-				if ((Piranha.this.getTarget() instanceof Zombie) && Piranha.this.getTarget().getHealth() == 0 && Piranha.this.random.nextInt(20) == 0) {
+				if ((Piranha.this.getTarget() instanceof Zombie) && Piranha.this.getTarget().getHealth() == 0) {
 					Skeleton skeleton = new Skeleton(EntityType.SKELETON, Piranha.this.level());
 					skeleton.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.AIR));
 					skeleton.setPos(Piranha.this.getTarget().blockPosition().getX(), Piranha.this.getTarget().blockPosition().getY(), Piranha.this.getTarget().blockPosition().getZ());
 					Piranha.this.level().addFreshEntity(skeleton);
 				}
-				if (Piranha.this.getTarget() instanceof ZombieHorse && Piranha.this.getTarget().getHealth() == 0 && Piranha.this.random.nextInt(20) == 0) {
+				if (Piranha.this.getTarget() instanceof ZombieHorse && Piranha.this.getTarget().getHealth() == 0) {
 					SkeletonHorse skeleton = new SkeletonHorse(EntityType.SKELETON_HORSE, Piranha.this.level());
 					skeleton.setPos(Piranha.this.getTarget().blockPosition().getX(), Piranha.this.getTarget().blockPosition().getY(), Piranha.this.getTarget().blockPosition().getZ());
 					Piranha.this.level().addFreshEntity(skeleton);

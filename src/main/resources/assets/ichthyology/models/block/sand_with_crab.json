@@ -2,7 +2,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "block/sand",
-		"1": "ichthyology:entity/fiddler_crab",
+		"1": "ichthyology:item/fiddler_crab_hand",
 		"particle": "block/sand"
 	},
 	"elements": [

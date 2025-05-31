@@ -13,6 +13,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.frog.Tadpole;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -51,6 +54,15 @@ public class FishRoeBlock extends Block implements SimpleWaterloggedBlock {
 
 	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
 		return SHAPE;
+	}
+
+	@SuppressWarnings("deprecation")
+	public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+		if (pPlayer.getItemInHand(pHand).isEmpty()) {
+			pPlayer.setItemInHand(pHand, this.getCloneItemStack(pState, pHit, pLevel, pPos, pPlayer));
+			pLevel.setBlockAndUpdate(pPos, Blocks.WATER.defaultBlockState());
+			return InteractionResult.SUCCESS;
+		} else return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
 	}
 
 	protected boolean mayPlaceOn(BlockState p_154539_, BlockGetter p_154540_, BlockPos p_154541_) {

@@ -71,7 +71,7 @@ public class Gar extends Animal {
 	public Gar(EntityType<? extends Gar> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 	}
 
@@ -83,7 +83,7 @@ public class Gar extends Animal {
 		this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
 		this.goalSelector.addGoal(0, new GarBreedGoal(this, 1));
 		this.goalSelector.addGoal(1, new GarLayEggsGoal(this, 1));
-		this.goalSelector.addGoal(8, new OcelotAttackGoal(this));
+		this.goalSelector.addGoal(0, new OcelotAttackGoal(this));
 	}
 
 	public boolean hasEggs() {

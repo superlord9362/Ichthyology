@@ -28,12 +28,16 @@ public class NeonTetra extends AbstractIchthyologySchoolingFish {
 	public NeonTetra(EntityType<? extends WaterAnimal> p_30341_, Level p_30342_) {
 		super(p_30341_, p_30342_);
 	}
-	
+
 	@Override
 	public int getMaxSchoolSize() {
 		return 12;
 	}
-	
+
+	@Override
+	protected void playSwimSound(float pVolume) {
+	}
+
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 2.0D);
 	}
@@ -109,7 +113,7 @@ public class NeonTetra extends AbstractIchthyologySchoolingFish {
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(ModItems.NEON_TETRA_BUCKET);
 	}
-	
+
 	class BoidGoal extends Goal {
 		public static final Logger LOGGER = LogManager.getLogger();
 

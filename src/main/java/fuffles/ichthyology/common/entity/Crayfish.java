@@ -362,7 +362,7 @@ public class Crayfish extends WaterAnimal implements Bucketable {
 	public static boolean checkCrayfishSpawnRules(EntityType<? extends LivingEntity> p_217018_, ServerLevelAccessor p_217019_, MobSpawnType p_217020_, BlockPos p_217021_, RandomSource p_217022_) {
 		int i = p_217019_.getSeaLevel();
 		int j = i - 13;
-		return p_217021_.getY() <= p_217019_.getSeaLevel() - 33 && p_217019_.getRawBrightness(p_217021_, 0) == 0 && p_217019_.getBlockState(p_217021_).is(Blocks.WATER) || p_217021_.getY() >= j && p_217021_.getY() <= i && p_217019_.getFluidState(p_217021_.below()).is(FluidTags.WATER) && (p_217019_.getBiome(p_217021_).is(Biomes.RIVER) || p_217019_.getBiome(p_217021_).is(Biomes.SWAMP)) && p_217019_.getBlockState(p_217021_.above()).is(Blocks.WATER);
+		return p_217021_.getY() <= p_217019_.getSeaLevel() - 33 && p_217019_.getRawBrightness(p_217021_, 0) == 0 && p_217019_.getBlockState(p_217021_).is(Blocks.WATER) || p_217021_.getY() >= j && p_217021_.getY() <= i && (p_217019_.getBiome(p_217021_).is(Biomes.RIVER) || p_217019_.getBiome(p_217021_).is(Biomes.SWAMP)) && p_217019_.getBlockState(p_217021_.above()).is(Blocks.WATER) && p_217019_.getBlockState(p_217021_.below()).isSolid();
 	}
 	
 	static class MoveHelperController extends MoveControl {

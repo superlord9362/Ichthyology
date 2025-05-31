@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -29,6 +30,7 @@ public class Archerfish extends AbstractModFish implements RangedAttackMob {
 
 	public Archerfish(EntityType<? extends AbstractModFish> entityType, Level level) {
 		super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
 	}
 
 	protected void registerGoals() {

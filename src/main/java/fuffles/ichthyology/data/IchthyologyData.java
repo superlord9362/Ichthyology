@@ -22,7 +22,8 @@ public class IchthyologyData
     private static final RegistrySetBuilder BUILTIN_REGISTRIES = new RegistrySetBuilder()
             .add(ForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifierProvider::bootstrap);
 
-    public static void onGatherData(GatherDataEvent event)
+    @SuppressWarnings("deprecation")
+	public static void onGatherData(GatherDataEvent event)
     {
         DataGenerator generator = event.getGenerator();
         PackOutput out = generator.getPackOutput();

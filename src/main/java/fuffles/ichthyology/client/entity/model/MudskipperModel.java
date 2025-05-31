@@ -81,7 +81,7 @@ public class MudskipperModel extends EntityModel<Mudskipper> {
 		this.Body.zRot = 0;
 		if (entity.isFighting()) {
 			this.Body.y = -Mth.abs(4 * Mth.cos(0.2F * ageInTicks)) + 22.7F;
-		} else if (!entity.isInWater()) {
+		} else {
 			this.Body.y = -Mth.abs(Mth.cos(1F + limbSwing * 0.3F) * 3.6F * limbSwingAmount) + 22.7F;
 		}
 		if (entity.isInWater()) {
@@ -101,7 +101,6 @@ public class MudskipperModel extends EntityModel<Mudskipper> {
 			this.Body.yRot = 0;
 			this.Tail.yRot = 0;
 			this.Tail_f.yRot = 0;
-			this.Body.y = -Mth.abs(Mth.cos(1F + limbSwing * 0.3F) * 3.6F * limbSwingAmount) + 22.7F;
 			if (entity.isBlinking()) {
 				this.eyes.y = Mth.abs(-0.99F * Mth.sin(0.05F * ageInTicks)) - 1;
 			}

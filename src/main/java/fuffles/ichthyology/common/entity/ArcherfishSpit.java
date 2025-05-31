@@ -33,6 +33,7 @@ public class ArcherfishSpit extends Projectile {
 	/**
 	 * Called to update the entity's position/logic.
 	 */
+	@SuppressWarnings("deprecation")
 	public void tick() {
 		super.tick();
 		Vec3 vec3 = this.getDeltaMovement();
@@ -43,9 +44,7 @@ public class ArcherfishSpit extends Projectile {
 		double d1 = this.getY() + vec3.y;
 		double d2 = this.getZ() + vec3.z;
 		this.updateRotation();
-		if (this.level().getBlockStates(this.getBoundingBox()).noneMatch(BlockBehaviour.BlockStateBase::isAir)) {
-			this.discard();
-		} else if (this.isInWaterOrBubble()) {
+		if (this.level().getBlockStates(this.getBoundingBox()).noneMatch(BlockBehaviour.BlockStateBase::isAir) && this.level().getBlockStates(this.getBoundingBox()).noneMatch(BlockBehaviour.BlockStateBase::liquid)) {
 			this.discard();
 		} else {
 			this.setDeltaMovement(vec3.scale((double)0.99F));
@@ -75,9 +74,8 @@ public class ArcherfishSpit extends Projectile {
 	}
 
 	protected void onHitBlock(BlockHitResult pResult) {
-		super.onHitBlock(pResult);
-		if (!this.level().isClientSide() && this.level().getBlockState(pResult.getBlockPos()).getBlock() != Blocks.WATER) {
-			this.discard();
+		if (this.level().getBlockState(pResult.getBlockPos()).getBlock() != Blocks.WATER) {
+			super.onHitBlock(pResult);
 		}
 
 	}

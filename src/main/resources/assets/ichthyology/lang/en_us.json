@@ -144,12 +144,17 @@
 	"item.ichthyology.sturgeon_baby": "Sturgeon Baby",
 	"item.ichthyology.olmlette": "Olmlette",
 	"item.ichthyology.caviar": "Caviar",
+	"item.ichthyology.fish_sticks": "Fish Sticks",
 	
 	"block.ichthyology.catfish_roe": "Catfish Roe",
 	"block.ichthyology.peacock_bass_roe": "Peacock Bass Roe",
 	"block.ichthyology.gar_roe": "Gar Roe",
 	"block.ichthyology.sturgeon_roe": "Sturgeon Roe",
 	"block.ichthyology.olm_eggs": "Olmspawn",
+	
+	"block.ichthyology.sand_with_crab": "Sand With Crab",
+	"block.ichthyology.red_sand_with_crab": "Red Sand With Crab",
+	"block.ichthyology.mud_with_crab": "Mud With Crab",
 	
 	"item.ichthyology.shiny_scale": "Shiny Scale",
 	"item.ichthyology.fiddler_crab": "Fiddler Crab",

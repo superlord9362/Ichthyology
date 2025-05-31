@@ -74,7 +74,7 @@ public class Sturgeon extends Animal {
 	public Sturgeon(EntityType<? extends Sturgeon> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 	}
 

@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.common.item.CrabItem;
 import fuffles.ichthyology.common.item.FishTypedItem;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -160,7 +159,8 @@ public class ModItems
 	public static final Item STURGEON_BABY = ITEM_REGISTRY.register("sturgeon_baby", new Item(new Item.Properties().food(rawSmallFish().build())));
 	@SuppressWarnings("deprecation")
 	public static final Item GROUND_FISH = ITEM_REGISTRY.register("ground_fish_meat", new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(1).saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.HUNGER, 200), 1).effect(new MobEffectInstance(MobEffects.CONFUSION), 1).build())));
-
+	public static final Item FISH_STICKS = ITEM_REGISTRY.register("fish_sticks", new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(0.6F).build())));
+	
 	public static final Item SHINY_SCALE = ITEM_REGISTRY.register("shiny_scale", new Item(new Item.Properties()));
 
 	public static final BlockItem CATFISH_ROE = registerRoe("catfish", ModBlocks.CATFISH_ROE);

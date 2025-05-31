@@ -46,7 +46,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
 public class Mudskipper extends Animal implements Bucketable {
@@ -55,23 +54,23 @@ public class Mudskipper extends Animal implements Bucketable {
 	private static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.defineId(Mudskipper.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> BLINKING = SynchedEntityData.defineId(Mudskipper.class, EntityDataSerializers.BOOLEAN);
 
-	public int fightCooldownTicks = 0;
+	public int fightCooldownTicks;
 
 	@SuppressWarnings("deprecation")
 	public Mudskipper(EntityType<? extends Mudskipper> entityType, Level level) {
 		super(entityType, level);
-		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.3F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.3F, false);
 		this.lookControl = new SmoothSwimmingLookControl(this, 20);
 		this.setMaxUpStep(1.0F);
+		this.fightCooldownTicks = 4800;
 	}
 
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 10));
-		this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1));
+		this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 1, 10));
+		this.goalSelector.addGoal(0, new RandomStrollGoal(this, 1));
 		this.goalSelector.addGoal(0, new PanicGoal(this, 1.2F));
-		this.goalSelector.addGoal(0, new MudskipperFindWaterGoal(this));
+		//		this.goalSelector.addGoal(2, new MudskipperFindWaterGoal(this));
 		this.goalSelector.addGoal(1, new MudskipperRollGoal(this));
 		this.goalSelector.addGoal(1, new MudskipperFightGoal(this));
 	}
@@ -252,23 +251,25 @@ public class Mudskipper extends Animal implements Bucketable {
 	public void aiStep() {
 		super.aiStep();
 		for (Mudskipper mudskipper : this.level().getEntitiesOfClass(Mudskipper.class, this.getBoundingBox().inflate(4, 4, 4))) {
-			if (!this.isRolling() && !mudskipper.isRolling()) {
-				if (mudskipper.getFightCooldownTicks() == 0 && this.getFightCooldownTicks() == 0) {
-					if (!this.isInWater() && !mudskipper.isInWater()) {
-						mudskipper.lookAt(this, 0, 0);
-						this.lookAt(mudskipper, 0, 0);
-						mudskipper.setFighting(true);
-						this.setFighting(true);
+			if (mudskipper != this) {
+				if (!this.isRolling() && !mudskipper.isRolling()) {
+					if (mudskipper.getFightCooldownTicks() == 0 && this.getFightCooldownTicks() == 0) {
+						if (!this.isInWater() && !mudskipper.isInWater()) {
+							mudskipper.getLookControl().setLookAt(this);
+							this.getLookControl().setLookAt(mudskipper);
+							mudskipper.setFighting(true);
+							this.setFighting(true);
+						}
 					}
 				}
 			}
 		}
 		if (this.tickCount % 4800 == 0 && !this.isInWater()) {
-			if (level().getBlockState(this.blockPosition().below()).getBlock() == Blocks.CLAY || level().getBlockState(this.blockPosition().below()).getBlock() == Blocks.MUD) {
+			if (level().getBlockState(this.blockPosition().below()).getBlock() == Blocks.CLAY || level().getBlockState(this.blockPosition()).getBlock() == Blocks.MUD) {
 				this.setRolling(true);
 			}
 		}
-		if (this.random.nextInt(100) == 35) {
+		if (this.getRandom().nextInt(100) == 35) {
 			if (this.isBlinking()) this.setBlinking(false);
 			else this.setBlinking(true);
 		}
@@ -291,8 +292,9 @@ public class Mudskipper extends Animal implements Bucketable {
 		public void tick() {
 			super.tick();
 			mudskipper.moveControl.setWantedPosition(mudskipper.getX(), mudskipper.getY(), mudskipper.getZ(), 0);
-			if (mudskipper.tickCount % 200 == 0) {
+			if (mudskipper.getRandom().nextInt(100) == 0) {
 				ItemEntity item = new ItemEntity(mudskipper.level(), mudskipper.getX(), mudskipper.getY(), mudskipper.getZ(), new ItemStack(Items.CLAY_BALL));
+				item.setPos(mudskipper.getEyePosition());
 				mudskipper.level().addFreshEntity(item);
 				mudskipper.setRolling(false);
 			}
@@ -301,7 +303,7 @@ public class Mudskipper extends Animal implements Bucketable {
 		public boolean canContinueToUse() {
 			return mudskipper.isRolling() && !mudskipper.isInWater();
 		}
-		
+
 		public void stop() {
 			mudskipper.setRolling(false);
 		}
@@ -327,11 +329,18 @@ public class Mudskipper extends Animal implements Bucketable {
 			if (mudskipper.tickCount % 400 == 0) {
 				mudskipper.setFightCooldownTicks(3600);
 				mudskipper.setFighting(false);
+				stop();
 			}
 		}
 
 		public boolean canContinueToUse() {
 			return mudskipper.isFighting();
+		}
+		
+		public void stop() {
+			super.stop();
+			mudskipper.setFightCooldownTicks(3600);
+			mudskipper.setFighting(false);
 		}
 
 	}

@@ -2,7 +2,6 @@ package fuffles.ichthyology.init;
 
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.common.world.level.storage.loot.functions.TransferTagValueFunction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 

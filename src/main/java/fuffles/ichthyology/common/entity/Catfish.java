@@ -20,7 +20,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
@@ -61,13 +60,13 @@ public class Catfish extends Animal {
 	int layEggsCounter;
 
 	public static final Predicate<LivingEntity> SMALL_ENTITY = (entity) -> {
-		return entity.getBbWidth() <= 0.25F && entity.getType() != ModEntityTypes.CATFISH && entity.getType() != ModEntityTypes.CATFISH_BABY;
+		return entity.getBbWidth() <= 0.25F && entity.getType() != ModEntityTypes.CATFISH && entity.getType() != ModEntityTypes.CATFISH_BABY || entity.getType() == ModEntityTypes.CRAYFISH;
 	};
 
 	public Catfish(EntityType<? extends Catfish> entityType, Level level) {
 		super(entityType, level);
 		this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 	}
 
@@ -239,7 +238,7 @@ public class Catfish extends Animal {
 			super.travel(pTravelVector);
 		}
 	}
-	
+
 	public void aiStep() {
 		if (!this.isInWater() && this.onGround() && this.verticalCollision) {
 			this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), (double)0.4F, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
@@ -266,10 +265,12 @@ public class Catfish extends Animal {
 
 		protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
 			if (Catfish.this.getTarget() != null) {
-				if (Catfish.this.getTarget().distanceTo(Catfish.this) > 0.75F) {
-					Catfish.this.getTarget().setDeltaMovement(Catfish.this.getTarget().position().vectorTo(Catfish.this.position()).normalize().scale(0.75D));
+				if (Catfish.this.getTarget().distanceTo(Catfish.this) < 0.35F) Catfish.this.getTarget().kill();
+				else if (Catfish.this.getTarget().distanceTo(Catfish.this) < 2.25F) {
+					Catfish.this.getTarget().setDeltaMovement(Catfish.this.getTarget().position().vectorTo(Catfish.this.position()).normalize().scale(0.35D));
 				} else {
-					Catfish.this.getTarget().remove(Entity.RemovalReason.KILLED);
+					Catfish.this.lookControl.setLookAt(Catfish.this.getTarget().getX(), Catfish.this.getTarget().getY(), Catfish.this.getTarget().getZ());
+					Catfish.this.setDeltaMovement(Catfish.this.position().vectorTo(Catfish.this.getTarget().position()).normalize().scale(0.15D));
 				}
 			}
 		}
