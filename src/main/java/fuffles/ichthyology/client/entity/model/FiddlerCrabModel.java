@@ -110,6 +110,10 @@ public class FiddlerCrabModel extends EntityModel<FiddlerCrab> {
 	@Override
 	public void setupAnim(FiddlerCrab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.belly.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.eye.xRot = headPitch * ((float)Math.PI / 180F) + 0.2618F;
+		this.eye_1.xRot = headPitch * ((float)Math.PI / 180F) + 0.2618F;
+		this.shell.zRot = -(Mth.cos(limbSwing * 0.6662F * 2.0F) * 0.2F) * limbSwingAmount;
+		this.shell.xRot = -0.2618F;
 		this.legg_r_4.zRot = 0;
 		this.legg_l_4.zRot = 0;
 		this.legg_r_3.zRot = 0;
@@ -126,14 +130,14 @@ public class FiddlerCrabModel extends EntityModel<FiddlerCrab> {
 		this.legg_l_2.yRot = 0.2618F;
 		this.legg_r_1.yRot = 0.2618F;
 		this.legg_l_1.yRot = -0.2618F;
-		float f3 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F) * limbSwingAmount;
-		float f4 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + (float)Math.PI) * 0.4F) * limbSwingAmount;
-		float f5 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + ((float)Math.PI / 2F)) * 0.4F) * limbSwingAmount;
-		float f6 = -(Mth.cos(limbSwing * 0.6662F * 2.0F + ((float)Math.PI * 1.5F)) * 0.4F) * limbSwingAmount;
-		float f7 = Math.abs(Mth.sin(limbSwing * 0.6662F + 0.0F) * 2.4F) * limbSwingAmount;
-		float f8 = Math.abs(Mth.sin(limbSwing * 0.6662F + (float)Math.PI) * 2.4F) * limbSwingAmount;
-		float f9 = Math.abs(Mth.sin(limbSwing * 0.6662F + ((float)Math.PI / 2F)) * 2.4F) * limbSwingAmount;
-		float f10 = Math.abs(Mth.sin(limbSwing * 0.6662F + ((float)Math.PI * 1.5F)) * 2.4F) * limbSwingAmount;
+		float f3 = -(Mth.cos(limbSwing * 0.8662F * 2.0F + 0.0F) * 0.4F) * limbSwingAmount;
+		float f4 = -(Mth.cos(limbSwing * 0.8662F * 2.0F + (float)Math.PI) * 0.4F) * limbSwingAmount;
+		float f5 = -(Mth.cos(limbSwing * 0.8662F * 2.0F + ((float)Math.PI / 2F)) * 0.4F) * limbSwingAmount;
+		float f6 = -(Mth.cos(limbSwing * 0.8662F * 2.0F + ((float)Math.PI * 1.5F)) * 0.4F) * limbSwingAmount;
+		float f7 = Math.abs(Mth.sin(limbSwing * 0.8662F + 0.0F) * 2.4F) * limbSwingAmount;
+		float f8 = Math.abs(Mth.sin(limbSwing * 0.8662F + (float)Math.PI) * 2.4F) * limbSwingAmount;
+		float f9 = Math.abs(Mth.sin(limbSwing * 0.8662F + ((float)Math.PI / 2F)) * 2.4F) * limbSwingAmount;
+		float f10 = Math.abs(Mth.sin(limbSwing * 0.8662F + ((float)Math.PI * 1.5F)) * 2.4F) * limbSwingAmount;
 		this.legg_r_4.yRot += f3;
 		this.legg_l_4.yRot += -f3;
 		this.legg_r_3.yRot += f4;
@@ -151,10 +155,12 @@ public class FiddlerCrabModel extends EntityModel<FiddlerCrab> {
 		this.legg_r_1.zRot += -f10;
 		this.legg_l_1.zRot += f10;
 		if (entity.isWaving()) {
-			this.arm_big.zRot = -Math.abs(Mth.sin(0.2F * ageInTicks) * 1.2F) + 0.2737F;
+			this.arm_big.zRot = -Math.abs(Mth.sin(0.2F * ageInTicks) * 1.5F) + 0.2737F;
+			this.claw_big.yRot = Math.abs(Mth.sin(0.2F * ageInTicks)) - 0.4691F;
 			this.claw_big_opening.zRot = -Math.abs(Mth.sin(0.2F * ageInTicks) * 0.8F);
 		} else {
 			this.arm_big.zRot = 0.2737F;
+			this.claw_big.yRot = -0.4691F;
 			this.claw_big_opening.zRot = 0;
 		}
 	}

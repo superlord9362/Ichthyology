@@ -12,6 +12,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
@@ -19,9 +20,12 @@ import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class Archerfish extends AbstractModFish implements RangedAttackMob {
 	public static final Predicate<LivingEntity> ARTHROPOD = (p_289448_) -> {
@@ -45,6 +49,9 @@ public class Archerfish extends AbstractModFish implements RangedAttackMob {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
 	}
 
+	protected PathNavigation createNavigation(Level pLevel) {
+		return new WaterBoundPathNavigation(this, pLevel);
+	}
 
 	@Override
 	public ItemStack getBucketItemStack() {
@@ -87,6 +94,19 @@ public class Archerfish extends AbstractModFish implements RangedAttackMob {
 	static class ArcherfishHurtByTargetGoal extends HurtByTargetGoal {
 		public ArcherfishHurtByTargetGoal(Archerfish pArcherfish) {
 			super(pArcherfish);
+		}
+	}
+	
+	public void travel(Vec3 pTravelVector) {
+		if (this.isEffectiveAi() && this.isInWater()) {
+			this.moveRelative(this.getSpeed(), pTravelVector);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+			if (this.getTarget() == null) {
+				this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+			}
+		} else {
+			super.travel(pTravelVector);
 		}
 	}
 

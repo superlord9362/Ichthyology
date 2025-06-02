@@ -122,7 +122,7 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		super.aiStep();
 		List<FiddlerCrab> fiddlerCrab = this.level().getEntitiesOfClass(FiddlerCrab.class, this.getBoundingBox().inflate(4, 4, 4));
 		if (!fiddlerCrab.isEmpty() && fiddlerCrab.get(0) != this) {
-			if (this.random.nextInt(100) <= 1) {
+			if (this.random.nextInt(200) == 98) {
 				this.setWaving(this.isWaving() ? false : true);
 			}
 			if (fiddlerCrab.get(0).distanceTo(this) > 3) fiddlerCrab.remove(0); 
