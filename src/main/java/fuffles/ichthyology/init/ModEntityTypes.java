@@ -28,6 +28,7 @@ import fuffles.ichthyology.common.entity.Tilapia;
 import fuffles.ichthyology.common.entity.perch.Perch;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -74,5 +75,33 @@ public class ModEntityTypes
 	public static final EntityType<Olm> OLM = registerFish("olm", Olm::new, 0.25F, 0.25F);
 
 	public static final EntityType<ArcherfishSpit> ARCHERFISH_SPIT = registerSimple("archerfish_spit", EntityType.Builder.<ArcherfishSpit>of(ArcherfishSpit::new, MobCategory.MISC).sized(0.125F, 0.125F));
+	
+	public static final class Tags {
+		public static final TagKey<EntityType<?>> CAVE_FISH = tag("cave_fish");
+		public static final TagKey<EntityType<?>> FOREST_FISH = tag("forest_fish");
+		public static final TagKey<EntityType<?>> CHERY_FISH = tag("cherry_fish");
+		public static final TagKey<EntityType<?>> PLAINS_FISH = tag("plains_fish");
+		public static final TagKey<EntityType<?>> SAVANNA_FISH = tag("savanna_fish");
+		public static final TagKey<EntityType<?>> DESERT_FISH = tag("desert_fish");
+		public static final TagKey<EntityType<?>> JUNGLE_FISH = tag("jungle_fish");
+		public static final TagKey<EntityType<?>> RIVER_FISH = tag("river_fish");
+		public static final TagKey<EntityType<?>> FROZEN_RIVER_FISH = tag("frozen_river_fish");
+		public static final TagKey<EntityType<?>> SWAMP_FISH = tag("swamp_fish");
+		public static final TagKey<EntityType<?>> MANGROVE_FISH = tag("mangrove_fish");
+		public static final TagKey<EntityType<?>> DRIPSTONE_FISH = tag("dripstone_fish");
+		public static final TagKey<EntityType<?>> DEEP_COLD_OCEAN_FISH = tag("deep_cold_ocean_fish");
+//		public static final TagKey<EntityType<?>> COLD_OCEAN_FISH = tag("cold_ocean_fish");
+//		public static final TagKey<EntityType<?>> FROZEN_OCEAN_FISH = tag("frozen_ocean_fish");
+//		public static final TagKey<EntityType<?>> WARM_OCEAN_FISH = tag("warm_ocean_fish");
+//		public static final TagKey<EntityType<?>> LUKEWARM_OCEAN_FISH = tag("lukewarm_ocean_fish");
+//		public static final TagKey<EntityType<?>> DEEP_LUKEWARM_OCEAN_FISH = tag("deep_lukewarm_ocean_fish");
+//		public static final TagKey<EntityType<?>> OCEAN_FISH = tag("ocean_fish");
+//		public static final TagKey<EntityType<?>> DEEP_OCEAN_FISH = tag("deep_ocean_fish");
+//		public static final TagKey<EntityType<?>> DEEP_FROZEN_OCEAN_FISH = tag("deep_frozen_ocean_fish");
+		
+		private static TagKey<EntityType<?>> tag(String path) {
+			return TagKey.create(Registries.ENTITY_TYPE, Ichthyology.id(path));
+		}
+	}
 	
 }

@@ -57,7 +57,7 @@ public class Pleco extends AbstractIchthyologyFish {
 	}
 	
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.ARMOR, 2);
 	}
 
 	protected void registerGoals() {

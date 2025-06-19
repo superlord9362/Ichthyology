@@ -54,6 +54,7 @@ public class ModRecipeProvider extends RecipeProvider
         shapelessItem(writer, ModItems.GAR_BABY, ModItems.GAR, 1, RecipeCategory.FOOD);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.OLMLETTE).requires(Tags.Items.MUSHROOMS).requires(Tags.Items.MUSHROOMS).requires(ModItems.OLM_EGGS).unlockedBy("has_olmlette", has(ModItems.OLMLETTE)).unlockedBy("has_olmspawn", has(ModItems.OLM_EGGS)).unlockedBy("has_brown_mushroom", has(Blocks.BROWN_MUSHROOM)).unlockedBy("has_red_mushroom", has(Blocks.RED_MUSHROOM)).save(writer, Ichthyology.id(getItemName(ModItems.OLMLETTE)));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.CAVIAR).requires(ModItems.STURGEON_ROE).requires(ModItems.STURGEON_ROE).requires(Items.BREAD).unlockedBy("has_caviar", has(ModItems.CAVIAR)).unlockedBy("has_sturgeon_roe", has(ModItems.STURGEON_ROE)).unlockedBy("has_bread", has(Items.BREAD)).save(writer, Ichthyology.id(getItemName(ModItems.CAVIAR)));
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CHUM_BUCKET).requires(Items.BUCKET).requires(Items.BREAD).requires(Items.ROTTEN_FLESH).requires(ModItems.GROUND_FISH).unlockedBy("has_bucket", has(Items.BUCKET)).unlockedBy("has_ground_fish", has(ModItems.GROUND_FISH)).save(writer, Ichthyology.id(getItemName(ModItems.CHUM_BUCKET)));
     }
 
     private static void mono2x2(Consumer<FinishedRecipe> writer, TagKey<Item> tag, Item result, RecipeCategory category)

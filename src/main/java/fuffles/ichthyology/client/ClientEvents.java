@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -110,11 +111,13 @@ public class ClientEvents {
 	@SuppressWarnings("deprecation")
 	public static void setupBlockRenders() {
 		RenderType cutoutRenderType = RenderType.cutout();
+		RenderType translucentRenderType = RenderType.translucent();
 		ItemBlockRenderTypes.setRenderLayer(ModBlocks.CATFISH_ROE, cutoutRenderType);
 		ItemBlockRenderTypes.setRenderLayer(ModBlocks.PEACOCK_BASS_ROE, cutoutRenderType);
 		ItemBlockRenderTypes.setRenderLayer(ModBlocks.GAR_ROE, cutoutRenderType);
 		ItemBlockRenderTypes.setRenderLayer(ModBlocks.STURGEON_ROE, cutoutRenderType);
-		ItemBlockRenderTypes.setRenderLayer(ModBlocks.OLM_EGGS, cutoutRenderType);
+		ItemBlockRenderTypes.setRenderLayer(ModBlocks.OLM_EGGS, translucentRenderType);
+		ItemBlockRenderTypes.setRenderLayer(Blocks.FROGSPAWN, translucentRenderType);
 	}
 
 }

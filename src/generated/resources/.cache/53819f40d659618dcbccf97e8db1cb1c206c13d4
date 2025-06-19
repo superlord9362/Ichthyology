@@ -1,0 +1,14 @@
+// 1.20.1	2025-06-10T02:42:45.3626022	Tags for minecraft:entity_type mod id ichthyology
+391ca62906ad4c89d5cf45de0975233d74dbfa5b data/ichthyology/tags/entity_types/cave_fish.json
+d2d2166347a6ef7d5fd4c4ff6aacf3eff2f1a793 data/ichthyology/tags/entity_types/cherry_fish.json
+1fb10948dd132dc2376df51d03e15798fbabd208 data/ichthyology/tags/entity_types/deep_cold_ocean_fish.json
+90e4ac2db45ecb90cf15a8346dd1fc1853fc50a2 data/ichthyology/tags/entity_types/desert_fish.json
+77031b623e5a7063cbca45d4a8e98c5342ca0d72 data/ichthyology/tags/entity_types/dripstone_fish.json
+d2d2166347a6ef7d5fd4c4ff6aacf3eff2f1a793 data/ichthyology/tags/entity_types/forest_fish.json
+0836e1118380fab89f5c8e59515079c456a6fc1d data/ichthyology/tags/entity_types/frozen_river_fish.json
+4d348b3f2e7ca0d0f611de24e6f63f66af39da35 data/ichthyology/tags/entity_types/jungle_fish.json
+2e0bdce81decbc18ba637c39e9963bc515a8d3f0 data/ichthyology/tags/entity_types/mangrove_fish.json
+d2d2166347a6ef7d5fd4c4ff6aacf3eff2f1a793 data/ichthyology/tags/entity_types/plains_fish.json
+951768ea2393fd61fe17a31cf741cca49fb1c504 data/ichthyology/tags/entity_types/river_fish.json
+c99d922b13b461fdf7db3a519580d02a93a26ada data/ichthyology/tags/entity_types/savanna_fish.json
+a0629a0e980715fb964b57df831e110ab6552225 data/ichthyology/tags/entity_types/swamp_fish.json

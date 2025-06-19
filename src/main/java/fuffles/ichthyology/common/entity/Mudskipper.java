@@ -269,7 +269,7 @@ public class Mudskipper extends Animal implements Bucketable {
 				this.setRolling(true);
 			}
 		}
-		if (this.getRandom().nextInt(100) == 35) {
+		if (this.getRandom().nextInt(100) == 36) {
 			if (this.isBlinking()) this.setBlinking(false);
 			else this.setBlinking(true);
 		}

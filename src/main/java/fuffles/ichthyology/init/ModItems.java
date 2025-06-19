@@ -3,6 +3,7 @@ package fuffles.ichthyology.init;
 import java.util.function.Supplier;
 
 import fuffles.ichthyology.Ichthyology;
+import fuffles.ichthyology.common.item.ChumBucketItem;
 import fuffles.ichthyology.common.item.CrabItem;
 import fuffles.ichthyology.common.item.FishTypedItem;
 import fuffles.ichthyology.common.item.ShinyScaleItem;
@@ -160,6 +161,7 @@ public class ModItems
 	public static final Item STURGEON_BABY = ITEM_REGISTRY.register("sturgeon_baby", new Item(new Item.Properties().food(rawSmallFish().build())));
 	@SuppressWarnings("deprecation")
 	public static final Item GROUND_FISH = ITEM_REGISTRY.register("ground_fish_meat", new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(1).saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.HUNGER, 200), 1).effect(new MobEffectInstance(MobEffects.CONFUSION), 1).build())));
+	public static final Item CHUM_BUCKET = ITEM_REGISTRY.register("chum_bucket", new ChumBucketItem(new Item.Properties().stacksTo(1)));
 	public static final Item FISH_STICKS = ITEM_REGISTRY.register("fish_sticks", new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(5).saturationMod(0.6F).build())));
 	
 	public static final Item SHINY_SCALE = ITEM_REGISTRY.register("shiny_scale", new ShinyScaleItem(new Item.Properties()));

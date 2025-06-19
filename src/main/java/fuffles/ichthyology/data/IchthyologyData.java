@@ -1,5 +1,10 @@
 package fuffles.ichthyology.data;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+
 import fuffles.ichthyology.Ichthyology;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -11,11 +16,6 @@ import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 public class IchthyologyData
 {
@@ -39,5 +39,6 @@ public class IchthyologyData
         ModBlockTagsProvider blockTagsAccess = generator.addProvider(isServerSide, new ModBlockTagsProvider(out, lookupProvider, helper));
         generator.addProvider(isServerSide, new ModItemTagsProvider(out, lookupProvider, blockTagsAccess.contentsGetter(), helper));
         generator.addProvider(isServerSide, new ModBiomeTagsProvider(out, lookupProvider, helper));
+        generator.addProvider(isServerSide, new ModEntityTypeTagsProvider(out, lookupProvider, helper));
     }
 }

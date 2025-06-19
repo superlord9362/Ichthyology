@@ -166,7 +166,7 @@ public class Crayfish extends WaterAnimal implements Bucketable {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5.0D).add(Attributes.ATTACK_DAMAGE, 1).add(Attributes.FOLLOW_RANGE, 2);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5.0D).add(Attributes.ATTACK_DAMAGE, 1).add(Attributes.FOLLOW_RANGE, 2).add(Attributes.ARMOR, 2);
 	}
 
 	@SuppressWarnings("deprecation")

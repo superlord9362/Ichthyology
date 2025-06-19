@@ -45,6 +45,7 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 
 	public Piranha(EntityType<? extends WaterAnimal> p_30341_, Level p_30342_) {
 		super(p_30341_, p_30342_);
+		this.setCanPickUpLoot(true);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -165,7 +166,7 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 				this.setAngry(false);
 				this.setTarget(null);
 			}
-			if (this.getTarget().isAlive()) {
+			if (this.getTarget().isAlive() && this.getTarget() != null) {
 				this.setAngry(true);	
 			} else this.setTarget(null);
 		} else this.setAngry(false);
@@ -212,7 +213,7 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 		protected double getAttackReachSqr(LivingEntity p_25556_) {
 			return (double)(2.5) + Piranha.this.getBbWidth();
 		}
-		
+
 		public void tick() {
 			super.tick();
 			if (Piranha.this.getTarget() != null) {
@@ -248,7 +249,8 @@ public class Piranha extends AbstractIchthyologySchoolingFish {
 	public boolean canHoldItem(ItemStack p_28578_) {
 		Item item = p_28578_.getItem();
 		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-		return itemstack.isEmpty() && this.ticksSinceEaten > 0 && (item.getFoodProperties().isMeat());
+		if (item.getFoodProperties() != null) return itemstack.isEmpty() && this.ticksSinceEaten > 0 && (item.getFoodProperties().isMeat());
+		else return false;
 	}
 
 	private void spitOutItem(ItemStack p_28602_) {

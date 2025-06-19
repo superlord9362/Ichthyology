@@ -86,7 +86,7 @@ public class PiranhaModel extends EntityModel<Piranha> implements ArmedModel {
 		modelrenderer.x += f;
 		modelrenderer.translateAndRotate(matrixStackIn);
 		modelrenderer.x -= f;
-		matrixStackIn.translate(0, 0.7, 0);
+		matrixStackIn.translate(0, 0.85, 0);
 	}
 
 	protected ModelPart getArmForSide(HumanoidArm side) {

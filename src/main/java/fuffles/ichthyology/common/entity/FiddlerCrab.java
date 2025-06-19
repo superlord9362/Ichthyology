@@ -26,9 +26,11 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
@@ -112,6 +114,7 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		this.goalSelector.addGoal(0, new PanicGoal(this, 1.2D));
 		this.goalSelector.addGoal(2, new FiddlerCrabBurrowGoal(this));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(1, new FiddlerCrabAvoidGoal(this, Player.class, 6, 1, 1.2D));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -366,6 +369,21 @@ public class FiddlerCrab extends Animal implements Bucketable {
 				}
 			}
 		}
+	}
+	
+	public class FiddlerCrabAvoidGoal extends AvoidEntityGoal<Player> {
+		
+		Player player;
+
+		public FiddlerCrabAvoidGoal(PathfinderMob pMob, Class<Player> pEntityClassToAvoid, float pMaxDistance, double pWalkSpeedModifier, double pSprintSpeedModifier) {
+			super(pMob, pEntityClassToAvoid, pMaxDistance, pWalkSpeedModifier, pSprintSpeedModifier);
+			this.player = this.toAvoid;
+		}
+		
+		public boolean canUse() {
+			return super.canUse() && this.player.isSprinting();
+		}
+		
 	}
 
 }

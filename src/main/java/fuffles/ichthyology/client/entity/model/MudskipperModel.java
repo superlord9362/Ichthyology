@@ -79,6 +79,7 @@ public class MudskipperModel extends EntityModel<Mudskipper> {
 	public void setupAnim(Mudskipper entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.Body.y = 22.7F;
 		this.Body.zRot = 0;
+		this.eyes.y = -1;
 		if (entity.isFighting()) {
 			this.Body.y = -Mth.abs(4 * Mth.cos(0.2F * ageInTicks)) + 22.7F;
 		} else {
@@ -95,8 +96,8 @@ public class MudskipperModel extends EntityModel<Mudskipper> {
 		} else {
 			this.Head.xRot = headPitch * ((float)Math.PI / 180F);
 			this.Head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-			this.Pectoral_f_l.yRot = Mth.cos(1.0F + limbSwing * 0.3F) * 0.6F * limbSwingAmount;
-			this.Pectoral_f_r.yRot = Mth.cos(1.0F + limbSwing * 0.3F) * 0.6F * limbSwingAmount;
+			this.Pectoral_f_l.yRot = Mth.cos(1.0F + limbSwing * 0.6F) * 1.6F * limbSwingAmount;
+			this.Pectoral_f_r.yRot = -Mth.cos(1.0F + limbSwing * 0.6F) * 1.6F * limbSwingAmount;
 			this.Body.xRot = 0;
 			this.Body.yRot = 0;
 			this.Tail.yRot = 0;
@@ -110,7 +111,6 @@ public class MudskipperModel extends EntityModel<Mudskipper> {
 		} else {
 			this.Body.zRot = 0;
 		}
-		this.eyes.y = -1;
 	}
 
 	@Override

@@ -2,6 +2,10 @@ package fuffles.ichthyology.common.entity;
 
 import java.util.function.Predicate;
 
+import javax.annotation.Nullable;
+
+import org.jetbrains.annotations.NotNull;
+
 import fuffles.ichthyology.init.ModBlocks;
 import fuffles.ichthyology.init.ModEntityTypes;
 import fuffles.ichthyology.init.ModItems;
@@ -19,6 +23,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -28,6 +33,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -48,6 +54,7 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,7 +64,9 @@ import net.minecraft.world.phys.Vec3;
 public class Catfish extends Animal {
 	private static final EntityDataAccessor<Boolean> HAS_EGGS = SynchedEntityData.defineId(Catfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> LAYING_EGGS = SynchedEntityData.defineId(Catfish.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> HUNTING = SynchedEntityData.defineId(Catfish.class, EntityDataSerializers.BOOLEAN);
 	int layEggsCounter;
+	int huntTimer;
 
 	public static final Predicate<LivingEntity> SMALL_ENTITY = (entity) -> {
 		return entity.getBbWidth() <= 0.25F && entity.getType() != ModEntityTypes.CATFISH && entity.getType() != ModEntityTypes.CATFISH_BABY || entity.getType() == ModEntityTypes.CRAYFISH;
@@ -99,24 +108,43 @@ public class Catfish extends Animal {
 		this.entityData.set(LAYING_EGGS, pIsLayingEggs);
 	}
 
+	public boolean isHunting() {
+		return this.entityData.get(HUNTING);
+	}
+
+	void setHunting(boolean isHunting) {
+		this.entityData.set(HUNTING, isHunting);
+	}
+
 	public boolean isFood(ItemStack pStack) {
 		return pStack.is(ModItems.CRAYFISH);
+	}
+	
+	public int huntTimer() {
+		return huntTimer;
+	}
+	
+	public void setHuntTimer(int timer) {
+		huntTimer = timer;
 	}
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(HAS_EGGS, false);
 		this.entityData.define(LAYING_EGGS, false);
+		this.entityData.define(HUNTING, false);
 	}
 
 	public void addAdditionalSaveData(CompoundTag pCompound) {
 		super.addAdditionalSaveData(pCompound);
 		pCompound.putBoolean("HasEggs", this.hasEggs());
+		pCompound.putInt("HuntingTicks", this.huntTimer());
 	}
 
 	public void readAdditionalSaveData(CompoundTag pCompound) {
 		super.readAdditionalSaveData(pCompound);
 		this.setHasEggs(pCompound.getBoolean("HasEggs"));
+		this.setHuntTimer(pCompound.getInt("HuntingTicks"));
 	}
 
 	public boolean canFallInLove() {
@@ -246,7 +274,13 @@ public class Catfish extends Animal {
 			this.hasImpulse = true;
 			this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
 		}
-
+		if (huntTimer() < 2400 && !isHunting()) {
+			setHuntTimer(huntTimer() + 1);
+		} else {
+			if (!isHunting()) setHunting(true);
+			setHuntTimer(0);
+		}
+		
 		super.aiStep();
 	}
 
@@ -265,7 +299,10 @@ public class Catfish extends Animal {
 
 		protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
 			if (Catfish.this.getTarget() != null) {
-				if (Catfish.this.getTarget().distanceTo(Catfish.this) < 0.35F) Catfish.this.getTarget().kill();
+				if (Catfish.this.getTarget().distanceTo(Catfish.this) < 0.35F) {
+					Catfish.this.getTarget().kill();
+					stop();
+				}
 				else if (Catfish.this.getTarget().distanceTo(Catfish.this) < 2.25F) {
 					Catfish.this.getTarget().setDeltaMovement(Catfish.this.getTarget().position().vectorTo(Catfish.this.position()).normalize().scale(0.35D));
 				} else {
@@ -277,6 +314,19 @@ public class Catfish extends Animal {
 
 		protected double getAttackReachSqr(LivingEntity pAttackTarget) {
 			return (double)(6.0F + pAttackTarget.getBbWidth());
+		}
+		
+		public boolean canUse() {
+			return super.canUse() && catfish.isHunting();
+ 		}
+		
+		public boolean canContinueToUse() {
+			return super.canContinueToUse() && catfish.isHunting();
+		}
+		
+		public void stop() {
+			super.stop();
+			catfish.setHunting(false);
 		}
 
 	}
@@ -368,6 +418,14 @@ public class Catfish extends Animal {
 		int i = pLevel.getSeaLevel();
 		int j = i - 13;
 		return pPos.getY() >= j && pPos.getY() <= i && pLevel.getFluidState(pPos.below()).is(FluidTags.WATER) && pLevel.getBlockState(pPos.above()).is(Blocks.WATER);
+	}
+	
+	@Nullable
+	@Override
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
+		setHuntTimer(0);
+		if (reason == MobSpawnType.BUCKET) return spawnData;
+		else return super.finalizeSpawn(level, difficulty, reason, spawnData, tag);
 	}
 
 }
