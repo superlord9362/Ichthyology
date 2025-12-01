@@ -381,7 +381,8 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		}
 		
 		public boolean canUse() {
-			return super.canUse() && this.player.isSprinting();
+			if (player != null) return super.canUse() && player.isSprinting();
+			else return false;
 		}
 		
 	}
