@@ -58,13 +58,13 @@ public class GarModel extends EntityModel<Gar> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition Body_1 = partdefinition.addOrReplaceChild("Body_1", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, -3.0F, -3.0F, 5.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 22.0F, -5.0F));
+		PartDefinition Body_1 = partdefinition.addOrReplaceChild("Body_1", CubeListBuilder.create().texOffs(0, 0).addBox(-2.5F, 0.0F, 0.0F, 5.0F, 5.0F, 8.0F, new CubeDeformation(0.002F)), PartPose.offset(0.0F, 19.0F, 3.0F));
 
-		PartDefinition Body2 = Body_1.addOrReplaceChild("Body2", CubeListBuilder.create().texOffs(26, 0).addBox(-2.5F, 0.0F, 0.0F, 5.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, 5.0F));
+		PartDefinition Body2 = Body_1.addOrReplaceChild("Body2", CubeListBuilder.create().texOffs(26, 0).addBox(-2.5F, 0.0F, 0.0F, 5.0F, 5.0F, 8.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 0.0F, 8.0F));
 
-		PartDefinition Tail = Body2.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(3, 13).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 5.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 8.0F, 0.0F, 0.0017F, 0.0F));
+		PartDefinition Tail = Body2.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(2, 13).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 8.0F, 0.0F, 0.0017F, 0.0F));
 
-		PartDefinition Tail_tip = Tail.addOrReplaceChild("Tail_tip", CubeListBuilder.create().texOffs(0, 13).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 7.0F));
+		PartDefinition Tail_tip = Tail.addOrReplaceChild("Tail_tip", CubeListBuilder.create().texOffs(52, 23).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 7.0F));
 
 		PartDefinition Tail_f = Tail_tip.addOrReplaceChild("Tail_f", CubeListBuilder.create().texOffs(53, 3).addBox(0.0F, -2.0F, 0.0F, 0.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 2.0F));
 
@@ -72,11 +72,11 @@ public class GarModel extends EntityModel<Gar> {
 
 		PartDefinition Dorsal_f = Tail.addOrReplaceChild("Dorsal_f", CubeListBuilder.create().texOffs(45, -5).addBox(0.0F, -3.0F, 0.0F, 0.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 3.0F));
 
-		PartDefinition Pelvic_f_r = Body2.addOrReplaceChild("Pelvic_f_r", CubeListBuilder.create().texOffs(-1, 1).mirror().addBox(-3.0F, 0.0F, 0.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.5F, 5.0F, 0.0F, 0.0F, 0.5864F, -0.5864F));
+		PartDefinition Pelvic_f_r = Body2.addOrReplaceChild("Pelvic_f_r", CubeListBuilder.create().texOffs(-1, 1).mirror().addBox(-3.0F, 0.0F, 0.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.5F, 5.0F, 0.0F, 0.0F, 0.5236F, -0.4363F));
 
-		PartDefinition Pelvic_f_l = Body2.addOrReplaceChild("Pelvic_f_l", CubeListBuilder.create().texOffs(-1, 4).mirror().addBox(0.0F, 0.0F, 0.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(2.5F, 5.0F, 0.0F, 0.0F, -0.6255F, 0.43F));
+		PartDefinition Pelvic_f_l = Body2.addOrReplaceChild("Pelvic_f_l", CubeListBuilder.create().texOffs(-1, 4).mirror().addBox(0.0F, 0.0F, 0.0F, 3.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(2.5F, 5.0F, 0.0F, 0.0F, -0.5236F, 0.4363F));
 
-		PartDefinition Head = Body_1.addOrReplaceChild("Head", CubeListBuilder.create().texOffs(25, 13).addBox(-2.5F, -1.0F, -4.0F, 5.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.5F, -3.0F));
+		PartDefinition Head = Body_1.addOrReplaceChild("Head", CubeListBuilder.create().texOffs(25, 13).addBox(-2.5F, -1.0F, -4.0F, 5.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.5F, 0.0F));
 
 		PartDefinition Jaw_bottom = Head.addOrReplaceChild("Jaw_bottom", CubeListBuilder.create().texOffs(20, 21).addBox(-2.0F, 0.0F, -6.5F, 4.0F, 2.0F, 7.0F, new CubeDeformation(0.002F)), PartPose.offset(0.0F, 0.5F, -4.1F));
 
@@ -88,9 +88,9 @@ public class GarModel extends EntityModel<Gar> {
 
 		PartDefinition Teeth_front = Jaw_top.addOrReplaceChild("Teeth_front", CubeListBuilder.create().texOffs(42, 28).addBox(-2.0F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -0.7F, -6.9F, 0.0F, 0.0F, -0.7854F));
 
-		PartDefinition Pectoral_f_r = Body_1.addOrReplaceChild("Pectoral_f_r", CubeListBuilder.create().texOffs(17, 4).addBox(-4.0F, 0.0F, 0.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, 2.0F, -3.0F, -0.0782F, 0.43F, -0.5864F));
+		PartDefinition Pectoral_f_r = Body_1.addOrReplaceChild("Pectoral_f_r", CubeListBuilder.create().texOffs(17, 4).addBox(-4.0F, 0.0F, 0.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.5F, 5.0F, 0.0F, 0.0F, 0.4363F, -0.4363F));
 
-		PartDefinition Pectoral_f_l = Body_1.addOrReplaceChild("Pectoral_f_l", CubeListBuilder.create().texOffs(17, 1).addBox(0.0F, 0.0F, 0.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 2.0F, -3.0F, 0.0391F, -0.391F, 0.2737F));
+		PartDefinition Pectoral_f_l = Body_1.addOrReplaceChild("Pectoral_f_l", CubeListBuilder.create().texOffs(17, 1).addBox(0.0F, 0.0F, 0.0F, 4.0F, 0.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.5F, 5.0F, 0.0F, 0.0F, -0.4363F, 0.4363F));
 
 		return LayerDefinition.create(meshdefinition, 64, 48);
 	}
@@ -103,13 +103,16 @@ public class GarModel extends EntityModel<Gar> {
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body_1.x = 1.25F * Mth.sin(0.05F * ageInTicks);
 		this.Body_1.zRot = f;
 		this.Body_1.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.Body_1.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks)) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Body2.yRot = 0.225F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Tail.yRot = 0.225F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Tail_tip.yRot = 0.1F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
-		this.Tail_f.yRot = 0.15F * Mth.sin(0.2F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Body_1.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (0.05F * Mth.sin(0.15F * ageInTicks)) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Body2.yRot = 0.1F * Mth.sin(0.15F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Tail.yRot = 0.225F * Mth.sin(0.15F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Tail_tip.yRot = 0.225F * Mth.sin(0.15F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Tail_f.yRot = 0.225F * Mth.sin(0.15F * ageInTicks) + (Mth.cos(1.0F + limbSwing * 0.1F) * 0.2F * limbSwingAmount);
+		this.Anal_f.zRot = -0.2F * Mth.sin(0.15F * ageInTicks);
+		this.Dorsal_f.zRot = 0.2F * Mth.sin(0.15F * ageInTicks);
 		this.Jaw_bottom.xRot = attackProgress * (float)Math.toRadians(50);
 	}
 

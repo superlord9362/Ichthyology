@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "ichthyology:item/crayfish_yabby_bucket"
+    }
+}

@@ -61,18 +61,20 @@ public class PiranhaModel extends EntityModel<Piranha> implements ArmedModel {
 
 	@Override
 	public void setupAnim(Piranha entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 0F;
+		float f = 0F + (-0.1F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body.x = Mth.sin(0.15F * ageInTicks);
+		this.Body.z = 0.15F * Mth.sin(0.25F * ageInTicks) - 2.5F;
 		this.Body.zRot = f;
-		this.Body.xRot = headPitch * ((float)Math.PI / 180F);
-		this.Body.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.Tail_f.yRot = 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.Pectoral_r.yRot = -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
-		this.Pectoral_l.yRot = Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
+		this.Body.xRot = headPitch* Mth.DEG_TO_RAD;
+		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.075F * Mth.sin(0.15F * ageInTicks));
+		this.Tail_f.yRot = 0.45F * Mth.sin(0.4F * ageInTicks);
+		this.Pectoral_l.yRot = (0.325F * Mth.sin(0.15F * ageInTicks)) + 0.7854F;
+		this.Pectoral_r.yRot = (-0.325F * Mth.sin(0.15F * ageInTicks)) - 0.7854F;
 		if (entity.getTarget() != null) this.Jaw.xRot = Mth.abs(-0.45F * Mth.sin(0.4F * ageInTicks));
-		else this.Jaw.xRot = 0;
+		else this.Jaw.xRot = 0.05F * Mth.sin(0.1F * ageInTicks) + 0.05F;
 	}
 
 	@Override

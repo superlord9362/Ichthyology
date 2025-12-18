@@ -17,7 +17,7 @@ public abstract class AbstractFishRenderer<T extends Mob, M extends EntityModel<
 
     protected float getYRotation(T abstractFish, float ageInTicks)
     {
-        return 4.3F * Mth.sin(0.6F * ageInTicks);
+        return 0;
     }
 
     @Override

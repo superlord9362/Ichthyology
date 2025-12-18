@@ -65,10 +65,10 @@ public class GarBabyModel extends EntityModel<GarBaby> {
 		}
 		this.Body_1.zRot = f;
 		this.Body_1.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.Body_1.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
+		this.Body_1.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.05F * Mth.sin(0.15F * ageInTicks));
 		this.Body_2.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tail.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tail_f.yRot = 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.Tail.yRot = 0.275F * Mth.sin(0.2F * ageInTicks);
+		this.Tail_f.yRot = 0.325F * Mth.sin(0.2F * ageInTicks);
 	}
 
 	@Override

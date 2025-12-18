@@ -86,14 +86,17 @@ public class MudskipperModel extends EntityModel<Mudskipper> {
 			this.Body.y = -Mth.abs(Mth.cos(1F + limbSwing * 0.3F) * 3.6F * limbSwingAmount) + 22.7F;
 		}
 		if (entity.isInWater()) {
+//			float f = 0F + (-0.1F * Mth.sin(0.2F * ageInTicks));
+//			this.Body.zRot = f;
+			this.Body.x = Mth.sin(0.2F * ageInTicks);
 			this.Body.xRot = headPitch * ((float)Math.PI / 180F);
 			this.Body.yRot = netHeadYaw * ((float)Math.PI / 180F);
 			this.Tail.yRot = 0.25F * Mth.sin(0.6F * ageInTicks);
 			this.Tail_f.yRot = 0.45F * Mth.sin(0.6F * ageInTicks);
-			this.Pectoral_f_l.yRot = Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
-			this.Pectoral_f_r.yRot = -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
-			this.Body.zRot = 0;
+			this.Pectoral_f_l.yRot = -(0.425F * Mth.sin(0.35F * ageInTicks)) + 0.7854F;
+			this.Pectoral_f_r.yRot = (-0.425F * Mth.sin(0.35F * ageInTicks)) - 0.7854F;
 		} else {
+			this.Body.x = 0;
 			this.Head.xRot = headPitch * ((float)Math.PI / 180F);
 			this.Head.yRot = netHeadYaw * ((float)Math.PI / 180F);
 			this.Pectoral_f_l.yRot = Mth.cos(1.0F + limbSwing * 0.6F) * 1.6F * limbSwingAmount;
@@ -105,11 +108,12 @@ public class MudskipperModel extends EntityModel<Mudskipper> {
 			if (entity.isBlinking()) {
 				this.eyes.y = Mth.abs(-0.99F * Mth.sin(0.05F * ageInTicks)) - 1;
 			}
-		}
-		if (entity.isRolling()) {
-			this.Body.zRot = (4 * Mth.cos(0.05F * ageInTicks));
-		} else {
-			this.Body.zRot = 0;
+
+			if (entity.isRolling()) {
+				this.Body.zRot = (4 * Mth.cos(0.05F * ageInTicks));
+			} else {
+				this.Body.zRot = 0;
+			}
 		}
 	}
 

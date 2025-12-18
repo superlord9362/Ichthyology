@@ -6,6 +6,7 @@
     "overrides": [
         { "predicate": { "ichthyology:fish_type": 0 }, "model": "ichthyology:item/crayfish" },
         { "predicate": { "ichthyology:fish_type": 1 }, "model": "ichthyology:item/crayfish_royal" },
-        { "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/crayfish_cave" }
+        { "predicate": { "ichthyology:fish_type": 2 }, "model": "ichthyology:item/crayfish_cave" }		,
+		{ "predicate": { "ichthyology:fish_type": 3 }, "model": "ichthyology:item/crayfish_yabby" }
     ]
 }

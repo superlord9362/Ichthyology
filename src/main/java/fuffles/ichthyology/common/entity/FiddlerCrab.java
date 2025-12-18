@@ -26,30 +26,39 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
+import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
@@ -58,6 +67,7 @@ public class FiddlerCrab extends Animal implements Bucketable {
 	private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(FiddlerCrab.class, EntityDataSerializers.BYTE);
 	private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(FiddlerCrab.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> WAVING = SynchedEntityData.defineId(FiddlerCrab.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> MUNCHING = SynchedEntityData.defineId(FiddlerCrab.class, EntityDataSerializers.BOOLEAN);
 	private static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 	public float attachChangeProgress = 0F;
 	public float prevAttachChangeProgress = 0F;
@@ -75,8 +85,10 @@ public class FiddlerCrab extends Animal implements Bucketable {
 
 	private void switchNavigator(boolean rightsideUp) {
 		if (rightsideUp) {
-			this.moveControl = new MoveControl(this);
-			this.navigation = new WallClimberNavigation(this, level());
+			this.moveControl =  new SmoothSwimmingMoveControl(this, 85, 10, 0.2F, 1, true);
+			if (this.isInWater()) {
+				this.navigation =  new FiddlerCrabPathNavigation(this, level());
+			} else this.navigation =  new WallClimberNavigation(this, level());
 			this.isUpsideDownNavigator = false;
 		} else {
 			this.moveControl = new FlightMoveController(this, 0.6F, false);
@@ -95,6 +107,26 @@ public class FiddlerCrab extends Animal implements Bucketable {
 	public boolean causeFallDamage(float distance, float damageMultiplier) {
 		return false;
 	}
+	
+	static class FiddlerCrabPathNavigation extends WaterBoundPathNavigation {
+		FiddlerCrabPathNavigation(FiddlerCrab crab, Level level) {
+			super(crab, level);
+		}
+
+		protected boolean canUpdatePath() {
+			return true;
+		}
+
+		protected PathFinder createPathFinder(int maxNodes) {
+			this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
+			return new PathFinder(this.nodeEvaluator, maxNodes);
+		}
+
+		public boolean isStableDestination(BlockPos pos) {
+			return !this.level.getBlockState(pos.below()).isAir();
+		}
+
+	}
 
 	protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
 	}
@@ -104,7 +136,9 @@ public class FiddlerCrab extends Animal implements Bucketable {
 	}
 
 	protected PathNavigation createNavigation(Level worldIn) {
-		return new WallClimberNavigation(this, worldIn);
+		if (this.isInWater()) {
+			return new FiddlerCrabPathNavigation(this, worldIn);
+		} else return new WallClimberNavigation(this, worldIn);
 	}
 
 	protected void registerGoals() {
@@ -113,8 +147,10 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 		this.goalSelector.addGoal(0, new PanicGoal(this, 1.2D));
 		this.goalSelector.addGoal(2, new FiddlerCrabBurrowGoal(this));
-		this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(0, new RandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 1, 10));
 		this.goalSelector.addGoal(1, new FiddlerCrabAvoidGoal(this, Player.class, 6, 1, 1.2D));
+	      this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.WHEAT), false));
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -232,6 +268,14 @@ public class FiddlerCrab extends Animal implements Bucketable {
 	public void setWaving(boolean isWaving) {
 		this.entityData.set(WAVING, isWaving);
 	}
+	
+	public boolean isMunching() {
+		return this.entityData.get(MUNCHING);
+	}
+	
+	private void setMunching(boolean isMunching) {
+		this.entityData.set(MUNCHING, isMunching);
+	}
 
 	@Override
 	public SoundEvent getPickupSound() {
@@ -297,6 +341,7 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		this.entityData.define(ATTACHED_FACE, Direction.DOWN);
 		this.entityData.define(FROM_BUCKET, false);
 		this.entityData.define(WAVING, false);
+		this.entityData.define(MUNCHING, false);
 	}
 
 	public void readAdditionalSaveData(CompoundTag compound) {
@@ -304,6 +349,7 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		this.setFromBucket(compound.getBoolean("FromBucket"));
 		this.entityData.set(ATTACHED_FACE, Direction.from3DDataValue(compound.getByte("AttachFace")));
 		this.setWaving(compound.getBoolean("IsWaving"));
+		this.setMunching(compound.getBoolean("IsMunching"));
 	}
 
 	public void addAdditionalSaveData(CompoundTag compound) {
@@ -311,6 +357,7 @@ public class FiddlerCrab extends Animal implements Bucketable {
 		compound.putBoolean("FromBucket", this.fromBucket());
 		compound.putByte("AttachFace", (byte) this.entityData.get(ATTACHED_FACE).get3DDataValue());
 		compound.putBoolean("IsWaving", isWaving());
+		compound.putBoolean("IsMunching", isMunching());
 	}
 
 	@Nullable
@@ -369,6 +416,18 @@ public class FiddlerCrab extends Animal implements Bucketable {
 				}
 			}
 		}
+	}
+
+	public void travel(Vec3 pTravelVector) {
+		if (this.isControlledByLocalInstance() && this.isInWater()) {
+			this.moveRelative(this.getSpeed(), pTravelVector);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+			this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y - 0.01, this.getDeltaMovement().z);
+		} else {
+			super.travel(pTravelVector);
+		}
+
 	}
 	
 	public class FiddlerCrabAvoidGoal extends AvoidEntityGoal<Player> {

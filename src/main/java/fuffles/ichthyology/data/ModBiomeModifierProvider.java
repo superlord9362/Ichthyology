@@ -74,7 +74,10 @@ public class ModBiomeModifierProvider
                 new MobSpawnSettings.SpawnerData(ModEntityTypes.OLM, 5, 1, 2)
         );
         registerSpawn(context, Biomes.DEEP_COLD_OCEAN,
-                new MobSpawnSettings.SpawnerData(ModEntityTypes.STURGEON, 100, 1, 2)
+                new MobSpawnSettings.SpawnerData(ModEntityTypes.STURGEON, 10, 1, 2)
+        );
+        registerSpawn(context, BiomeTags.IS_BADLANDS,
+        		new MobSpawnSettings.SpawnerData(ModEntityTypes.CRAYFISH, 10, 1, 2)
         );
         registerSpawn(context, BiomeTags.IS_OVERWORLD,
                 new MobSpawnSettings.SpawnerData(ModEntityTypes.BLIND_CAVE_TETRA, 10, 3, 6),

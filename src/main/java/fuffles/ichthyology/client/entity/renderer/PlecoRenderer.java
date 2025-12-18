@@ -26,7 +26,7 @@ public class PlecoRenderer extends MobRenderer<Pleco, EntityModel<Pleco>> {
 	protected void setupRotations(Pleco entityLiving, PoseStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
 		float progresso = 1F - (entityLiving.prevAttachChangeProgress + (entityLiving.attachChangeProgress - entityLiving.prevAttachChangeProgress) * partialTicks);
 
-        float trans = entityLiving.isBaby() ? 0.25F : 0.1F;
+		float trans = entityLiving.isBaby() ? 0.25F : 0.1F;
 		if(entityLiving.getAttachmentFacing() == Direction.DOWN){
 			matrixStackIn.mulPose(Axis.YP.rotationDegrees (180.0F - rotationYaw));
 			matrixStackIn.translate(0.0D, trans, 0.0D);
@@ -36,7 +36,6 @@ public class PlecoRenderer extends MobRenderer<Pleco, EntityModel<Pleco>> {
 				matrixStackIn.mulPose(Axis.XP.rotationDegrees(-90 * (1 - progresso)));
 			}
 			matrixStackIn.translate(0.0D, -trans, 0.0D);
-
 		}else if(entityLiving.getAttachmentFacing() == Direction.UP){
 			matrixStackIn.mulPose(Axis.YP.rotationDegrees (180.0F - rotationYaw));
 			matrixStackIn.mulPose(Axis.XP.rotationDegrees(180));

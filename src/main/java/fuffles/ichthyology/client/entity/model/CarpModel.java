@@ -1,6 +1,10 @@
 package fuffles.ichthyology.client.entity.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import fuffles.ichthyology.common.entity.Carp;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -11,7 +15,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
 @SuppressWarnings("unused")
-public class CarpModel extends RootedModel<Carp>
+public class CarpModel extends EntityModel<Carp>
 {
 	private final ModelPart body;
 	private final ModelPart rightWhisker;
@@ -26,7 +30,6 @@ public class CarpModel extends RootedModel<Carp>
 
 	public CarpModel(ModelPart root)
 	{
-		super(root);
 		this.body = root.getChild("body");
 		this.rightWhisker = this.body.getChild("right_whisker");
 		this.leftWhisker = this.body.getChild("left_whisker");
@@ -67,16 +70,29 @@ public class CarpModel extends RootedModel<Carp>
 	@Override
 	public void setupAnim(Carp entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
 	{
-		float f = 1F;
+		float f = 0F + (-0.1F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.body.x = Mth.sin(0.15F * ageInTicks);
+		this.body.zRot = f;
 		this.body.xRot = headPitch * Mth.DEG_TO_RAD;
 		this.body.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-		this.frontRightFin.zRot = f * -0.85F * Mth.abs(Mth.sin(0.15F * ageInTicks));
-		this.frontLeftFin.zRot = f * 0.85F * Mth.abs(Mth.sin(0.15F * ageInTicks));
-		this.bodyTail.yRot = f * 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.tail.yRot = f * 0.1F * Mth.sin(0.2F * ageInTicks);
-		this.tailFin.yRot = f * 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.frontRightFin.zRot = -0.325F * (Mth.sin(0.15F * ageInTicks)) - 0.625F;
+		this.frontLeftFin.zRot = 0.325F * (Mth.sin(0.15F * ageInTicks)) + 0.625F;
+		this.bodyTail.yRot = 0.325F * Mth.sin(0.2F * ageInTicks);
+		this.tail.yRot = 0.2F * Mth.sin(0.2F * ageInTicks);
+		this.tailFin.yRot = 0.325F * Mth.sin(0.2F * ageInTicks);
+		this.rightWhisker.zRot = 0.1F * Mth.sin(0.15F * ageInTicks) + (Mth.HALF_PI / 6F);
+		this.leftWhisker.zRot = 0.1F * Mth.sin(0.15F * ageInTicks) + (-Mth.HALF_PI / 6F);
+		this.backRightFin.zRot = 0.1F * Mth.sin(0.15F * ageInTicks) + (-Mth.HALF_PI / 2F);
+		this.backLeftFin.zRot = 0.1F * Mth.sin(0.15F * ageInTicks) + (Mth.HALF_PI / 2F);
+	}
+
+	@Override
+	public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay,
+			float pRed, float pGreen, float pBlue, float pAlpha) {
+		body.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+		
 	}
 }

@@ -57,17 +57,17 @@ public class PeacockBassBabyModel extends EntityModel<PeacockBassBaby> {
 
 	@Override
 	public void setupAnim(PeacockBassBaby entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 0F;
+		float f = 0F + (-0.05F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
 		this.Body.zRot = f;
 		this.Body.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
-		this.Pectoral_f_r.yRot = -0.65F * Mth.sin(0.15F * ageInTicks) - 0.9346F;
-		this.Pectoral_f_l.yRot = 0.65F * Mth.sin(0.15F * ageInTicks) + 0.9346F;
-		this.Tail.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tail_f.yRot = 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.05F * Mth.sin(0.2F * ageInTicks));
+		this.Pectoral_f_r.yRot = -0.45F * Mth.sin(0.25F * ageInTicks) - 0.9346F;
+		this.Pectoral_f_l.yRot = 0.45F * Mth.sin(-0.25F * ageInTicks) + 0.9346F;
+		this.Tail.yRot = 0.225F * Mth.sin(0.3F * ageInTicks);
+		this.Tail_f.yRot = 0.275F * Mth.sin(0.3F * ageInTicks);
 	}
 
 	@Override

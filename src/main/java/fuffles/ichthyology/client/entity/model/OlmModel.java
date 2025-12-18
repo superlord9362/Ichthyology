@@ -101,21 +101,26 @@ public class OlmModel extends EntityModel<Olm> {
 		float f1 = Mth.cos(f);
 		float f2 = (f1 * f1 - 2.0F * f1) / 5.0F;
 		float f3 = 0.7F * f1;
-		this.Head.xRot = headPitch * ((float)Math.PI / 180F);
-		this.Head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-//		if (entity.isInWater()) {
-//			this.Leg_b_l.yRot = Mth.cos(limbSwing * 2.6662F) * 6.4F * limbSwingAmount ;
-//			this.Leg_b_l.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-//			this.Leg_f_r.yRot = Mth.cos(limbSwing * 2.6662F + (float)Math.PI) * 6.4F * limbSwingAmount;
-//			this.Leg_f_r.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-//			this.Leg_f_l.yRot = Mth.cos(limbSwing * 2.6662F + (float)Math.PI) * 6.4F * limbSwingAmount;
-//			this.Leg_f_l.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-//			this.Leg_b_r.yRot = Mth.cos(limbSwing * 2.6662F) * 6.4F * limbSwingAmount;
-//			this.Leg_b_r.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-//			this.Body_2.yRot = Mth.cos(limbSwing * 0.6662F) * 5.4F * limbSwingAmount;
-//			this.Body_3.yRot = -Mth.cos(limbSwing * 0.6662F) * 5.4F * limbSwingAmount;
-//			this.Tail.yRot = Mth.cos(limbSwing * 0.6662F) * 5.4F * limbSwingAmount;
-//		} else {
+		this.Head.xRot = headPitch * (Mth.DEG_TO_RAD * 0.25F);
+		this.Head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
+		if (entity.isInWater()) {
+			this.Body_1.x = Mth.sin(0.15F * ageInTicks);
+			this.Leg_b_l.yRot = -0.75F;
+			this.Leg_b_l.zRot = 0;
+			this.Leg_f_r.yRot = 0.75F;
+			this.Leg_f_r.zRot = 0;
+			this.Leg_f_l.yRot = -0.75F;
+			this.Leg_f_l.zRot = 0;
+			this.Leg_b_r.yRot = 0.75F;
+			this.Leg_b_r.zRot = 0;
+			this.Body_2.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+			this.Body_3.yRot = Mth.cos(limbSwing * 0.6662F) * 1.8F * limbSwingAmount;
+			this.Tail.yRot = -Mth.cos(limbSwing * 0.6662F) * 1.8F * limbSwingAmount;
+			this.Tail_tip.yRot = -Mth.cos(limbSwing * 0.6662F) * 1.8F * limbSwingAmount;
+			this.Gills_r.yRot = 0.1F * Mth.sin(0.05F * ageInTicks) + 0.6109F;
+			this.Gills_l.yRot = 0.1F * Mth.sin(0.05F * ageInTicks) - 0.6109F;
+		} else {
+			this.Body_1.x = 0;
 			this.Leg_b_l.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount ;
 			this.Leg_b_l.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 			this.Leg_f_r.yRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
@@ -124,10 +129,13 @@ public class OlmModel extends EntityModel<Olm> {
 			this.Leg_f_l.zRot = Mth.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 			this.Leg_b_r.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 			this.Leg_b_r.zRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-			this.Body_2.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-			this.Body_3.yRot = -Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-			this.Tail.yRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-//		}
+			this.Body_2.yRot = Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount;
+			this.Body_3.yRot = Mth.cos(limbSwing * 0.6662F) * 0.9F * limbSwingAmount;
+			this.Tail.yRot = -Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount;
+			this.Tail_tip.yRot = -Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount;
+			this.Gills_r.yRot = 0.6109F;
+			this.Gills_l.yRot = -0.6109F;
+		}
 	}
 
 	@Override

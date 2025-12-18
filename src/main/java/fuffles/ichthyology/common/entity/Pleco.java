@@ -1,97 +1,141 @@
 package fuffles.ichthyology.common.entity;
 
+import fuffles.ichthyology.common.entity.navigator.DirectPathNavigator;
+import fuffles.ichthyology.common.entity.navigator.FlightMoveController;
+import fuffles.ichthyology.init.ModBlocks;
 import fuffles.ichthyology.init.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 public class Pleco extends AbstractIchthyologyFish {
 	private static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(Pleco.class, EntityDataSerializers.DIRECTION);
 	private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(Pleco.class, EntityDataSerializers.BYTE);
-	private static final EntityDataAccessor<Boolean> PANICING = SynchedEntityData.defineId(Pleco.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> FRENZY = SynchedEntityData.defineId(Pleco.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> LOOKING = SynchedEntityData.defineId(Pleco.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> HORIZONTAL = SynchedEntityData.defineId(Pleco.class, EntityDataSerializers.BOOLEAN);
 	private static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
 	public float attachChangeProgress = 0F;
 	public float prevAttachChangeProgress = 0F;
 	private Direction prevAttachDir = Direction.DOWN;
-	
-	public Pleco(EntityType<? extends WaterAnimal> p_30341_, Level p_30342_) {
-		super(p_30341_, p_30342_);
+	private boolean isUpsideDownNavigator;
+	private int frenzyTime = 1200;
+	private int blockAttractionCooldownTime = 3600;
+	private int blockAttractionTime = 600;
+
+	public Pleco(EntityType<? extends WaterAnimal> type, Level world) {
+		super(type, world);
 		switchNavigator(true);
 	}
 
 	private void switchNavigator(boolean rightsideUp) {
 		if (rightsideUp) {
 			this.moveControl =  new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
-			this.navigation = new WaterBoundPathNavigation(this, level());
+			this.navigation = new WallClimberNavigation(this, level());
+			this.isUpsideDownNavigator = false;
 		} else {
 			this.moveControl = new FlightMoveController(this, 0.6F, false);
 			this.navigation = new DirectPathNavigator(this, level());
+			this.isUpsideDownNavigator = true;
 		}
 	}
-	
-	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.ARMOR, 2);
-	}
 
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(4, new RandomStrollGoal(this, 1, 10));
-		this.goalSelector.addGoal(1, new PlecoPanicGoal(this, 1.2D));
-		this.goalSelector.addGoal(1, new PlecoSwimGoal(this, LivingEntity.class, 10, 1.1D, 1.2D));
-	}
-	
 	@SuppressWarnings("unused")
 	private static boolean isSideSolid(BlockGetter reader, BlockPos pos, Entity entityIn, Direction direction) {
 		return Block.isFaceFull(reader.getBlockState(pos).getCollisionShape(reader, pos, CollisionContext.of(entityIn)), direction);
 	}
-	
+
 	public Direction getAttachmentFacing() {
 		return this.entityData.get(ATTACHED_FACE);
 	}
+
+	protected PathNavigation createNavigation(Level worldIn) {
+		return new WallClimberNavigation(this, worldIn);
+	}
+
+	protected void registerGoals() {
+		super.registerGoals();
+		this.goalSelector.addGoal(5, new RandomSwimmingGoal(this, 1.0D, 1));
+		this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+		this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(0, new PlecoFeedGoal(this.isFrenzying() ? (double)1.2F : 1, 12, 1));
+	}
 	
-	@SuppressWarnings({ "unused", "resource", "deprecation" })
+	public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+		ItemStack itemstack = pPlayer.getItemInHand(pHand);
+		if (itemstack.getItem() == Items.MOSS_BLOCK && !this.isFrenzying()) {
+			if (!pPlayer.getAbilities().instabuild) {
+				itemstack.shrink(1);
+			}
+			this.setFrenzying(true);
+			return InteractionResult.sidedSuccess(this.level().isClientSide());
+		} else {
+			return Bucketable.bucketMobPickup(pPlayer, pHand, this).orElse(super.mobInteract(pPlayer, pHand));
+		}
+	}
+
+	@SuppressWarnings("deprecation")
 	public void tick() {
 		super.tick();
 		if (attachChangeProgress > 0F) {
 			attachChangeProgress -= 0.25F;
 		}
+		if (this.horizontalCollision) {
+			this.setHorizontal(true);
+		} else {
+			this.setHorizontal(false);
+		}
 		this.setMaxUpStep(0.5F);
 		Vec3 vector3d = this.getDeltaMovement();
-		if (!this.level().isClientSide) {
+		if (!this.level().isClientSide()) {
 			this.setBesideClimbableBlock(this.horizontalCollision || this.verticalCollision && !this.onGround());
 			if (this.onGround() || this.isInWaterOrBubble() || this.isInLava()) {
 				this.entityData.set(ATTACHED_FACE, Direction.DOWN);
 			} else  if (this.verticalCollision) {
 				this.entityData.set(ATTACHED_FACE, Direction.UP);
 			}else {
-				boolean flag = false;
 				Direction closestDirection = Direction.DOWN;
 				double closestDistance = 100;
 				for (Direction dir : HORIZONTALS) {
@@ -136,22 +180,49 @@ public class Pleco extends AbstractIchthyologyFish {
 			attachChangeProgress = 1F;
 		}
 		this.prevAttachDir = this.getAttachmentFacing();
-		if (!this.level().isClientSide) {
-			if (this.isPanicing()) {
-				switchNavigator(true);
-			} else {
+		if (!this.level().isClientSide()) {
+			if (this.getAttachmentFacing() == Direction.UP && !this.isUpsideDownNavigator) {
 				switchNavigator(false);
 			}
+			if (this.getAttachmentFacing() != Direction.UP && this.isUpsideDownNavigator) {
+				switchNavigator(true);
+			}
+		}
+		if (this.isFrenzying()) {
+			frenzyTime--;
+		}
+		if (frenzyTime <= 0) {
+			this.setFrenzying(false);
+			frenzyTime = 1200;
+		}
+		if (blockAttractionCooldownTime >= 0 && !this.isFrenzying()) {
+			blockAttractionCooldownTime--;
+		} else {
+			this.setLooking(true);
+		}
+		if (blockAttractionTime <= 0) {
+			blockAttractionTime = 600;
 		}
 	}
 	
-	public void aiStep() {
-		super.aiStep();
-		for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(2, 2, 2))) {
-			if ((entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight()) > (this.getBbWidth() * this.getBbWidth() * this.getBbHeight())) this.setPanicing(true);
-			else this.setPanicing(false);
-		}
-		if (this.level().getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(2, 2, 2)) == null) this.setPanicing(false);
+	public boolean isLooking() {
+		return this.entityData.get(LOOKING);
+	}
+	
+	private void setLooking(boolean isLooking) {
+		this.entityData.set(LOOKING, isLooking);
+	}
+	
+	public boolean isHorizontal() {
+		return this.entityData.get(HORIZONTAL);
+	}
+	
+	private void setHorizontal(boolean isHorizontal) {
+		this.entityData.set(HORIZONTAL, isHorizontal);
+	}
+
+	public static AttributeSupplier.Builder createAttributes() {
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0D).add(Attributes.ARMOR, 2);
 	}
 
 	@SuppressWarnings("unused")
@@ -187,154 +258,145 @@ public class Pleco extends AbstractIchthyologyFish {
 		super.defineSynchedData();
 		this.entityData.define(CLIMBING, (byte) 0);
 		this.entityData.define(ATTACHED_FACE, Direction.DOWN);
-		this.entityData.define(PANICING, false);
+		this.entityData.define(FRENZY, false);
+		this.entityData.define(LOOKING, false);
+		this.entityData.define(HORIZONTAL, false);
 	}
 
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		this.entityData.set(ATTACHED_FACE, Direction.from3DDataValue(compound.getByte("AttachFace")));
+		this.setFrenzying(compound.getBoolean("IsFrenzying"));
 	}
 
 	public void addAdditionalSaveData(CompoundTag compound) {
-		super.addAdditionalSaveData(compound);
+		super.addAdditionalSaveData(compound);	
 		compound.putByte("AttachFace", (byte) this.entityData.get(ATTACHED_FACE).get3DDataValue());
+		compound.putBoolean("IsFrenzying", this.isFrenzying());
 	}
 	
-	public boolean isPanicing() {
-		return this.entityData.get(PANICING);
+	public boolean isFrenzying() {
+		return this.entityData.get(FRENZY);
 	}
 	
-	public void setPanicing(boolean isPanicing) {
-		this.entityData.set(PANICING, isPanicing);
+	private void setFrenzying(boolean isFrenzying) {
+		this.entityData.set(FRENZY, isFrenzying);
 	}
 
 	@Override
 	public ItemStack getBucketItemStack() {
-		return ModItems.PLECO_BUCKET.getDefaultInstance();
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public class PlecoSwimGoal extends AvoidEntityGoal {
-
-		@SuppressWarnings("unchecked")
-		public PlecoSwimGoal(PathfinderMob p_25027_, Class p_25028_, float p_25029_, double p_25030_, double p_25031_) {
-			super(p_25027_, p_25028_, p_25029_, p_25030_, p_25031_);
-		}
-		
-		public boolean canUse() {
-			return super.canUse() && Pleco.this.isPanicing();
-		}
-		
-	}
-	
-	public class PlecoPanicGoal extends PanicGoal {
-
-		public PlecoPanicGoal(PathfinderMob p_25691_, double p_25692_) {
-			super(p_25691_, p_25692_);
-		}
-		
-		public boolean canUse() {
-			return super.canUse() && Pleco.this.isPanicing();
-		}
-		
+		return new ItemStack(ModItems.PLECO_BUCKET);
 	}
 
-	class FlightMoveController extends MoveControl {
-		private final Mob parentEntity;
-		private final float speedGeneral;
-		private final boolean shouldLookAtTarget;
-		private final boolean needsYSupport;
+	@Override
+	public ItemStack getPickedResult(HitResult target) {
+		return new ItemStack(ModItems.PLECO_SPAWN_EGG);
+	}
 
+	public class PlecoFeedGoal extends MoveToBlockGoal {
+		@SuppressWarnings("unused")
+		private static final int WAIT_TICKS = 40;
+		protected int ticksWaited;
 
-		public FlightMoveController(Mob bird, float speedGeneral, boolean shouldLookAtTarget, boolean needsYSupport) {
-			super(bird);
-			this.parentEntity = bird;
-			this.shouldLookAtTarget = shouldLookAtTarget;
-			this.speedGeneral = speedGeneral;
-			this.needsYSupport = needsYSupport;
+		public PlecoFeedGoal(double p_28675_, int p_28676_, int p_28677_) {
+			super(Pleco.this, p_28675_, p_28676_, p_28677_);
 		}
 
-		public FlightMoveController(Mob bird, float speedGeneral, boolean shouldLookAtTarget) {
-			this(bird, speedGeneral, shouldLookAtTarget, false);
+		public double acceptedDistance() {
+			return 2.0D;
 		}
 
-		public FlightMoveController(Mob bird, float speedGeneral) {
-			this(bird, speedGeneral, true);
+		public boolean shouldRecalculatePath() {
+			return this.tryTicks % 100 == 0;
+		}
+
+		protected boolean isValidTarget(LevelReader p_28680_, BlockPos p_28681_) {
+			BlockState blockstate = p_28680_.getBlockState(p_28681_);
+			return (blockstate.is(BlockTags.LOGS) && !blockstate.is(ModBlocks.Tags.STRIPPED_LOGS) || blockstate.is(Blocks.MOSSY_COBBLESTONE) || blockstate.is(Blocks.MOSSY_COBBLESTONE_SLAB) || blockstate.is(Blocks.MOSSY_COBBLESTONE_STAIRS) || blockstate.is(Blocks.MOSSY_COBBLESTONE_WALL) || blockstate.is(Blocks.MOSSY_STONE_BRICK_SLAB) || blockstate.is(Blocks.MOSSY_STONE_BRICK_STAIRS) || blockstate.is(Blocks.MOSSY_STONE_BRICK_WALL) || blockstate.is(Blocks.MOSSY_STONE_BRICKS));
 		}
 
 		public void tick() {
-			if (this.operation == MoveControl.Operation.MOVE_TO) {
-				Vec3 vector3d = new Vec3(this.wantedX - parentEntity.getX(), this.wantedY - parentEntity.getY(), this.wantedZ - parentEntity.getZ());
-				double d0 = vector3d.length();
-				if (d0 < parentEntity.getBoundingBox().getSize()) {
-					this.operation = MoveControl.Operation.WAIT;
-					parentEntity.setDeltaMovement(parentEntity.getDeltaMovement().scale(0.5D));
+			if (this.isReachedTarget()) {
+				if (this.ticksWaited >= 40) {
+					this.onReachedTarget();
 				} else {
-					parentEntity.setDeltaMovement(parentEntity.getDeltaMovement().add(vector3d.scale(this.speedModifier * speedGeneral * 0.05D / d0)));
-					if (needsYSupport) {
-						double d1 = this.wantedY - parentEntity.getY();
-						parentEntity.setDeltaMovement(parentEntity.getDeltaMovement().add(0.0D, (double) parentEntity.getSpeed() * speedGeneral * Mth.clamp(d1, -1, 1) * 0.6F, 0.0D));
+					++this.ticksWaited;
+				}
+				if (this.ticksWaited % 5 == 0) {
+					level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.MOSS_BLOCK.defaultBlockState()), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0.0D, 0.0D, 0.0D);
+				}
+				if (Pleco.this.blockAttractionTime >= 0) {
+					Pleco.this.blockAttractionTime--;
+				} else if (!Pleco.this.isFrenzying()) {
+					Pleco.this.setLooking(false);
+					stop();
+				}
+				
+			}
+			super.tick();
+		}
+
+
+
+		@javax.annotation.Nullable
+		public static BlockState getAxeStrippingState(BlockState originalState) {
+			Block block = AxeItem.STRIPPABLES.get(originalState.getBlock());
+			return block != null ? block.defaultBlockState().setValue(RotatedPillarBlock.AXIS, originalState.getValue(RotatedPillarBlock.AXIS)) : null;
+		}
+
+		protected void onReachedTarget() {
+			if (Pleco.this.isFrenzying()) {
+				if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(Pleco.this.level(), Pleco.this)) {
+					BlockState blockstate = level().getBlockState(this.blockPos);
+					if (AxeItem.STRIPPABLES.containsKey(level().getBlockState(this.blockPos).getBlock())) {
+						level().setBlockAndUpdate(this.blockPos, getAxeStrippingState(level().getBlockState(blockPos)));
 					}
-					if (parentEntity.getTarget() == null || !shouldLookAtTarget) {
-						Vec3 vector3d1 = parentEntity.getDeltaMovement();
-						parentEntity.setYRot(-((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI));
-						parentEntity.yBodyRot = parentEntity.getYRot();
-					} else {
-						double d2 = parentEntity.getTarget().getX() - parentEntity.getX();
-						double d1 = parentEntity.getTarget().getZ() - parentEntity.getZ();
-						parentEntity.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
-						parentEntity.yBodyRot = parentEntity.getYRot();
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_COBBLESTONE) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.COBBLESTONE.defaultBlockState());
+					}
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_STONE_BRICKS) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.STONE_BRICKS.defaultBlockState());
+					}
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_COBBLESTONE_STAIRS) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.COBBLESTONE_STAIRS.defaultBlockState().setValue(StairBlock.FACING, blockstate.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, blockstate.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, blockstate.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, blockstate.getValue(StairBlock.WATERLOGGED)));
+					}
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_STONE_BRICK_STAIRS) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.STONE_BRICK_STAIRS.defaultBlockState().setValue(StairBlock.FACING, blockstate.getValue(StairBlock.FACING)).setValue(StairBlock.HALF, blockstate.getValue(StairBlock.HALF)).setValue(StairBlock.SHAPE, blockstate.getValue(StairBlock.SHAPE)).setValue(StairBlock.WATERLOGGED, blockstate.getValue(StairBlock.WATERLOGGED)));
+					}
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_COBBLESTONE_SLAB) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.COBBLESTONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, blockstate.getValue(SlabBlock.TYPE)).setValue(SlabBlock.WATERLOGGED, blockstate.getValue(SlabBlock.WATERLOGGED)));
+					}
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_STONE_BRICK_SLAB) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.STONE_BRICK_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, blockstate.getValue(SlabBlock.TYPE)).setValue(SlabBlock.WATERLOGGED, blockstate.getValue(SlabBlock.WATERLOGGED)));
+					}
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_COBBLESTONE_WALL) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.COBBLESTONE_WALL.defaultBlockState().setValue(WallBlock.EAST_WALL, blockstate.getValue(WallBlock.EAST_WALL)).setValue(WallBlock.NORTH_WALL, blockstate.getValue(WallBlock.NORTH_WALL)).setValue(WallBlock.SOUTH_WALL, blockstate.getValue(WallBlock.SOUTH_WALL)).setValue(WallBlock.UP, blockstate.getValue(WallBlock.UP)).setValue(WallBlock.WATERLOGGED, blockstate.getValue(WallBlock.WATERLOGGED)).setValue(WallBlock.WEST_WALL, blockstate.getValue(WallBlock.WEST_WALL)));
+					}
+					if (level().getBlockState(this.blockPos).getBlock() == Blocks.MOSSY_STONE_BRICK_WALL) {
+						level().setBlockAndUpdate(this.blockPos, Blocks.STONE_BRICK_WALL.defaultBlockState().setValue(WallBlock.EAST_WALL, blockstate.getValue(WallBlock.EAST_WALL)).setValue(WallBlock.NORTH_WALL, blockstate.getValue(WallBlock.NORTH_WALL)).setValue(WallBlock.SOUTH_WALL, blockstate.getValue(WallBlock.SOUTH_WALL)).setValue(WallBlock.UP, blockstate.getValue(WallBlock.UP)).setValue(WallBlock.WATERLOGGED, blockstate.getValue(WallBlock.WATERLOGGED)).setValue(WallBlock.WEST_WALL, blockstate.getValue(WallBlock.WEST_WALL)));
 					}
 				}
-
-			} else if (this.operation == Operation.STRAFE) {
-				this.operation = Operation.WAIT;
 			}
 		}
-		@SuppressWarnings("unused")
-		private boolean canReach(Vec3 p_220673_1_, int p_220673_2_) {
-			AABB axisalignedbb = this.parentEntity.getBoundingBox();
 
-			for (int i = 1; i < p_220673_2_; ++i) {
-				axisalignedbb = axisalignedbb.move(p_220673_1_);
-				if (!this.parentEntity.level().noCollision(this.parentEntity, axisalignedbb)) {
-					return false;
-				}
-			}
-
-			return true;
+		public boolean canContinueToUse() {
+			return super.canContinueToUse() && (Pleco.this.isLooking() || Pleco.this.isFrenzying());
 		}
-	}
-	
-	public class DirectPathNavigator extends GroundPathNavigation {
 
-	    private Mob mob;
-	    private float yMobOffset = 0;
+		public boolean canUse() {
+			return super.canUse() && (Pleco.this.isLooking() || Pleco.this.isFrenzying());
+		}
 
-	    public DirectPathNavigator(Mob mob, Level world) {
-	        this(mob, world, 0);
-	    }
-
-	    public DirectPathNavigator(Mob mob, Level world, float yMobOffset) {
-	        super(mob, world);
-	        this.mob = mob;
-	        this.yMobOffset = yMobOffset;
-	    }
-
-	    public void tick() {
-	        ++this.tick;
-	    }
-
-	    public boolean moveTo(double x, double y, double z, double speedIn) {
-	        mob.getMoveControl().setWantedPosition(x, y, z, speedIn);
-	        return true;
-	    }
-
-	    public boolean moveTo(Entity entityIn, double speedIn) {
-	        mob.getMoveControl().setWantedPosition(entityIn.getX(), entityIn.getY() + yMobOffset, entityIn.getZ(), speedIn);
-	        return true;
-	    }
-
+		public void start() {
+			this.ticksWaited = 0;
+			super.start();
+		}
+		
+		public void stop() {
+			Pleco.this.blockAttractionCooldownTime = 3600;
+			Pleco.this.blockAttractionTime = 600;
+			super.stop();
+		}
 	}
 
 }

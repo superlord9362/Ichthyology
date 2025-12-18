@@ -55,16 +55,21 @@ public class TilapiaModel extends EntityModel<Tilapia> {
 
 	@Override
 	public void setupAnim(Tilapia entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 0F;
+		float f = 0F + (-0.05F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.body.y = 21;
+		this.body.x = Mth.sin(0.15F * ageInTicks);
 		this.body.zRot = f;
-		this.body.xRot = headPitch * ((float)Math.PI / 180F);
-		this.body.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.Tail_F.yRot = 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.pectoral_F2.yRot = -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks)) + 0.7854F;
-		this.pectoral_F.yRot = Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks)) - 0.7854F;
+		this.body.xRot = headPitch * Mth.DEG_TO_RAD;
+		this.body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.05F * Mth.sin(0.15F * ageInTicks));
+		this.tail.yRot = 0.45F * Mth.sin(0.35F * ageInTicks) * 0.5F;
+		this.Tail_F.yRot = 0.45F * Mth.sin(0.35F * ageInTicks);
+		this.Tail_F.zRot = 0.05F * Mth.sin(0.35F * ageInTicks);
+		this.pectoral_F.yRot = -0.45F * Mth.sin(0.35F * ageInTicks) - 0.9346F;
+		this.pectoral_F2.yRot = 0.45F * Mth.sin(-0.35F * ageInTicks) + 0.9346F;
+//		this.DorsalAnal_F.zRot = -0.1F * Mth.sin(0.15F * ageInTicks);
 	}
 
 	@Override

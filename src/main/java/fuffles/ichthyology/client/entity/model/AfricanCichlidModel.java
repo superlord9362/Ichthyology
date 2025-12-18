@@ -41,17 +41,18 @@ public class AfricanCichlidModel<T extends Entity> extends RootedModel<T> {
 	}
 
 
-	@SuppressWarnings("unused")
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 1F;
+		float f = 0F + (-0.1F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.body.x = Mth.sin(0.2F * ageInTicks);
+		this.body.zRot = f;
 		this.body.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.body.yRot = netHeadYaw * Mth.DEG_TO_RAD;
+		this.body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
 		this.tailFin.yRot = 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.rightFin.yRot = -Mth.HALF_PI / 2F; // -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
-		this.leftFin.yRot = Mth.HALF_PI / 2F; // Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
+		this.leftFin.yRot = -(0.325F * Mth.sin(0.3F * ageInTicks)) + 0.7854F;
+		this.rightFin.yRot = (-0.325F * Mth.sin(0.3F * ageInTicks)) - 0.7854F;
 	}
 }

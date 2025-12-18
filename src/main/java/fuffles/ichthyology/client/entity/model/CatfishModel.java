@@ -60,9 +60,9 @@ public class CatfishModel extends EntityModel<Catfish> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition Belly = partdefinition.addOrReplaceChild("Belly", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -2.0F, -2.0F, 6.0F, 6.0F, 15.0F, new CubeDeformation(0.002F)), PartPose.offset(0.0F, 20.0F, -6.0F));
+		PartDefinition Belly = partdefinition.addOrReplaceChild("Belly", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, 0.0F, 0.0F, 6.0F, 6.0F, 15.0F, new CubeDeformation(0.002F)), PartPose.offset(0.0F, 18.0F, -2.0F));
 
-		PartDefinition Tail = Belly.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(0, 21).addBox(-2.0F, -2.0F, -1.0F, 4.0F, 5.0F, 13.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 0.0F, 13.0F));
+		PartDefinition Tail = Belly.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(0, 21).addBox(-2.0F, -2.0F, -1.0F, 4.0F, 5.0F, 13.0F, new CubeDeformation(0.001F)), PartPose.offset(0.0F, 2.0F, 15.0F));
 
 		PartDefinition Tail2 = Tail.addOrReplaceChild("Tail2", CubeListBuilder.create().texOffs(0, 39).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 4.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 12.0F));
 
@@ -74,7 +74,7 @@ public class CatfishModel extends EntityModel<Catfish> {
 
 		PartDefinition Tail_f = Tail.addOrReplaceChild("Tail_f", CubeListBuilder.create().texOffs(16, 31).addBox(0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 3.0F, 4.0F));
 
-		PartDefinition Head = Belly.addOrReplaceChild("Head", CubeListBuilder.create().texOffs(38, 4).addBox(-3.0F, 0.0F, -5.0F, 6.0F, 4.0F, 5.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, -1.0F, -2.0F, 0.1173F, 0.0F, 0.0F));
+		PartDefinition Head = Belly.addOrReplaceChild("Head", CubeListBuilder.create().texOffs(38, 4).addBox(-3.0F, 0.0F, -5.0F, 6.0F, 4.0F, 5.0F, new CubeDeformation(0.02F)), PartPose.offsetAndRotation(0.0F, 1.0F, 0.0F, 0.1173F, 0.0F, 0.0F));
 
 		PartDefinition Jaw = Head.addOrReplaceChild("Jaw", CubeListBuilder.create().texOffs(36, 15).addBox(-3.0F, 0.0F, -6.0F, 6.0F, 2.0F, 7.0F, new CubeDeformation(0.01F)), PartPose.offsetAndRotation(0.0F, 3.1F, 0.0F, -0.2269F, 0.0F, 0.0F));
 
@@ -86,17 +86,18 @@ public class CatfishModel extends EntityModel<Catfish> {
 
 		PartDefinition mouthinside = Head.addOrReplaceChild("mouthinside", CubeListBuilder.create().texOffs(40, 25).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.02F)), PartPose.offset(0.0F, 1.0F, -5.0F));
 
-		PartDefinition Pelvic_f = Belly.addOrReplaceChild("Pelvic_f", CubeListBuilder.create().texOffs(5, 19).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.0F, 3.0F, 13.0F, -0.3519F, 0.0F, 0.391F));
+		PartDefinition Pelvic_f = Belly.addOrReplaceChild("Pelvic_f", CubeListBuilder.create().texOffs(5, 19).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.0F, 5.0F, 15.0F, -0.3519F, 0.0F, 0.391F));
 
-		PartDefinition Pelvic_f_1 = Belly.addOrReplaceChild("Pelvic_f_1", CubeListBuilder.create().texOffs(5, 19).addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 3.0F, 13.0F, -0.2346F, -0.2346F, -0.6646F));
+		PartDefinition Pelvic_f_1 = Belly.addOrReplaceChild("Pelvic_f_1", CubeListBuilder.create().texOffs(5, 19).addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 5.0F, 15.0F, -0.2346F, -0.2346F, -0.6646F));
 
-		PartDefinition Dorsal_f = Belly.addOrReplaceChild("Dorsal_f", CubeListBuilder.create().texOffs(5, 25).addBox(0.0F, -2.0F, 0.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 7.0F));
+		PartDefinition Dorsal_f = Belly.addOrReplaceChild("Dorsal_f", CubeListBuilder.create().texOffs(5, 25).addBox(0.0F, -2.0F, 0.0F, 0.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 9.0F));
 
-		PartDefinition Pectoral_f = Belly.addOrReplaceChild("Pectoral_f", CubeListBuilder.create().texOffs(3, 21).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-3.0F, 2.0F, -1.0F, 0.0F, -0.3519F, 0.0017F));
+		PartDefinition Pectoral_f = Belly.addOrReplaceChild("Pectoral_f", CubeListBuilder.create().texOffs(3, 21).mirror().addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-3.0F, 4.0F, 1.0F, 0.0F, -0.3519F, 0.0017F));
 
-		PartDefinition Pectoral_f_1 = Belly.addOrReplaceChild("Pectoral_f_1", CubeListBuilder.create().texOffs(3, 21).addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, 2.0F, -1.0F, 0.0F, 0.3519F, 0.0F));
+		PartDefinition Pectoral_f_1 = Belly.addOrReplaceChild("Pectoral_f_1", CubeListBuilder.create().texOffs(3, 21).addBox(0.0F, 0.0F, 0.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(3.0F, 4.0F, 1.0F, 0.0F, 0.3519F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
+
 	}
 
 	@Override
@@ -105,14 +106,22 @@ public class CatfishModel extends EntityModel<Catfish> {
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Belly.x = 1.75F * Mth.sin(0.05F * ageInTicks);
 		this.Belly.zRot = f;
 		this.Belly.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.Belly.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
-		this.Pectoral_f.yRot = -0.65F * Mth.sin(0.15F * ageInTicks) - 0.9346F;
-		this.Pectoral_f_1.yRot = 0.65F * Mth.sin(0.15F * ageInTicks) + 0.9346F;
-		this.Tail.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tail2.yRot = 0.1F * Mth.sin(0.2F * ageInTicks);
-		this.Tail_tip.yRot = 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.Belly.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (0.1F * Mth.sin(0.05F * ageInTicks));
+		this.Pectoral_f.yRot = -0.65F * Mth.sin(0.025F * ageInTicks) - 0.9346F;
+		this.Pectoral_f_1.yRot = 0.65F * Mth.sin(0.025F * ageInTicks) + 0.9346F;
+		this.Pectoral_f.zRot = -0.25F * Mth.sin(0.025F * ageInTicks) - 0.25F;
+		this.Pectoral_f_1.zRot = 0.25F * Mth.sin(0.025F * ageInTicks) + 0.25F;
+		this.Whisker.zRot = 0.1F * Mth.sin(0.05F * ageInTicks) - 1.0556F;
+		this.Whisker_1.zRot = 0.1F * Mth.sin(0.05F * ageInTicks) - 2.0721F;
+		this.Tail.yRot = 0.15F * Mth.sin(0.1F * ageInTicks);
+		this.Tail_f.zRot = 0.5F * Mth.sin(0.1F * ageInTicks);
+		this.Tail2.yRot = 0.225F * Mth.sin(0.1F * ageInTicks);
+		this.Tail2_f.zRot = -0.5F * Mth.sin(0.1F * ageInTicks);
+		this.Tail_tip.yRot = 0.35F * Mth.sin(0.1F * ageInTicks);
+		this.Jaw.xRot = 0.05F * Mth.sin(0.1F * ageInTicks) - 0.1269F;
 	}
 
 	@Override

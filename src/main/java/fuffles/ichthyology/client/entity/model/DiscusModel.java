@@ -19,12 +19,16 @@ public class DiscusModel extends EntityModel<Discus> {
 	private final ModelPart Tail_f;
 	private final ModelPart Pectoral_f_l;
 	private final ModelPart Pectoral_f_r;
+	private final ModelPart Dorsal_f;
+	private final ModelPart Anal_f;
 
 	public DiscusModel(ModelPart root) {
 		this.Body = root.getChild("Body");
 		this.Tail_f = Body.getChild("Tail_f");
 		this.Pectoral_f_l = Body.getChild("Pectoral_f_l");
 		this.Pectoral_f_r = Body.getChild("Pectoral_f_r");
+		this.Dorsal_f = Body.getChild("Dorsal_f");
+		this.Anal_f = Body.getChild("Anal_f");
 	}
 
 	@SuppressWarnings("unused")
@@ -53,16 +57,20 @@ public class DiscusModel extends EntityModel<Discus> {
 
 	@Override
 	public void setupAnim(Discus entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 0F;
+		float f = 0F + (-0.1F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body.x = Mth.sin(0.15F * ageInTicks);
 		this.Body.zRot = f;
-		this.Body.xRot = headPitch * ((float)Math.PI / 180F);
-		this.Body.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.Tail_f.yRot = 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.Pectoral_f_l.yRot = -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks)) + 0.6109F;
-		this.Pectoral_f_r.yRot = Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks)) - 0.6109F;
+		this.Body.xRot = headPitch * Mth.DEG_TO_RAD;
+		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
+		this.Tail_f.yRot = 0.25F * Mth.sin(0.25F * ageInTicks);
+		this.Tail_f.zRot = 0.05F * Mth.sin(0.25F * ageInTicks);
+		this.Anal_f.zRot = 0.05F * Mth.sin(0.25F * ageInTicks);
+		this.Dorsal_f.zRot = -0.05F * Mth.sin(0.25F * ageInTicks);
+		this.Pectoral_f_l.yRot = (0.525F * Mth.sin(0.15F * ageInTicks)) + 0.7854F;
+		this.Pectoral_f_r.yRot = (0.525F * Mth.sin(0.15F * ageInTicks)) - 0.7854F;
 	}
 
 	@Override

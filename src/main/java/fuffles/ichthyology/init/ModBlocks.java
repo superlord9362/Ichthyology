@@ -32,6 +32,7 @@ public class ModBlocks
     public static final class Tags
     {
         public static final TagKey<Block> AMPHIBIOUS_EGGS = tag("amphibious_eggs");
+        public static final TagKey<Block> STRIPPED_LOGS = tag("stripped_logs");
 
         private static TagKey<Block> tag(String path)
         {

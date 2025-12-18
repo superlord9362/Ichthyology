@@ -69,15 +69,21 @@ public class SturgeonBabyModel extends EntityModel<SturgeonBaby> {
 
 	@Override
 	public void setupAnim(SturgeonBaby entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 0F;
+		float f = 0F + (-0.05F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body.x = Mth.sin(0.15F * ageInTicks);
 		this.Body.zRot = f;
 		this.Body.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
-		this.Tail2.yRot = 0.225F * Mth.sin(0.2F * ageInTicks);
-		this.Tial_f.yRot = 0.15F * Mth.sin(0.2F * ageInTicks);
+		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.05F * Mth.sin(0.25F * ageInTicks));
+		this.Body_2.yRot = 0.225F * Mth.sin(0.25F * ageInTicks);
+		this.Tail2.yRot = 0.275F * Mth.sin(0.25F * ageInTicks);
+		this.Tial_f.yRot = 0.35F * Mth.sin(0.25F * ageInTicks);
+		this.part8.zRot = 0.1F * Mth.sin(0.05F * ageInTicks) - 0.6981F;
+		this.part2.zRot = 0.1F * Mth.sin(0.05F * ageInTicks) + 0.6981F;
+		this.part7.zRot = 0.1F * Mth.sin(0.05F * ageInTicks) - 0.6981F;
+		this.part7_1.zRot = 0.1F * Mth.sin(0.05F * ageInTicks) + 0.6981F;
 	}
 
 	@Override

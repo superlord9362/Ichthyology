@@ -21,6 +21,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
@@ -196,7 +197,8 @@ public class Crayfish extends WaterAnimal implements Bucketable {
 	public static enum Variant {
 		RED_SWAMP("red_swamp", Ichthyology.id("textures/entity/crayfish/red_swamp.png")),
 		NOBLE("noble", Ichthyology.id("textures/entity/crayfish/noble.png")),
-		CAVE("cave", Ichthyology.id("textures/entity/crayfish/cave.png"));
+		CAVE("cave", Ichthyology.id("textures/entity/crayfish/cave.png")),
+		YABBY("yabby", Ichthyology.id("textures/entity/crayfish/yabby.png"));
 
 		public static final Crayfish.Variant[] VALUES = values();
 		private static final IntFunction<Crayfish.Variant> BY_ID = ByIdMap.continuous(Crayfish.Variant::getId, VALUES, ByIdMap.OutOfBoundsStrategy.ZERO);
@@ -350,6 +352,7 @@ public class Crayfish extends WaterAnimal implements Bucketable {
 			else {
 				if (this.blockPosition().getY() <= level.getSeaLevel() - 33) this.setVariant(Variant.CAVE);
 				else {
+					if (level.getBiome(this.blockPosition()).is(Biomes.BADLANDS) || level.getBiome(this.blockPosition()).is(Biomes.ERODED_BADLANDS) || level.getBiome(this.blockPosition()).is(Biomes.WOODED_BADLANDS)) this.setVariant(Variant.YABBY);
 					if (level.getBiome(this.blockPosition()).is(Biomes.SWAMP)) this.setVariant(Variant.RED_SWAMP);
 					if (level.getBiome(this.blockPosition()).is(Biomes.RIVER)) this.setVariant(Variant.NOBLE);
 				}
@@ -362,7 +365,7 @@ public class Crayfish extends WaterAnimal implements Bucketable {
 	public static boolean checkCrayfishSpawnRules(EntityType<? extends LivingEntity> p_217018_, ServerLevelAccessor p_217019_, MobSpawnType p_217020_, BlockPos p_217021_, RandomSource p_217022_) {
 		int i = p_217019_.getSeaLevel();
 		int j = i - 13;
-		return p_217021_.getY() <= p_217019_.getSeaLevel() - 33 && p_217019_.getRawBrightness(p_217021_, 0) == 0 && p_217019_.getBlockState(p_217021_).is(Blocks.WATER) || p_217021_.getY() >= j && p_217021_.getY() <= i && (p_217019_.getBiome(p_217021_).is(Biomes.RIVER) || p_217019_.getBiome(p_217021_).is(Biomes.SWAMP)) && p_217019_.getBlockState(p_217021_.above()).is(Blocks.WATER) && p_217019_.getBlockState(p_217021_.below()).isSolid();
+		return p_217021_.getY() <= p_217019_.getSeaLevel() - 33 && p_217019_.getRawBrightness(p_217021_, 0) == 0 && p_217019_.getBlockState(p_217021_).is(Blocks.WATER) || p_217021_.getY() >= j && p_217021_.getY() <= i && (p_217019_.getBiome(p_217021_).is(Biomes.RIVER) || p_217019_.getBiome(p_217021_).is(Biomes.SWAMP) || p_217019_.getBiome(p_217021_).is(BiomeTags.IS_BADLANDS)) && p_217019_.getBlockState(p_217021_.above()).is(Blocks.WATER) && p_217019_.getBlockState(p_217021_.below()).isSolid();
 	}
 	
 	static class MoveHelperController extends MoveControl {

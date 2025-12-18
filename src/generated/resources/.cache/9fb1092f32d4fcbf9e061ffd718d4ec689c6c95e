@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-30T17:48:52.359552	Recipes
+// 1.20.1	2025-12-11T22:05:32.4194956	Recipes
 22a76c3d26a06ad5881a8eaeaa98d77eb53868c3 data/ichthyology/advancements/recipes/building_blocks/brain_coral_block.json
 5e931aeda8a02242b4da4249200bb9574d8b8234 data/ichthyology/advancements/recipes/building_blocks/bubble_coral_block.json
 9966de284dcebf69d0d73ff74d2b971c6530543f data/ichthyology/advancements/recipes/building_blocks/fire_coral_block.json
@@ -41,9 +41,11 @@ f4e4ff0cc8956e32b6c9f5332a4dd53e58154b7f data/ichthyology/advancements/recipes/f
 12b4aa2c411466b85f41176b526f305803c911af data/ichthyology/advancements/recipes/food/ground_fish_meat_from_small_raw_fish.json
 6bde3ebfc2010f51137ae8138d8be171138f225a data/ichthyology/advancements/recipes/food/olmlette.json
 a0c965234fec985198eeedf04d23faf9b8df18f6 data/ichthyology/advancements/recipes/food/peacock_bass_fillet.json
+a5cef3278f701bc2eb3b8efe672ddc3a4cefa675 data/ichthyology/advancements/recipes/misc/chum_bucket.json
 e1b296e8d45f727bb12d3efbba4ab5b229bbbbcb data/ichthyology/recipes/brain_coral_block.json
 d0a701726b66f5c2e36225c2048d50f013ff63f6 data/ichthyology/recipes/bubble_coral_block.json
 7e759509504501ed4b1ef335ee65643c59e58572 data/ichthyology/recipes/caviar.json
+11541649adcc19a8ba21254a724d3fdd06ce3b49 data/ichthyology/recipes/chum_bucket.json
 4313444795cffd9b87acde56631665d3992700c9 data/ichthyology/recipes/cooked_carp.json
 9cc612b13096fa80e504f13d556392bb0ebb1210 data/ichthyology/recipes/cooked_carp_from_campfire_cooking.json
 e3cb860084df3b1eb05f839c5f59342d8546fa91 data/ichthyology/recipes/cooked_carp_from_smoking.json

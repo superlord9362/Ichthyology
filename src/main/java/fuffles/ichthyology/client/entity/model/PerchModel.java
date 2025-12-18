@@ -81,15 +81,19 @@ public class PerchModel<T extends Perch> extends RootedModel<T> implements IHold
 
 	@Override
 	public void setupAnim(Perch entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 1F;
+		float f = 0F + (-0.05F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body.x = Mth.sin(0.15F * ageInTicks);
+		this.Body.zRot = f;
 		this.Body.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.Body.yRot = netHeadYaw * Mth.DEG_TO_RAD;
-		this.Tail.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks) * 0.5F;
-		this.Tail_f.yRot = f * 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.Pectoral_f_r.yRot = Mth.HALF_PI / 2F; // Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks));
-		this.Pectoral_f_l.yRot = -Mth.HALF_PI / 2F; // -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks));
+		this.Body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.05F * Mth.sin(0.15F * ageInTicks));
+		this.Tail.yRot = 0.45F * Mth.sin(0.35F * ageInTicks) * 0.5F;
+		this.Tail_f.yRot = 0.45F * Mth.sin(0.25F * ageInTicks);
+		this.Tail_f.zRot = 0.05F * Mth.sin(0.35F * ageInTicks);
+		this.Pectoral_f_r.yRot = 0.45F * Mth.sin(-0.35F * ageInTicks) + 0.9346F;
+		this.Pectoral_f_l.yRot = -0.45F * Mth.sin(0.35F * ageInTicks) - 0.9346F;
+		this.Anal_f.zRot = -0.1F * Mth.sin(0.15F * ageInTicks);
 	}
 }

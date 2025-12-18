@@ -51,12 +51,14 @@ public class NeonTetraModel extends EntityModel<NeonTetra> {
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.Body.x = 0.5F * Mth.sin(0.3F * ageInTicks);
+		this.Body.z = 0.75F * Mth.sin(0.6F * ageInTicks) - 1.5F;
 		this.Body.zRot = f;
 		this.Body.xRot = headPitch * ((float)Math.PI / 180F);
 		this.Body.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.Tail_f.yRot = 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.Pectoral_f_l.yRot = -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks)) + 0.7854F;
-		this.Pectoral_f_r.yRot = Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks)) - 0.7854F;
+		this.Tail_f.yRot = 0.45F * Mth.sin(0.75F * ageInTicks);
+		this.Pectoral_f_l.yRot = (0.425F * Mth.sin(0.4F * ageInTicks)) + 0.625F;
+		this.Pectoral_f_r.yRot = (-0.425F * Mth.sin(0.4F * ageInTicks)) - 0.625F;
 	}
 
 	@Override

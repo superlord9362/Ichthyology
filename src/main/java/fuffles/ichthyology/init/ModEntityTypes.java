@@ -48,31 +48,31 @@ public class ModEntityTypes
 		return registerSimple(id, EntityType.Builder.of(factory, MobCategory.WATER_AMBIENT).sized(width, height));
 	}
 
-	public static final EntityType<AfricanCichlid> AFRICAN_CICHLID = registerFish("african_cichlid", AfricanCichlid::new, 0.25F, 0.1875F);
-	public static final EntityType<Tilapia> TILAPIA = registerFish("tilapia", Tilapia::new, 0.25F, 0.3125F);
+	public static final EntityType<AfricanCichlid> AFRICAN_CICHLID = registerFish("african_cichlid", AfricanCichlid::new, 0.4F, 0.1875F);
+	public static final EntityType<Tilapia> TILAPIA = registerFish("tilapia", Tilapia::new, 0.4F, 0.3125F);
 	public static final EntityType<Perch> PERCH = registerFish("perch", Perch::new, 0.4F, 0.275F);
 
-	public static final EntityType<BlindCaveTetra> BLIND_CAVE_TETRA = registerFish("blind_cave_tetra", BlindCaveTetra::new, 0.25F, 0.1875F);
-	public static final EntityType<NeonTetra> NEON_TETRA = registerFish("neon_tetra", NeonTetra::new, 0.25F, 0.125F);
-	public static final EntityType<Goldfish> GOLDFISH = registerFish("goldfish", Goldfish::new, 0.25F, 0.1875F);
-	public static final EntityType<Piranha> PIRANHA = registerFish("piranha", Piranha::new, 0.25F, 0.25F);
-	public static final EntityType<Angelfish> ANGELFISH = registerFish("angelfish", Angelfish::new, 0.25F, 0.4375F);
+	public static final EntityType<BlindCaveTetra> BLIND_CAVE_TETRA = registerFish("blind_cave_tetra", BlindCaveTetra::new, 0.4F, 0.1875F);
+	public static final EntityType<NeonTetra> NEON_TETRA = registerFish("neon_tetra", NeonTetra::new, 0.4F, 0.25F);
+	public static final EntityType<Goldfish> GOLDFISH = registerFish("goldfish", Goldfish::new, 0.4F, 0.1875F);
+	public static final EntityType<Piranha> PIRANHA = registerFish("piranha", Piranha::new, 0.4F, 0.25F);
+	public static final EntityType<Angelfish> ANGELFISH = registerFish("angelfish", Angelfish::new, 0.4F, 0.4375F);
 	public static final EntityType<Carp> CARP = registerFish("carp", Carp::new, 0.45F, 0.3925F);
-	public static final EntityType<Discus> DISCUS = registerFish("discus", Discus::new, 0.25F, 0.4375F);
-	public static final EntityType<Pleco> PLECO = registerFish("pleco", Pleco::new, 0.25F, 0.125F);
-	public static final EntityType<Archerfish> ARCHERFISH = registerFish("archerfish", Archerfish::new, 0.25F, 0.25F);
-	public static final EntityType<Mudskipper> MUDSKIPPER = registerFish("mudskipper", Mudskipper::new, 0.25F, 0.25F);
+	public static final EntityType<Discus> DISCUS = registerFish("discus", Discus::new, 0.4F, 0.4375F);
+	public static final EntityType<Pleco> PLECO = registerFish("pleco", Pleco::new, 0.4F, 0.1875F);
+	public static final EntityType<Archerfish> ARCHERFISH = registerFish("archerfish", Archerfish::new, 0.4F, 0.25F);
+	public static final EntityType<Mudskipper> MUDSKIPPER = registerFish("mudskipper", Mudskipper::new, 0.4F, 0.25F);
 	public static final EntityType<Crayfish> CRAYFISH = registerFish("crayfish", Crayfish::new, 0.3F, 0.25F);
-	public static final EntityType<Catfish> CATFISH = registerFish("catfish", Catfish::new, 0.375F, 0.375F);
-	public static final EntityType<CatfishBaby> CATFISH_BABY = registerFish("catfish_baby", CatfishBaby::new, 0.25F, 0.25F);
-	public static final EntityType<PeacockBass> PEACOCK_BASS = registerFish("peacock_bass", PeacockBass::new, 0.375F, 0.5625F);
-	public static final EntityType<PeacockBassBaby> PEACOCK_BASS_BABY = registerFish("peacock_bass_baby", PeacockBassBaby::new, 0.25F, 0.25F);
-	public static final EntityType<Gar> GAR = registerFish("gar", Gar::new, 0.3125F, 0.3125F);
-	public static final EntityType<GarBaby> GAR_BABY = registerFish("gar_baby", GarBaby::new, 0.25F, 0.25F);
+	public static final EntityType<Catfish> CATFISH = registerFish("catfish", Catfish::new, 0.875F, 0.375F);
+	public static final EntityType<CatfishBaby> CATFISH_BABY = registerFish("catfish_baby", CatfishBaby::new, 0.4F, 0.25F);
+	public static final EntityType<PeacockBass> PEACOCK_BASS = registerFish("peacock_bass", PeacockBass::new, 0.875F, 0.5625F);
+	public static final EntityType<PeacockBassBaby> PEACOCK_BASS_BABY = registerFish("peacock_bass_baby", PeacockBassBaby::new, 0.4F, 0.25F);
+	public static final EntityType<Gar> GAR = registerFish("gar", Gar::new, 0.875F, 0.3125F);
+	public static final EntityType<GarBaby> GAR_BABY = registerFish("gar_baby", GarBaby::new, 0.4F, 0.25F);
 	public static final EntityType<FiddlerCrab> FIDDLER_CRAB = registerFish("fiddler_crab", FiddlerCrab::new, 0.375F, 0.375F);
-	public static final EntityType<Sturgeon> STURGEON = registerFish("sturgeon", Sturgeon::new, 0.375F, 0.375F);
-	public static final EntityType<SturgeonBaby> STURGEON_BABY = registerFish("sturgeon_baby", SturgeonBaby::new, 0.25F, 0.25F);
-	public static final EntityType<Olm> OLM = registerFish("olm", Olm::new, 0.25F, 0.25F);
+	public static final EntityType<Sturgeon> STURGEON = registerFish("sturgeon", Sturgeon::new, 0.875F, 0.375F);
+	public static final EntityType<SturgeonBaby> STURGEON_BABY = registerFish("sturgeon_baby", SturgeonBaby::new, 0.4F, 0.25F);
+	public static final EntityType<Olm> OLM = registerFish("olm", Olm::new, 0.4F, 0.25F);
 
 	public static final EntityType<ArcherfishSpit> ARCHERFISH_SPIT = registerSimple("archerfish_spit", EntityType.Builder.<ArcherfishSpit>of(ArcherfishSpit::new, MobCategory.MISC).sized(0.125F, 0.125F));
 	

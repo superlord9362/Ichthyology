@@ -1,2 +1,3 @@
-// 1.20.1	2025-04-28T16:56:44.3507724	Tags for minecraft:block mod id ichthyology
+// 1.20.1	2025-12-12T00:12:18.4229174	Tags for minecraft:block mod id ichthyology
 d981c0e0833fef2fec54c93cf98453902bf7db7c data/ichthyology/tags/blocks/amphibious_eggs.json
+a3c41f45737082ff662c6de12ed26746825c961f data/ichthyology/tags/blocks/stripped_logs.json

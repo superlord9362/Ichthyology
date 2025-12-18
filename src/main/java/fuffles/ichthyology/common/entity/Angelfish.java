@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
@@ -30,6 +31,7 @@ public class Angelfish extends AbstractIchthyologySchoolingFish {
 
 	public Angelfish(EntityType<? extends WaterAnimal> p_30341_, Level p_30342_) {
 		super(p_30341_, p_30342_);
+		this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.01F, 0.1F, true);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

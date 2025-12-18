@@ -71,16 +71,17 @@ public class ArcherfishModel extends EntityModel<Archerfish> {
 
 	@Override
 	public void setupAnim(Archerfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		float f = 0F;
+		float f = 0F + (-0.1F * Mth.sin(0.1F * ageInTicks));
 		if (!entity.isInWater()) {
 			f = 1.5F;
 		}
+		this.body.x = Mth.sin(0.15F * ageInTicks);
 		this.body.zRot = f;
-		this.body.xRot = headPitch * ((float)Math.PI / 180F);
-		this.body.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.body.xRot = headPitch * Mth.DEG_TO_RAD;
+		this.body.yRot = (netHeadYaw * Mth.DEG_TO_RAD) + (-0.15F * Mth.sin(0.15F * ageInTicks));
 		this.tail_f.yRot = 0.45F * Mth.sin(0.6F * ageInTicks);
-		this.pectoral_f_l.yRot = -Mth.abs(0.85F * Mth.sin(0.15F * ageInTicks)) + 0.821F;
-		this.pectoral_f_r.yRot = Mth.abs(-0.85F * Mth.sin(0.15F * ageInTicks)) - 0.821F;
+		this.pectoral_f_l.yRot = (0.325F * Mth.sin(0.15F * ageInTicks)) + 0.7854F;
+		this.pectoral_f_r.yRot = (-0.325F * Mth.sin(0.15F * ageInTicks)) - 0.7854F;
 
 	}
 
