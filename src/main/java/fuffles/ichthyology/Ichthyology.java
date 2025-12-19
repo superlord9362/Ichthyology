@@ -94,6 +94,7 @@ public class Ichthyology {
 		event.register(ModEntityTypes.STURGEON, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Sturgeon::checkSurfaceWaterAnimalSpawnRules, op);
 		event.register(ModEntityTypes.STURGEON_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, op);
 		event.register(ModEntityTypes.OLM, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Olm::checkOlmSpawnRules, op);
+		event.register(ModEntityTypes.FLOWERHORN, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, op);
 	}
 	
 	private void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -121,6 +122,7 @@ public class Ichthyology {
 		event.put(ModEntityTypes.STURGEON, Sturgeon.createAttributes().build());
 		event.put(ModEntityTypes.STURGEON_BABY, SturgeonBaby.createAttributes().build());
 		event.put(ModEntityTypes.OLM, Olm.createAttributes().build());
+		event.put(ModEntityTypes.FLOWERHORN, Flowerhorn.createAttributes().build());
 	}
 	
 	private void registerClient(FMLClientSetupEvent event) {

@@ -191,6 +191,7 @@ public class PeacockBassBaby extends WaterAnimal implements Bucketable {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	private void ageUp() {
 		Level level = this.level();
 		if (level instanceof ServerLevel serverLevel) {

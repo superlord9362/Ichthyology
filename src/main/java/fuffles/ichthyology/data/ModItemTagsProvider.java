@@ -33,7 +33,7 @@ public class ModItemTagsProvider extends ItemTagsProvider
         this.tag(ModItems.Tags.FIRE_CORAL_FRONDS).add(Items.FIRE_CORAL, Items.FIRE_CORAL_FAN);
         this.tag(ModItems.Tags.HORN_CORAL_FRONDS).add(Items.HORN_CORAL, Items.HORN_CORAL_FAN);
         this.tag(ModItems.Tags.SMALL_RAW_FISH).add(Items.COD, Items.TROPICAL_FISH, ModItems.BLIND_CAVE_TETRA, ModItems.GOLDFISH, ModItems.TILAPIA, ModItems.AFRICAN_CICHLID, ModItems.PIRANHA, ModItems.DISCUS, ModItems.ANGELFISH, ModItems.NEON_TETRA, ModItems.PLECO, ModItems.ARCHERFISH, ModItems.MUDSKIPPER, ModItems.CATFISH_BABY, ModItems.GAR_BABY, ModItems.STURGEON_BABY);
-        this.tag(ModItems.Tags.MEDIUM_RAW_FISH).add(Items.SALMON, Items.PUFFERFISH, ModItems.CARP, ModItems.PERCH);
+        this.tag(ModItems.Tags.MEDIUM_RAW_FISH).add(Items.SALMON, Items.PUFFERFISH, ModItems.CARP, ModItems.PERCH, ModItems.FLOWERHORN);
         this.tag(ModItems.Tags.LARGE_RAW_FISH).add(ModItems.CATFISH, ModItems.PEACOCK_BASS_FILET, ModItems.GAR);
     }
 }

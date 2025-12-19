@@ -91,6 +91,7 @@ public class ModEntityLootProvider extends EntityLootSubProvider
 		this.add(ModEntityTypes.STURGEON, basicFish(ModItems.STURGEON_ROE));
 		this.add(ModEntityTypes.STURGEON_BABY, basicFish(ModItems.STURGEON_BABY));
 		this.add(ModEntityTypes.OLM, LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(Items.AIR))));
+		this.add(ModEntityTypes.FLOWERHORN, basicFish(ModItems.FLOWERHORN));
 	}
 
 	private static LootTable.Builder basicFish(Item drop)

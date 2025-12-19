@@ -50,6 +50,7 @@ public class ClientEvents {
 	public static final ModelLayerLocation STURGEON_BABY = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "sturgeon_baby"), "sturgeon_baby");
 	public static final ModelLayerLocation FIDDLER_CRAB = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "fiddler_crab"), "fiddler_crab");
 	public static final ModelLayerLocation OLM = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "olm"), "olm");
+	public static final ModelLayerLocation FLOWERHORN = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "flowerhorn"), "flowerhorn");
 	
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
@@ -78,6 +79,7 @@ public class ClientEvents {
 		event.registerEntityRenderer(ModEntityTypes.STURGEON_BABY, SturgeonBabyRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.FIDDLER_CRAB, FiddlerCrabRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.OLM, OlmRenderer::new);
+		event.registerEntityRenderer(ModEntityTypes.FLOWERHORN, FlowerhornRenderer::new);
 	}
 	
 	@SubscribeEvent
@@ -106,6 +108,7 @@ public class ClientEvents {
 		event.registerLayerDefinition(STURGEON_BABY, SturgeonBabyModel::createBodyLayer);
 		event.registerLayerDefinition(FIDDLER_CRAB, FiddlerCrabModel::createBodyLayer);
 		event.registerLayerDefinition(OLM, OlmModel::createBodyLayer);
+		event.registerLayerDefinition(FLOWERHORN, FlowerhornModel::createBodyLayer);
 	}
 	
 	@SuppressWarnings("deprecation")

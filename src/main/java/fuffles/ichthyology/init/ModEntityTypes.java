@@ -12,6 +12,7 @@ import fuffles.ichthyology.common.entity.CatfishBaby;
 import fuffles.ichthyology.common.entity.Crayfish;
 import fuffles.ichthyology.common.entity.Discus;
 import fuffles.ichthyology.common.entity.FiddlerCrab;
+import fuffles.ichthyology.common.entity.Flowerhorn;
 import fuffles.ichthyology.common.entity.Gar;
 import fuffles.ichthyology.common.entity.GarBaby;
 import fuffles.ichthyology.common.entity.Goldfish;
@@ -73,6 +74,7 @@ public class ModEntityTypes
 	public static final EntityType<Sturgeon> STURGEON = registerFish("sturgeon", Sturgeon::new, 0.875F, 0.375F);
 	public static final EntityType<SturgeonBaby> STURGEON_BABY = registerFish("sturgeon_baby", SturgeonBaby::new, 0.4F, 0.25F);
 	public static final EntityType<Olm> OLM = registerFish("olm", Olm::new, 0.4F, 0.25F);
+	public static final EntityType<Flowerhorn> FLOWERHORN = registerFish("flowerhorn", Flowerhorn::new, 0.4F, 0.5625F);
 
 	public static final EntityType<ArcherfishSpit> ARCHERFISH_SPIT = registerSimple("archerfish_spit", EntityType.Builder.<ArcherfishSpit>of(ArcherfishSpit::new, MobCategory.MISC).sized(0.125F, 0.125F));
 	

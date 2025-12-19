@@ -106,6 +106,7 @@ public class ModItems
 	public static final ForgeSpawnEggItem STURGEON_SPAWN_EGG = registerEgg("sturgeon", ModEntityTypes.STURGEON, 0x555045, 0x91897C);
 	public static final ForgeSpawnEggItem STURGEON_BABY_SPAWN_EGG = registerEgg("sturgeon_baby", ModEntityTypes.STURGEON_BABY, 0x555045, 0xB4AEA7);
 	public static final ForgeSpawnEggItem OLM_SPAWN_EGG = registerEgg("olm", ModEntityTypes.OLM, 0xE6DBC0, 0xB55053);
+	public static final ForgeSpawnEggItem FLOWERHORN_SPAWN_EGG = registerEgg("flowerhorn", ModEntityTypes.FLOWERHORN, 0xE40009, 0xE1BFD7);
 
 	public static final MobBucketItem BLIND_CAVE_TETRA_BUCKET = registerBucket("blind_cave_tetra", ModEntityTypes.BLIND_CAVE_TETRA);
 	public static final MobBucketItem GOLDFISH_BUCKET = registerBucket("goldfish", ModEntityTypes.GOLDFISH);
@@ -127,6 +128,7 @@ public class ModItems
 	public static final MobBucketItem FIDDLER_CRAB_BUCKET = registerBucket("fiddler_crab", ModEntityTypes.FIDDLER_CRAB);
 	public static final MobBucketItem STURGEON_BABY_BUCKET = registerBucket("sturgeon_baby", ModEntityTypes.STURGEON_BABY);
 	public static final MobBucketItem OLM_BUCKET = registerBucket("olm", ModEntityTypes.OLM);
+	public static final MobBucketItem FLOWERHORN_BUCKET = registerBucket("flowerhorn", ModEntityTypes.FLOWERHORN);
 
 	public static final Item BLIND_CAVE_TETRA = ITEM_REGISTRY.register("blind_cave_tetra", new Item(new Item.Properties().food(rawSmallFish().build())));
 	public static final Item GOLDFISH = ITEM_REGISTRY.register("goldfish", new Item(new Item.Properties().food(rawSmallFish().build())));
@@ -159,6 +161,7 @@ public class ModItems
 	public static final Item GAR = ITEM_REGISTRY.register("gar", new Item(new Item.Properties().food(rawLargeFish().build())));
 	public static final Item COOKED_GAR = ITEM_REGISTRY.register("cooked_gar", new Item(new Item.Properties().food(cookedLargeFish().build())));
 	public static final Item STURGEON_BABY = ITEM_REGISTRY.register("sturgeon_baby", new Item(new Item.Properties().food(rawSmallFish().build())));
+	public static final Item FLOWERHORN = ITEM_REGISTRY.register("flowerhorn", new Item(new Item.Properties().food(rawMediumFish().build())));
 	@SuppressWarnings("deprecation")
 	public static final Item GROUND_FISH = ITEM_REGISTRY.register("ground_fish_meat", new Item(new Item.Properties().food(new FoodProperties.Builder().meat().nutrition(1).saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.HUNGER, 200), 1).effect(new MobEffectInstance(MobEffects.CONFUSION), 1).build())));
 	public static final Item CHUM_BUCKET = ITEM_REGISTRY.register("chum_bucket", new ChumBucketItem(new Item.Properties().stacksTo(1)));

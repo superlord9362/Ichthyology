@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-26T22:13:06.0986124	Loot Tables
+// 1.20.1	2025-12-19T03:11:51.8867593	Loot Tables
 cfa7f4dd5e77a7dc241cf3f5e92a08c1d00f9d50 data/ichthyology/loot_tables/entities/african_cichlid.json
 428a33648cc10faafbfddfb4368b0f41571b70ac data/ichthyology/loot_tables/entities/angelfish.json
 4be158dcd3f3102e5816d0e84db33cc7d08aa253 data/ichthyology/loot_tables/entities/archerfish.json
@@ -9,6 +9,7 @@ b7177f9f54990f3ef8cd2e350b310607be7b11f9 data/ichthyology/loot_tables/entities/c
 04756f53b0159751cf25cd13eacadff7ca6b8caf data/ichthyology/loot_tables/entities/crayfish.json
 9b73b7f3c355796494dea5bae12ca76fa244fd2f data/ichthyology/loot_tables/entities/discus.json
 6927084f1cd6bed88beff209fb91dae982d6dba2 data/ichthyology/loot_tables/entities/fiddler_crab.json
+eb631ef10b03efda4032a1577fbab1a7d38ce587 data/ichthyology/loot_tables/entities/flowerhorn.json
 91c836d636d488c053b3b4bdad6ac8221fd950d1 data/ichthyology/loot_tables/entities/gar.json
 7571377ddd7f1e05736fa7e93b93714e8c3ecaba data/ichthyology/loot_tables/entities/gar_baby.json
 f3f23e2e19088fe0e1d277600cdbb634ba292b85 data/ichthyology/loot_tables/entities/goldfish.json

@@ -65,6 +65,7 @@
 	"entity.ichthyology.olm": "Olm",
 	"entity.ichthyology.olm.variant.white": "White",
 	"entity.ichthyology.olm.variant.black": "Black",
+	"entity.ichthyology.flowerhorn": "Flowerhorn",
 	
 	"item.ichthyology.blind_cave_tetra_spawn_egg": "Blind Cave Tetra Spawn Egg",
 	"item.ichthyology.goldfish_spawn_egg": "Goldfish Spawn Egg",
@@ -90,6 +91,7 @@
 	"item.ichthyology.sturgeon_spawn_egg": "Sturgeon Spawn Egg",
 	"item.ichthyology.sturgeon_baby_spawn_egg": "Sturgeon Baby Spawn Egg",
 	"item.ichthyology.olm_spawn_egg": "Olm Spawn Egg",
+	"item.ichthyology.flowerhorn_spawn_egg": "Flowerhorn Spawn Egg",
 	
 	"item.ichthyology.blind_cave_tetra_bucket": "Bucket of Blind Cave Tetra",
 	"item.ichthyology.goldfish_bucket": "Bucket of Goldfish",
@@ -111,6 +113,7 @@
 	"item.ichthyology.fiddler_crab_bucket": "Bucket of Fiddler Crab",
 	"item.ichthyology.sturgeon_baby_bucket": "Bucket of Baby Sturgeon",
 	"item.ichthyology.olm_bucket": "Bucket of Olm",
+	"item.ichthyology.flowerhorn_bucket": "Bucket of Flowerhorn",
 	
 	"item.ichthyology.blind_cave_tetra": "Blind Cave Tetra",
 	"item.ichthyology.goldfish": "Goldfish",
@@ -147,6 +150,7 @@
 	"item.ichthyology.caviar": "Caviar",
 	"item.ichthyology.fish_sticks": "Fish Sticks",
 	"item.ichthyology.chum_bucket": "Chum Bucket",
+	"item.ichthyology.flowerhorn": "Flowerhorn",
 	
 	"block.ichthyology.catfish_roe": "Catfish Roe",
 	"block.ichthyology.peacock_bass_roe": "Peacock Bass Roe",
