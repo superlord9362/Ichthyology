@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.common.entity.AfricanCichlid;
 import fuffles.ichthyology.common.entity.Crayfish;
-import fuffles.ichthyology.common.entity.perch.Perch;
+import fuffles.ichthyology.common.entity.Perch;
 import fuffles.ichthyology.common.world.level.storage.loot.functions.TransferTagValueFunction;
 import fuffles.ichthyology.init.ModEntityTypes;
 import fuffles.ichthyology.init.ModItems;

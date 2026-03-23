@@ -1,5 +1,7 @@
 package fuffles.ichthyology.data;
 
+import java.util.List;
+
 import fuffles.ichthyology.Ichthyology;
 import fuffles.ichthyology.init.ModEntityTypes;
 import net.minecraft.core.HolderSet;
@@ -15,8 +17,6 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.List;
 
 public class ModBiomeModifierProvider
 {

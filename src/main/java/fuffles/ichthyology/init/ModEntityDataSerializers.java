@@ -5,7 +5,7 @@ import fuffles.ichthyology.common.entity.Carp;
 import fuffles.ichthyology.common.entity.Crayfish;
 import fuffles.ichthyology.common.entity.Goldfish;
 import fuffles.ichthyology.common.entity.Olm;
-import fuffles.ichthyology.common.entity.perch.Perch;
+import fuffles.ichthyology.common.entity.Perch;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 

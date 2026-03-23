@@ -1,9 +1,9 @@
 package fuffles.ichthyology.client.entity.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import com.mojang.math.Axis;
-import fuffles.ichthyology.common.entity.perch.Perch;
+
+import fuffles.ichthyology.common.entity.Perch;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;

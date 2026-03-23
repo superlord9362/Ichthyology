@@ -1,7 +1,11 @@
 package fuffles.ichthyology.common.entity.ai.sensing;
 
+import java.util.Optional;
+import java.util.Set;
+
 import com.google.common.collect.ImmutableSet;
-import fuffles.ichthyology.common.entity.perch.Perch;
+
+import fuffles.ichthyology.common.entity.Perch;
 import fuffles.ichthyology.init.ModBlocks;
 import fuffles.ichthyology.init.brain.ModMemoryModuleTypes;
 import net.minecraft.core.BlockPos;
@@ -11,9 +15,6 @@ import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.level.GameRules;
-
-import java.util.Optional;
-import java.util.Set;
 
 public class PerchSpecificSensor extends Sensor<Perch>
 {

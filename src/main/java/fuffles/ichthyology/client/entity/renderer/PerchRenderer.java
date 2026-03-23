@@ -3,7 +3,7 @@ package fuffles.ichthyology.client.entity.renderer;
 import fuffles.ichthyology.client.ClientEvents;
 import fuffles.ichthyology.client.entity.model.PerchModel;
 import fuffles.ichthyology.client.entity.renderer.layer.SimpleHeldItemLayer;
-import fuffles.ichthyology.common.entity.perch.Perch;
+import fuffles.ichthyology.common.entity.Perch;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 

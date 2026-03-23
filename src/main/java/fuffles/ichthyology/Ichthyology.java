@@ -1,12 +1,46 @@
 package fuffles.ichthyology;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.slf4j.Logger;
+
 import com.mojang.logging.LogUtils;
+
 import fuffles.ichthyology.client.IchthyologyClient;
-import fuffles.ichthyology.common.entity.*;
-import fuffles.ichthyology.common.entity.perch.Perch;
+import fuffles.ichthyology.common.entity.AfricanCichlid;
+import fuffles.ichthyology.common.entity.Angelfish;
+import fuffles.ichthyology.common.entity.Archerfish;
+import fuffles.ichthyology.common.entity.BlindCaveTetra;
+import fuffles.ichthyology.common.entity.Carp;
+import fuffles.ichthyology.common.entity.Catfish;
+import fuffles.ichthyology.common.entity.CatfishBaby;
+import fuffles.ichthyology.common.entity.Crayfish;
+import fuffles.ichthyology.common.entity.Discus;
+import fuffles.ichthyology.common.entity.FiddlerCrab;
+import fuffles.ichthyology.common.entity.Flowerhorn;
+import fuffles.ichthyology.common.entity.Gar;
+import fuffles.ichthyology.common.entity.GarBaby;
+import fuffles.ichthyology.common.entity.Goldfish;
+import fuffles.ichthyology.common.entity.Mudskipper;
+import fuffles.ichthyology.common.entity.NeonTetra;
+import fuffles.ichthyology.common.entity.Olm;
+import fuffles.ichthyology.common.entity.PeacockBass;
+import fuffles.ichthyology.common.entity.PeacockBassBaby;
+import fuffles.ichthyology.common.entity.Perch;
+import fuffles.ichthyology.common.entity.Piranha;
+import fuffles.ichthyology.common.entity.Pleco;
+import fuffles.ichthyology.common.entity.Sturgeon;
+import fuffles.ichthyology.common.entity.SturgeonBaby;
+import fuffles.ichthyology.common.entity.Tilapia;
 import fuffles.ichthyology.common.item.FishTyped;
 import fuffles.ichthyology.data.IchthyologyData;
-import fuffles.ichthyology.init.*;
+import fuffles.ichthyology.init.ModCreativeTabs;
+import fuffles.ichthyology.init.ModEntityDataSerializers;
+import fuffles.ichthyology.init.ModEntityTypes;
+import fuffles.ichthyology.init.ModPotions;
+import fuffles.ichthyology.init.RegistryRelay;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
@@ -22,11 +56,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.RegisterEvent;
-import org.slf4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Mod(Ichthyology.ID)
 public class Ichthyology {
