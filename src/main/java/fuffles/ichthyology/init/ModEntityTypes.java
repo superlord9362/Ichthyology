@@ -8,7 +8,6 @@ import fuffles.ichthyology.common.entity.ArcherfishSpit;
 import fuffles.ichthyology.common.entity.BlindCaveTetra;
 import fuffles.ichthyology.common.entity.Carp;
 import fuffles.ichthyology.common.entity.Catfish;
-import fuffles.ichthyology.common.entity.CatfishBaby;
 import fuffles.ichthyology.common.entity.Crayfish;
 import fuffles.ichthyology.common.entity.Discus;
 import fuffles.ichthyology.common.entity.FiddlerCrab;
@@ -65,7 +64,6 @@ public class ModEntityTypes
 	public static final EntityType<Mudskipper> MUDSKIPPER = registerFish("mudskipper", Mudskipper::new, 0.4F, 0.25F);
 	public static final EntityType<Crayfish> CRAYFISH = registerFish("crayfish", Crayfish::new, 0.3F, 0.25F);
 	public static final EntityType<Catfish> CATFISH = registerFish("catfish", Catfish::new, 0.875F, 0.375F);
-	public static final EntityType<CatfishBaby> CATFISH_BABY = registerFish("catfish_baby", CatfishBaby::new, 0.4F, 0.25F);
 	public static final EntityType<PeacockBass> PEACOCK_BASS = registerFish("peacock_bass", PeacockBass::new, 0.875F, 0.5625F);
 	public static final EntityType<PeacockBassBaby> PEACOCK_BASS_BABY = registerFish("peacock_bass_baby", PeacockBassBaby::new, 0.4F, 0.25F);
 	public static final EntityType<Gar> GAR = registerFish("gar", Gar::new, 0.875F, 0.3125F);

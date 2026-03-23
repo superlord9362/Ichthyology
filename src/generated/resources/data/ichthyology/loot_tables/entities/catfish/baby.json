@@ -26,23 +26,7 @@
         }
       ],
       "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "chance": 0.05,
-          "condition": "minecraft:random_chance"
-        }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bone_meal"
-        }
-      ],
-      "rolls": 1.0
     }
   ],
-  "random_sequence": "ichthyology:entities/catfish_baby"
+  "random_sequence": "ichthyology:entities/catfish/baby"
 }

@@ -2,6 +2,7 @@ package fuffles.ichthyology.data;
 
 import java.util.stream.Stream;
 
+import fuffles.ichthyology.common.entity.AbstractAgeableFish;
 import org.jetbrains.annotations.NotNull;
 
 import fuffles.ichthyology.Ichthyology;
@@ -73,8 +74,7 @@ public class ModEntityLootProvider extends EntityLootSubProvider
 		).withPool(
 			LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.BONE_MEAL)).when(LootItemRandomChanceCondition.randomChance(0.05F))
 		));
-		this.add(ModEntityTypes.CATFISH, basicFish(ModItems.CATFISH));
-		this.add(ModEntityTypes.CATFISH_BABY, basicFish(ModItems.CATFISH_BABY, ModItems.COOKED_CATFISH_BABY));
+		this.addAdultAndBabyTables(ModEntityTypes.CATFISH, basicFish(ModItems.CATFISH), LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(optionallyCookableItem(ModItems.CATFISH_BABY, ModItems.COOKED_CATFISH_BABY))));
 		this.add(ModEntityTypes.PEACOCK_BASS, LootTable.lootTable().withPool(
 			LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(ModItems.PEACOCK_BASS_FILET).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F))).apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE))))
 		).withPool(
@@ -94,6 +94,14 @@ public class ModEntityLootProvider extends EntityLootSubProvider
 		this.add(ModEntityTypes.FLOWERHORN, basicFish(ModItems.FLOWERHORN));
 	}
 
+	private static LootPoolSingletonContainer.Builder<?> optionallyCookableItem(Item rawDrop, Item cookedDrop)
+	{
+		LootPoolSingletonContainer.Builder<?> dropBuilder = LootItem.lootTableItem(rawDrop);
+		if (cookedDrop != null)
+			dropBuilder.apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)));
+		return dropBuilder;
+	}
+
 	private static LootTable.Builder basicFish(Item drop)
 	{
 		return basicFish(drop, null);
@@ -101,13 +109,17 @@ public class ModEntityLootProvider extends EntityLootSubProvider
 
 	private static LootTable.Builder basicFish(Item rawDrop, Item cookedDrop)
 	{
-		LootPoolSingletonContainer.Builder<?> dropBuilder = LootItem.lootTableItem(rawDrop);
-		if (cookedDrop != null)
-			dropBuilder.apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, ENTITY_ON_FIRE)));
 		return LootTable.lootTable().withPool(
-				LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(dropBuilder)
-				).withPool(
-						LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.BONE_MEAL)).when(LootItemRandomChanceCondition.randomChance(0.05F))
-						);
+				LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(optionallyCookableItem(rawDrop, cookedDrop))
+		).withPool(
+				LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(Items.BONE_MEAL)).when(LootItemRandomChanceCondition.randomChance(0.05F))
+		);
+	}
+
+	private void addAdultAndBabyTables(EntityType<?> type, LootTable.Builder adultLootTable, LootTable.Builder babyLootTable)
+	{
+		this.add(type, LootTable.lootTable()); // Because otherwise this generator cries there is no loottable for this, if it is excluded it cries there is one for something that shouldn't be included...
+		this.add(type, AbstractAgeableFish.lootTableLocation(type, false), adultLootTable);
+		this.add(type, AbstractAgeableFish.lootTableLocation(type, true), babyLootTable);
 	}
 }

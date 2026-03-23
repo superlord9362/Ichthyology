@@ -3,7 +3,6 @@ package fuffles.ichthyology.client.entity.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import fuffles.ichthyology.common.entity.CatfishBaby;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,9 +12,10 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 
 @SuppressWarnings("unused")
-public class CatfishBabyModel extends EntityModel<CatfishBaby> {
+public class CatfishBabyModel<T extends Entity> extends EntityModel<T> {
 	private final ModelPart Body;
 	private final ModelPart Tail;
 	private final ModelPart Tail2;
@@ -79,7 +79,7 @@ public class CatfishBabyModel extends EntityModel<CatfishBaby> {
 	}
 
 	@Override
-	public void setupAnim(CatfishBaby entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float f = 0F;
 		if (!entity.isInWater()) {
 			f = 1.5F;

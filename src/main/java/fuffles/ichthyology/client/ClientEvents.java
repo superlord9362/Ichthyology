@@ -32,7 +32,6 @@ import fuffles.ichthyology.client.entity.renderer.ArcherfishRenderer;
 import fuffles.ichthyology.client.entity.renderer.ArcherfishSpitRenderer;
 import fuffles.ichthyology.client.entity.renderer.BlindCaveTetraRenderer;
 import fuffles.ichthyology.client.entity.renderer.CarpRenderer;
-import fuffles.ichthyology.client.entity.renderer.CatfishBabyRenderer;
 import fuffles.ichthyology.client.entity.renderer.CatfishRenderer;
 import fuffles.ichthyology.client.entity.renderer.CrayfishRenderer;
 import fuffles.ichthyology.client.entity.renderer.DiscusRenderer;
@@ -74,32 +73,41 @@ public class ClientEvents {
 	public static void init(final FMLClientSetupEvent event) {
 		setupBlockRenders();
 	}
-	
-	public static final ModelLayerLocation BLIND_CAVE_TETRA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "blind_cave_tetra"), "blind_cave_tetra");
-	public static final ModelLayerLocation GOLDFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "goldfish"), "goldfish");
-	public static final ModelLayerLocation TILAPIA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "tilapia"), "tilapia");
-	public static final ModelLayerLocation AFRICAN_CICHLID = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "african_cichlid"), "african_cichlid");
-	public static final ModelLayerLocation CARP = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "carp"), "carp");
-	public static final ModelLayerLocation PIRANHA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "piranha"), "piranha");
-	public static final ModelLayerLocation PERCH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "perch"), "perch");
-	public static final ModelLayerLocation DISCUS = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "discus"), "discus");
-	public static final ModelLayerLocation ANGELFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "angelfish"), "angelfish");
-	public static final ModelLayerLocation NEON_TETRA = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "neon_tetra"), "neon_tetra");
-	public static final ModelLayerLocation PLECO = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "pleco"), "pleco");
-	public static final ModelLayerLocation ARCHERFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "archerfish"), "archerfish");
-	public static final ModelLayerLocation MUDSKIPPER = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "mudskipper"), "mudskipper");
-	public static final ModelLayerLocation CRAYFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "crayfish"), "crayfish");
-	public static final ModelLayerLocation CATFISH = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "catfish"), "catfish");
-	public static final ModelLayerLocation CATFISH_BABY = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "catfish_baby"), "catfish_baby");
-	public static final ModelLayerLocation PEACOCK_BASS = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "peacock_bass"), "peacock_bass");
-	public static final ModelLayerLocation PEACOCK_BASS_BABY = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "peacock_bass_baby"), "peacock_bass_baby");
-	public static final ModelLayerLocation GAR = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "gar"), "gar");
-	public static final ModelLayerLocation GAR_BABY = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "gar_baby"), "gar_baby");
-	public static final ModelLayerLocation STURGEON = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "sturgeon"), "sturgeon");
-	public static final ModelLayerLocation STURGEON_BABY = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "sturgeon_baby"), "sturgeon_baby");
-	public static final ModelLayerLocation FIDDLER_CRAB = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "fiddler_crab"), "fiddler_crab");
-	public static final ModelLayerLocation OLM = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "olm"), "olm");
-	public static final ModelLayerLocation FLOWERHORN = new ModelLayerLocation(new ResourceLocation(Ichthyology.ID, "flowerhorn"), "flowerhorn");
+	private static ModelLayerLocation modelLayer(String id, String layer)
+	{
+		return new ModelLayerLocation(Ichthyology.id(id), layer);
+	}
+
+	private static ModelLayerLocation modelLayer(String id)
+	{
+		return ClientEvents.modelLayer(id, "main");
+	}
+
+	public static final ModelLayerLocation BLIND_CAVE_TETRA = modelLayer("blind_cave_tetra");
+	public static final ModelLayerLocation GOLDFISH = modelLayer("goldfish");
+	public static final ModelLayerLocation TILAPIA = modelLayer("tilapia");
+	public static final ModelLayerLocation AFRICAN_CICHLID = modelLayer("african_cichlid");
+	public static final ModelLayerLocation CARP = modelLayer("carp");
+	public static final ModelLayerLocation PIRANHA = modelLayer("piranha");
+	public static final ModelLayerLocation PERCH = modelLayer("perch");
+	public static final ModelLayerLocation DISCUS = modelLayer("discus");
+	public static final ModelLayerLocation ANGELFISH = modelLayer("angelfish");
+	public static final ModelLayerLocation NEON_TETRA = modelLayer("neon_tetra");
+	public static final ModelLayerLocation PLECO = modelLayer("pleco");
+	public static final ModelLayerLocation ARCHERFISH = modelLayer("archerfish");
+	public static final ModelLayerLocation MUDSKIPPER = modelLayer("mudskipper");
+	public static final ModelLayerLocation CRAYFISH = modelLayer("crayfish");
+	public static final ModelLayerLocation CATFISH = modelLayer("catfish");
+	public static final ModelLayerLocation CATFISH_BABY = modelLayer("catfish", "baby");
+	public static final ModelLayerLocation PEACOCK_BASS = modelLayer("peacock_bass");
+	public static final ModelLayerLocation PEACOCK_BASS_BABY = modelLayer("peacock_bass_baby");
+	public static final ModelLayerLocation GAR = modelLayer("gar");
+	public static final ModelLayerLocation GAR_BABY = modelLayer("gar_baby");
+	public static final ModelLayerLocation STURGEON = modelLayer("sturgeon");
+	public static final ModelLayerLocation STURGEON_BABY = modelLayer("sturgeon_baby");
+	public static final ModelLayerLocation FIDDLER_CRAB = modelLayer("fiddler_crab");
+	public static final ModelLayerLocation OLM = modelLayer("olm");
+	public static final ModelLayerLocation FLOWERHORN = modelLayer("flowerhorn");
 	
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
@@ -119,7 +127,6 @@ public class ClientEvents {
 		event.registerEntityRenderer(ModEntityTypes.MUDSKIPPER, MudskipperRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.CRAYFISH, CrayfishRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.CATFISH, CatfishRenderer::new);
-		event.registerEntityRenderer(ModEntityTypes.CATFISH_BABY, CatfishBabyRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.PEACOCK_BASS, PeacockBassRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.PEACOCK_BASS_BABY, PeacockBassBabyRenderer::new);
 		event.registerEntityRenderer(ModEntityTypes.GAR, GarRenderer::new);

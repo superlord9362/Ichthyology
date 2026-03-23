@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.annotations.VisibleForTesting;
 
+import fuffles.ichthyology.common.entity.AbstractAgeableFish;
 import fuffles.ichthyology.common.entity.Olm;
 import fuffles.ichthyology.init.ModEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -149,6 +150,8 @@ public class FishRoeBlock extends Block implements SimpleWaterloggedBlock {
 				double d1 = (double)pPos.getZ() + this.getRandomTadpolePositionOffset(pRandom);
 				int k = pRandom.nextInt(1, 361);
 				fish.moveTo(d0, (double)pPos.getY() + 0.5D, d1, (float)k, 0.0F);
+				if (fish instanceof AbstractAgeableFish ageableFish)
+					ageableFish.setBaby(true);
 				if (fish.getType() == ModEntityTypes.OLM) ((Olm)fish).setAge(-24000); 
 				pLevel.addFreshEntity(fish);
 			}

@@ -97,7 +97,8 @@ public class ModItems
 	public static final ForgeSpawnEggItem MUDSKIPPER_SPAWN_EGG = registerEgg("mudskipper", ModEntityTypes.MUDSKIPPER, 0x7E6C48, 0x61CDB0);
 	public static final ForgeSpawnEggItem CRAYFISH_SPAWN_EGG = registerEgg("crayfish", ModEntityTypes.CRAYFISH, 0xCB5111, 0x480103);
 	public static final ForgeSpawnEggItem CATFISH_SPAWN_EGG = registerEgg("catfish", ModEntityTypes.CATFISH, 0x4F5344, 0xC7BCB4);
-	public static final ForgeSpawnEggItem CATFISH_BABY_SPAWN_EGG = registerEgg("catfish_baby", ModEntityTypes.CATFISH_BABY, 0x4F5344, 0x595C4B);
+	//public static final ForgeSpawnEggItem CATFISH_BABY_SPAWN_EGG = registerEgg("catfish_baby", ModEntityTypes.CATFISH_BABY, 0x4F5344, 0x595C4B);
+	//public static final ForgeSpawnEggItem CATFISH2_SPAWN_EGG = registerEgg("catfish_redux", ModEntityTypes.CATFISH2, 0x4F5344, 0x595C4B);
 	public static final ForgeSpawnEggItem PEACOCK_BASS_SPAWN_EGG = registerEgg("peacock_bass", ModEntityTypes.PEACOCK_BASS, 0x837C1C, 0xD7AF00);
 	public static final ForgeSpawnEggItem PEACOCK_BASS_BABY_SPAWN_EGG = registerEgg("peacock_bass_baby", ModEntityTypes.PEACOCK_BASS_BABY, 0xA29822, 0x5C9541);
 	public static final ForgeSpawnEggItem GAR_SPAWN_EGG = registerEgg("gar", ModEntityTypes.GAR, 0x606A4E, 0xBCAF9A);
@@ -122,7 +123,7 @@ public class ModItems
 	public static final MobBucketItem ARCHERFISH_BUCKET = registerBucket("archerfish", ModEntityTypes.ARCHERFISH);
 	public static final MobBucketItem MUDSKIPPER_BUCKET = registerBucket("mudskipper", ModEntityTypes.MUDSKIPPER);
 	public static final MobBucketItem CRAYFISH_BUCKET = registerBucket("crayfish", ModEntityTypes.CRAYFISH);
-	public static final MobBucketItem CATFISH_BABY_BUCKET = registerBucket("catfish_baby", ModEntityTypes.CATFISH_BABY);
+	public static final MobBucketItem CATFISH_BABY_BUCKET = registerBucket("catfish_baby", ModEntityTypes.CATFISH);
 	public static final MobBucketItem PEACOCK_BASS_BABY_BUCKET = registerBucket("peacock_bass_baby", ModEntityTypes.PEACOCK_BASS_BABY);
 	public static final MobBucketItem GAR_BABY_BUCKET = registerBucket("gar_baby", ModEntityTypes.GAR_BABY);
 	public static final MobBucketItem FIDDLER_CRAB_BUCKET = registerBucket("fiddler_crab", ModEntityTypes.FIDDLER_CRAB);

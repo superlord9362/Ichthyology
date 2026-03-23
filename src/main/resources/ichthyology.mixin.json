@@ -5,6 +5,7 @@
     "minVersion": "0.8.5",
     "refmap": "ichthyology.refmap.json",
     "mixins": [
+        "common.advancement.SimpleCriterionTriggerAccessor",
         "common.entity.CodMixin",
         "common.entity.PufferfishMixin",
         "common.entity.SalmonMixin",

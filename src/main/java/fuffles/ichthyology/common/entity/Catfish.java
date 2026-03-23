@@ -1,9 +1,17 @@
 package fuffles.ichthyology.common.entity;
 
+import java.util.Collection;
 import java.util.function.Predicate;
 
-import javax.annotation.Nullable;
-
+import fuffles.ichthyology.Ichthyology;
+import fuffles.ichthyology.common.entity.ai.BreedFishGoalRedux;
+import fuffles.ichthyology.init.ModSoundEvents;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import org.jetbrains.annotations.NotNull;
 
 import fuffles.ichthyology.common.entity.ai.BreedFishGoal;
@@ -23,13 +31,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -48,298 +49,349 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
-public class Catfish extends AbstractBreedableFish {
+public class Catfish extends AbstractAgeableFish implements ManipulatesMobDropsFromKills
+{
+	public static final Predicate<LivingEntity> SMALL_ENTITY_PREDICATE = entity -> (entity.getBbWidth() < ModEntityTypes.CATFISH.getWidth() && entity.getType() != ModEntityTypes.CATFISH) || entity.getType() == ModEntityTypes.CRAYFISH;
 	private static final EntityDataAccessor<Boolean> HAS_EGGS = SynchedEntityData.defineId(Catfish.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> LAYING_EGGS = SynchedEntityData.defineId(Catfish.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> HUNTING = SynchedEntityData.defineId(Catfish.class, EntityDataSerializers.BOOLEAN);
-	int layEggsCounter;
-	int huntTimer;
+	//private static final EntityDataAccessor<Boolean> HUNTING = SynchedEntityData.defineId(Catfish.class, EntityDataSerializers.BOOLEAN);
 
-	public static final Predicate<LivingEntity> SMALL_ENTITY = (entity) -> {
-		return entity.getBbWidth() <= 0.25F && entity.getType() != ModEntityTypes.CATFISH && entity.getType() != ModEntityTypes.CATFISH_BABY || entity.getType() == ModEntityTypes.CRAYFISH;
-	};
+	private int huntingCooldown;
 
-	public Catfish(EntityType<? extends Catfish> entityType, Level level) {
+	public Catfish(EntityType<Catfish> entityType, Level level)
+	{
 		super(entityType, level);
+		this.huntingCooldown = 0;
 	}
 
-	protected void registerGoals() {
-		super.registerGoals();
-		this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 10));
-		this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
-		this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-		this.goalSelector.addGoal(0, new CatfishRestInVegetationGoal(1, 10, 5));
-		this.goalSelector.addGoal(2, new CatfishSuckUpEnemyGoal(this, 1, true));
-		this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true, SMALL_ENTITY));
-		this.goalSelector.addGoal(0, new CatfishBreedGoal(this, 1));
-		this.goalSelector.addGoal(1, new CatfishLayEggsGoal(this, 1));
-	}
-
-	public boolean hasEggs() {
-		return this.entityData.get(HAS_EGGS);
-	}
-
-	void setHasEggs(boolean pHasEggs) {
-		this.entityData.set(HAS_EGGS, pHasEggs);
-	}
-
-	public boolean isLayingEggs() {
-		return this.entityData.get(LAYING_EGGS);
-	}
-
-	void setLayingEggs(boolean pIsLayingEggs) {
-		this.layEggsCounter = pIsLayingEggs ? 1 : 0;
-		this.entityData.set(LAYING_EGGS, pIsLayingEggs);
-	}
-
-	public boolean isHunting() {
-		return this.entityData.get(HUNTING);
-	}
-
-	void setHunting(boolean isHunting) {
-		this.entityData.set(HUNTING, isHunting);
-	}
-
-	public boolean isFood(ItemStack pStack) {
-		return pStack.is(ModItems.CRAYFISH);
-	}
-	
-	public int huntTimer() {
-		return huntTimer;
-	}
-	
-	public void setHuntTimer(int timer) {
-		huntTimer = timer;
-	}
-
-	protected void defineSynchedData() {
+	@Override
+	protected void defineSynchedData()
+	{
 		super.defineSynchedData();
 		this.entityData.define(HAS_EGGS, false);
 		this.entityData.define(LAYING_EGGS, false);
-		this.entityData.define(HUNTING, false);
+		//this.entityData.define(HUNTING, false);
 	}
 
-	public void addAdditionalSaveData(CompoundTag pCompound) {
-		super.addAdditionalSaveData(pCompound);
-		pCompound.putBoolean("HasEggs", this.hasEggs());
-		pCompound.putInt("HuntingTicks", this.huntTimer());
+	public boolean hasEggs()
+	{
+		return this.entityData.get(HAS_EGGS);
 	}
 
-	public void readAdditionalSaveData(CompoundTag pCompound) {
-		super.readAdditionalSaveData(pCompound);
-		this.setHasEggs(pCompound.getBoolean("HasEggs"));
-		this.setHuntTimer(pCompound.getInt("HuntingTicks"));
+	public void setHasEggs(boolean hasEggs)
+	{
+		this.entityData.set(HAS_EGGS, hasEggs);
 	}
 
-	public boolean canFallInLove() {
-		return super.canFallInLove() && !this.hasEggs();
+	public boolean isLayingEggs()
+	{
+		return this.entityData.get(LAYING_EGGS);
 	}
 
-	public static AttributeSupplier.Builder createAttributes() {
+	public void setLayingEggs(boolean isLayingEggs)
+	{
+		this.entityData.set(LAYING_EGGS, isLayingEggs);
+	}
+
+    /*public boolean isHunting()
+    {
+        return this.entityData.get(HUNTING);
+    }
+
+    public void setHunting(boolean isHunting)
+    {
+        this.entityData.set(HUNTING, isHunting);
+    }*/
+
+	@Override
+	public boolean isFood(ItemStack stack)
+	{
+		return stack.is(ModItems.CRAYFISH);
+	}
+
+	protected void registerGoals()
+	{
+		super.registerGoals();
+		//Tempt goal needed
+		this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 10));
+		this.goalSelector.addGoal(1, new PanicGoal(this, 1.2D));
+		this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(0, new Catfish.CatfishRestInVegetationGoal(this,1, 10, 5));
+		this.goalSelector.addGoal(2, new Catfish.CatfishSuckUpEnemyGoal(this, 1, true));
+		this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true, SMALL_ENTITY_PREDICATE));
+		this.goalSelector.addGoal(0, new Catfish.CatfishBreedGoal(this, 1));
+		this.goalSelector.addGoal(1, new Catfish.CatfishLayEggsGoal(this, 1));
+	}
+
+	public static AttributeSupplier.Builder createAttributes()
+	{
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.FOLLOW_RANGE, 10);
 	}
 
-	public class CatfishRestInVegetationGoal extends MoveToBlockGoal {
-		protected int ticksWaited;
+	@Override
+	protected SoundEvent getFlopSound()
+	{
+		return ModSoundEvents.CATFISH_FLOP;
+	}
 
-		public CatfishRestInVegetationGoal(double p_28675_, int p_28676_, int p_28677_) {
-			super(Catfish.this, p_28675_, p_28676_, p_28677_);
-		}
+	@Override
+	public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob)
+	{
+		return ModEntityTypes.CATFISH.create(serverLevel);
+	}
 
-		public double acceptedDistance() {
-			return 0.5D;
-		}
+	@Override
+	public boolean isBucketable(Player player, InteractionHand hand)
+	{
+		return this.isBaby();
+	}
 
-		public boolean shouldRecalculatePath() {
-			return this.tryTicks % 100 == 0;
-		}
+	@Override
+	public ItemStack getBucketItemStack()
+	{
+		return ModItems.CATFISH_BABY_BUCKET.getDefaultInstance();
+	}
 
-		protected boolean isValidTarget(LevelReader p_28680_, BlockPos p_28681_) {
-			BlockState blockstate = p_28680_.getBlockState(p_28681_);
-			return (blockstate.is(Blocks.SEAGRASS) || blockstate.is(Blocks.TALL_SEAGRASS) || blockstate.is(Blocks.KELP) || blockstate.is(Blocks.KELP_PLANT));
-		}
-
-		public void tick() {
-			if (this.isReachedTarget()) {
-				if (this.ticksWaited >= 40) {
-				} else {
-					++this.ticksWaited;
-				}
-			}
-
-			super.tick();
-		}
-
-		public boolean canUse() {
-			return super.canUse() && Catfish.this.level().isDay();
-		}
-
-		public boolean canContinueToUse() {
-			return Catfish.this.level().isDay();
-		}
-
-		public void start() {
-			this.ticksWaited = 0;
-			super.start();
+	@Override
+	protected void commonSaveToTag(CompoundTag tag, boolean bucketTag)
+	{
+		super.commonSaveToTag(tag, bucketTag);
+		if (!bucketTag) // Only babies are bucketable
+		{
+			tag.putBoolean("HasEggs", this.hasEggs());
+			tag.putInt("HuntingCooldown", this.huntingCooldown);
 		}
 	}
 
-	public void aiStep() {
-		if (huntTimer() < 2400 && !isHunting()) {
-			setHuntTimer(huntTimer() + 1);
-		} else {
-			if (!isHunting()) setHunting(true);
-			setHuntTimer(0);
+	@Override
+	protected void commonLoadFromTag(CompoundTag tag, boolean bucketTag)
+	{
+		super.commonLoadFromTag(tag, bucketTag);
+		if (!bucketTag)
+		{
+			this.setHasEggs(tag.getBoolean("HasEggs"));
+			this.huntingCooldown = tag.getInt("HuntingCooldown");
 		}
-		
+		if (bucketTag && !tag.contains("Age", CompoundTag.TAG_INT))
+			this.setBaby(true);
+	}
+
+	@Override
+	public boolean canFallInLove()
+	{
+		return super.canFallInLove() && !this.hasEggs();
+	}
+
+	public void aiStep()
+	{
+		if (this.isBaby())
+			this.huntingCooldown = 2400;
+		if (this.huntingCooldown > 0)
+			this.huntingCooldown--;
 		super.aiStep();
 	}
 
-	public class CatfishSuckUpEnemyGoal extends MeleeAttackGoal {
-
-		Catfish catfish;
-
-		public CatfishSuckUpEnemyGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
-			super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
-			pMob = catfish;
-		}
-
-		protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
-			if (Catfish.this.getTarget() != null && Catfish.this.getTarget().isEffectiveAi()) {
-				if (Catfish.this.getTarget().distanceTo(Catfish.this) < 0.35F) {
-					Catfish.this.getTarget().kill();
-					stop();
-				}
-				else if (Catfish.this.getTarget().distanceTo(Catfish.this) < 2.25F) {
-					Catfish.this.getTarget().setDeltaMovement(Catfish.this.getTarget().position().vectorTo(Catfish.this.position()).normalize().scale(0.35D));
-				} else {
-					Catfish.this.lookControl.setLookAt(Catfish.this.getTarget().getX(), Catfish.this.getTarget().getY(), Catfish.this.getTarget().getZ());
-					Catfish.this.setDeltaMovement(Catfish.this.position().vectorTo(Catfish.this.getTarget().position()).normalize().scale(0.15D));
-				}
-			}
-		}
-
-		protected double getAttackReachSqr(LivingEntity pAttackTarget) {
-			return (double)(6.0F + pAttackTarget.getBbWidth());
-		}
-		
-		public boolean canUse() {
-			return super.canUse() && Catfish.this.isHunting() && catfish != null;
- 		}
-		
-		public boolean canContinueToUse() {
-			return super.canContinueToUse() && Catfish.this.isHunting();
-		}
-		
-		public void stop() {
-			super.stop();
-			Catfish.this.setHunting(false);
-		}
-
+	@Override
+	public boolean hasCustomBabyDrops()
+	{
+		return true;
 	}
 
-	static class CatfishBreedGoal extends BreedFishGoal {
-		private final Catfish catfish;
+	@Override
+	public boolean manipulateDrops(LivingEntity victim, Collection<ItemEntity> drops, DamageSource source, int lootingLevel)
+	{
+		// Might be fun to store items from kills in this, but ehh that would be a lot of extra work
+		return false;
+	}
 
-		CatfishBreedGoal(Catfish catfish, double speedModifier) {
+	static class CatfishRestInVegetationGoal extends MoveToBlockGoal
+	{
+		public CatfishRestInVegetationGoal(Catfish catfish, double speedModifier, int searchRange, int verticalSearchRange)
+		{
+			super(catfish, speedModifier, searchRange, verticalSearchRange);
+		}
+
+		@Override
+		public double acceptedDistance()
+		{
+			return 0.1D;
+		}
+
+		@Override
+		public boolean shouldRecalculatePath()
+		{
+			return this.tryTicks % 100 == 0;
+		}
+
+		@Override
+		protected boolean isValidTarget(LevelReader levelReader, BlockPos blockPos)
+		{
+			BlockPos belowPos = blockPos.below();
+			return levelReader.getBlockState(blockPos).is(ModBlocks.Tags.CATFISH_RESTING_SPOTS) && levelReader.getBlockState(belowPos).isFaceSturdy(levelReader, belowPos, Direction.UP);
+		}
+
+		@Override
+		protected BlockPos getMoveToTarget()
+		{
+			return this.blockPos;
+		}
+
+		@Override
+		public boolean canUse()
+		{
+			return super.canUse() && this.mob.level().isDay();
+		}
+
+		@Override
+		public boolean canContinueToUse()
+		{
+			return this.isValidTarget(this.mob.level(), this.blockPos) && this.mob.level().isDay();
+		}
+	}
+
+	static class CatfishSuckUpEnemyGoal extends MeleeAttackGoal
+	{
+		public CatfishSuckUpEnemyGoal(Catfish catfish, double speedModifier, boolean followingTargetEvenIfNotSeen)
+		{
+			super(catfish, speedModifier, followingTargetEvenIfNotSeen);
+		}
+
+		protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr)
+		{
+			if (enemy.isEffectiveAi())
+			{
+				if (enemy.getBoundingBox().intersects(this.mob.getBoundingBox()))
+				{
+					this.mob.level().playSound(null, this.mob, ModSoundEvents.CATFISH_EAT, SoundSource.NEUTRAL, 2.0F, 1.0F);
+					if (enemy.isAlive())
+					{
+						enemy.die(this.mob.damageSources().mobAttack(this.mob));
+						enemy.remove(RemovalReason.KILLED);
+					}
+					((Catfish)this.mob).huntingCooldown = 2400;
+					this.stop();
+				}
+				else if (enemy.distanceTo(this.mob) < 2.25F)
+				{
+					enemy.setDeltaMovement(enemy.position().vectorTo(this.mob.position()).normalize().scale(0.25D));
+				}
+				else
+				{
+					this.mob.getLookControl().setLookAt(enemy);
+					this.mob.setDeltaMovement(this.mob.position().vectorTo(enemy.position()).normalize().scale(0.15D));
+				}
+			}
+		}
+
+		protected double getAttackReachSqr(LivingEntity attackTarget)
+		{
+			return 6.0F + attackTarget.getBbWidth();
+		}
+
+		public boolean canUse()
+		{
+			return ((Catfish)this.mob).huntingCooldown == 0 && super.canUse();
+		}
+
+		public boolean canContinueToUse()
+		{
+			return ((Catfish)this.mob).huntingCooldown == 0 && super.canContinueToUse();
+		}
+	}
+
+	static class CatfishBreedGoal extends BreedFishGoalRedux<Catfish>
+	{
+		public CatfishBreedGoal(Catfish catfish, double speedModifier)
+		{
 			super(catfish, speedModifier);
-			this.catfish = catfish;
 		}
 
-		public boolean canUse() {
-			return super.canUse() && !catfish.hasEggs();
+		public boolean canUse()
+		{
+			return super.canUse() && !this.ageableFish.hasEggs();
 		}
 
-		protected void breed() {
-			ServerPlayer serverPlayer = this.fish.getLoveCause();
-			if (serverPlayer == null && this.partner.getLoveCause() != null) {
+		protected void breed()
+		{
+			ServerPlayer serverPlayer = this.ageableFish.getLoveCause();
+			if (serverPlayer == null && this.partner.getLoveCause() != null)
 				serverPlayer = this.partner.getLoveCause();
-			}
-			if (serverPlayer != null) {
+			if (serverPlayer != null)
+			{
 				serverPlayer.awardStat(Stats.ANIMALS_BRED);
+				AbstractAgeableFish.triggerBredAnimalsCriteria(serverPlayer, this.ageableFish, this.partner, null);
 			}
-			this.catfish.setHasEggs(true);
-			this.fish.setAge(6000);
+
+			this.ageableFish.setHasEggs(true);
+			this.ageableFish.setAge(6000);
+			this.ageableFish.resetLove();
 			this.partner.setAge(6000);
-			this.fish.resetLove();
 			this.partner.resetLove();
-			RandomSource randomSource = this.fish.getRandom();
-			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-				this.level.addFreshEntity(new ExperienceOrb(this.level, this.fish.getX(), this.fish.getY(), this.fish.getZ(), randomSource.nextInt(7) + 1));
-			}
+			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT))
+				this.level.addFreshEntity(new ExperienceOrb(this.level, this.ageableFish.getX(), this.ageableFish.getY(), this.ageableFish.getZ(), this.ageableFish.getRandom().nextInt(7) + 1));
 		}
-	} 
+	}
 
-	static class CatfishLayEggsGoal extends MoveToBlockGoal {
-		private final Catfish catfish;
+	static class CatfishLayEggsGoal extends MoveToBlockGoal
+	{
+		protected int actionTicks = 0;
 
-		CatfishLayEggsGoal(Catfish catfish, double speedModifier) {
+		public CatfishLayEggsGoal(Catfish catfish, double speedModifier)
+		{
 			super(catfish, speedModifier, 16);
-			this.catfish = catfish;
 		}
 
-
-		public double acceptedDistance() {
+		public double acceptedDistance()
+		{
 			return 1D;
 		}
 
-		public boolean canUse() {
-			return catfish.hasEggs() ? super.canUse() : false;
+		public boolean canUse()
+		{
+			return ((Catfish)this.mob).hasEggs() && super.canUse();
 		}
 
-		public boolean canContinueToUse() {
-			return super.canContinueToUse() && catfish.hasEggs();
+		public boolean canContinueToUse()
+		{
+			return super.canContinueToUse() && ((Catfish)this.mob).hasEggs();
 		}
 
-		public void tick() {
+		public void tick()
+		{
 			super.tick();
-			BlockPos blockpos = catfish.blockPosition();
-			if (this.isReachedTarget()) {
-				if (catfish.layEggsCounter < 1) {
+			if (this.isReachedTarget())
+			{
+				Catfish catfish = (Catfish)this.mob;
+				if (this.actionTicks == 0)
 					catfish.setLayingEggs(true);
-				} else if (catfish.layEggsCounter > this.adjustedTickDelay(200)) {
-					Level level = catfish.level();
-					level.playSound((Player)null, blockpos, SoundEvents.SLIME_BLOCK_PLACE, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
-					BlockState blockstate = ModBlocks.CATFISH_ROE.defaultBlockState();
-					level.setBlock(blockPos, blockstate, 3);
+
+				if (this.actionTicks > this.adjustedTickDelay(200))
+				{
+					this.mob.level().playSound(null, this.mob.blockPosition(), ModSoundEvents.CATFISH_LAY_EGGS, SoundSource.BLOCKS, 0.3F, 0.9F + this.mob.level().random.nextFloat() * 0.2F);
+					this.mob.level().setBlock(this.blockPos, ModBlocks.CATFISH_ROE.defaultBlockState(), Block.UPDATE_ALL);
 					catfish.setHasEggs(false);
 					catfish.setLayingEggs(false);
 					catfish.setInLoveTime(600);
 				}
-				if (catfish.isLayingEggs()) {
-					++catfish.layEggsCounter;
-				}
+
+				if (catfish.isLayingEggs())
+					this.actionTicks++;
 			}
 		}
 
-		@SuppressWarnings("deprecation")
-		protected boolean isValidTarget(LevelReader level, BlockPos pos) {
-			Block block = level.getBlockState(pos).getBlock();
-			return block == Blocks.WATER && level.getBlockState(pos.below()).isSolid();
+		@Override
+		protected boolean isValidTarget(LevelReader level, BlockPos pos)
+		{
+			return level.getBlockState(pos).is(Blocks.WATER) && level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP);
+		}
+
+		@Override
+		public void stop()
+		{
+			super.stop();
+			this.actionTicks = 0;
 		}
 	}
-	
-	@SuppressWarnings("deprecation")
-	@Nullable
-	@Override
-	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
-		setHuntTimer(0);
-		if (reason == MobSpawnType.BUCKET) return spawnData;
-		else return super.finalizeSpawn(level, difficulty, reason, spawnData, tag);
-	}
-	
-	@Override
-	public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-		ItemStack itemstack = pPlayer.getItemInHand(pHand);
-		if (itemstack.getItem() == Items.BUCKET) {
-			return InteractionResult.PASS;
-		} else return super.mobInteract(pPlayer, pHand);
-	}
-
-	@Override
-	public ItemStack getBucketItemStack() {
-		return null;
-	}
-
 }

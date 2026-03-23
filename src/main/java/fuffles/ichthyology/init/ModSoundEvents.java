@@ -4,6 +4,7 @@ import fuffles.ichthyology.Ichthyology;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
 public class ModSoundEvents
 {
@@ -72,4 +73,10 @@ public class ModSoundEvents
 
     public static final SoundEvent MUDSKIPPER_DEATH = registerVariable("entity.mudskipper.death");
     public static final SoundEvent MUDSKIPPER_HURT = registerVariable("entity.mudskipper.hurt");
+
+    public static final SoundEvent CATFISH_DEATH = registerVariable("entity.catfish.death");
+    public static final SoundEvent CATFISH_FLOP = registerVariable("entity.catfish.flop");
+    public static final SoundEvent CATFISH_HURT = registerVariable("entity.catfish.hurt");
+    public static final SoundEvent CATFISH_EAT = SoundEvents.FROG_EAT;
+    public static final SoundEvent CATFISH_LAY_EGGS = SoundEvents.SLIME_BLOCK_PLACE;
 }

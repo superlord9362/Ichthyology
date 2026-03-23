@@ -13,9 +13,10 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 
 @SuppressWarnings("unused")
-public class CatfishModel extends EntityModel<Catfish> {
+public class CatfishModel<T extends Entity> extends EntityModel<T> {
 	private final ModelPart Belly;
 	private final ModelPart Tail;
 	private final ModelPart Tail2;
@@ -101,7 +102,7 @@ public class CatfishModel extends EntityModel<Catfish> {
 	}
 
 	@Override
-	public void setupAnim(Catfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		float f = 0F;
 		if (!entity.isInWater()) {
 			f = 1.5F;

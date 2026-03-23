@@ -4,36 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import fuffles.ichthyology.common.blocks.FishRoeBlock;
+import fuffles.ichthyology.common.entity.*;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
 import fuffles.ichthyology.client.IchthyologyClient;
-import fuffles.ichthyology.common.entity.AfricanCichlid;
-import fuffles.ichthyology.common.entity.Angelfish;
-import fuffles.ichthyology.common.entity.Archerfish;
-import fuffles.ichthyology.common.entity.BlindCaveTetra;
-import fuffles.ichthyology.common.entity.Carp;
-import fuffles.ichthyology.common.entity.Catfish;
-import fuffles.ichthyology.common.entity.CatfishBaby;
-import fuffles.ichthyology.common.entity.Crayfish;
-import fuffles.ichthyology.common.entity.Discus;
-import fuffles.ichthyology.common.entity.FiddlerCrab;
-import fuffles.ichthyology.common.entity.Flowerhorn;
-import fuffles.ichthyology.common.entity.Gar;
-import fuffles.ichthyology.common.entity.GarBaby;
-import fuffles.ichthyology.common.entity.Goldfish;
-import fuffles.ichthyology.common.entity.Mudskipper;
-import fuffles.ichthyology.common.entity.NeonTetra;
-import fuffles.ichthyology.common.entity.Olm;
-import fuffles.ichthyology.common.entity.PeacockBass;
-import fuffles.ichthyology.common.entity.PeacockBassBaby;
-import fuffles.ichthyology.common.entity.Perch;
-import fuffles.ichthyology.common.entity.Piranha;
-import fuffles.ichthyology.common.entity.Pleco;
-import fuffles.ichthyology.common.entity.Sturgeon;
-import fuffles.ichthyology.common.entity.SturgeonBaby;
-import fuffles.ichthyology.common.entity.Tilapia;
 import fuffles.ichthyology.common.item.FishTyped;
 import fuffles.ichthyology.data.IchthyologyData;
 import fuffles.ichthyology.init.ModCreativeTabs;
@@ -87,6 +66,8 @@ public class Ichthyology {
 		modBus.addListener(IchthyologyData::onGatherData);
 		modBus.addListener(this::onSpawnPlacementRegister);
 
+		forgeBus.addListener(EventPriority.LOWEST, this::onLivingDrops);
+
 		if (FMLLoader.getDist() == Dist.CLIENT)
 			Objects.requireNonNull(IchthyologyClient.getInstance()).registerEvents(modBus, forgeBus);
 	}
@@ -94,6 +75,12 @@ public class Ichthyology {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		ModPotions.brewingRecipes();
 		ModEntityDataSerializers.register();
+	}
+
+	private void onLivingDrops(LivingDropsEvent event)
+	{
+		if (!event.isCanceled() && event.getSource().getEntity() instanceof ManipulatesMobDropsFromKills manipulant && !manipulant.manipulateDrops(event.getEntity(), event.getDrops(), event.getSource(), event.getLootingLevel()))
+			event.setCanceled(true);
 	}
 
 	private void onSpawnPlacementRegister(SpawnPlacementRegisterEvent event)
@@ -113,8 +100,7 @@ public class Ichthyology {
 		event.register(ModEntityTypes.ARCHERFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, op);
 		event.register(ModEntityTypes.MUDSKIPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mudskipper::checkMudskipperSpawnRules, op);
 		event.register(ModEntityTypes.CRAYFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crayfish::checkCrayfishSpawnRules, op);
-		event.register(ModEntityTypes.CATFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Catfish::checkSurfaceWaterAnimalSpawnRules, op);
-		event.register(ModEntityTypes.CATFISH_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, op);
+		event.register(ModEntityTypes.CATFISH, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Catfish::checkSurfaceAgeableFishSpawnRules, op);
 		event.register(ModEntityTypes.PEACOCK_BASS, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PeacockBass::checkSurfaceWaterAnimalSpawnRules, op);
 		event.register(ModEntityTypes.PEACOCK_BASS_BABY, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, op);
 		event.register(ModEntityTypes.GAR, SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gar::checkSurfaceWaterAnimalSpawnRules, op);
@@ -142,7 +128,6 @@ public class Ichthyology {
 		event.put(ModEntityTypes.MUDSKIPPER, Mudskipper.createAttributes().build());
 		event.put(ModEntityTypes.CRAYFISH, Crayfish.createAttributes().build());
 		event.put(ModEntityTypes.CATFISH, Catfish.createAttributes().build());
-		event.put(ModEntityTypes.CATFISH_BABY, CatfishBaby.createAttributes().build());
 		event.put(ModEntityTypes.PEACOCK_BASS, PeacockBass.createAttributes().build());
 		event.put(ModEntityTypes.PEACOCK_BASS_BABY, PeacockBassBaby.createAttributes().build());
 		event.put(ModEntityTypes.GAR, Gar.createAttributes().build());

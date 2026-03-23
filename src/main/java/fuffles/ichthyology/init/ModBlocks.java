@@ -19,7 +19,7 @@ public class ModBlocks
     	return REGISTRY.register(id + "_roe", new FishRoeBlock(() -> toSpawn, Block.Properties.copy(Blocks.FROGSPAWN)));
     }
     
-    public static final Block CATFISH_ROE = registerEggs("catfish", ModEntityTypes.CATFISH_BABY);
+    public static final Block CATFISH_ROE = registerEggs("catfish", ModEntityTypes.CATFISH);
     public static final Block PEACOCK_BASS_ROE = registerEggs("peacock_bass", ModEntityTypes.PEACOCK_BASS_BABY);
     public static final Block GAR_ROE = registerEggs("gar", ModEntityTypes.GAR_BABY);
     public static final Block STURGEON_ROE = registerEggs("sturgeon", ModEntityTypes.STURGEON_BABY);
@@ -33,6 +33,7 @@ public class ModBlocks
     {
         public static final TagKey<Block> AMPHIBIOUS_EGGS = tag("amphibious_eggs");
         public static final TagKey<Block> STRIPPED_LOGS = tag("stripped_logs");
+        public static final TagKey<Block> CATFISH_RESTING_SPOTS = tag("catfish_resting_spots");
 
         private static TagKey<Block> tag(String path)
         {
